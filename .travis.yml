@@ -1,9 +1,15 @@
 branches:
   only:
-    - master
-
+  - master
 language: ruby
 rvm:
-  - 2.3.3
+- 2.3.3
 before_install:
-  - gem install bundler
+- gem install bundler
+deploy:
+  provider: heroku
+  api_key:
+    secure: i36bS5fu6oIZkztoJ5ieFWEDAOw+nvwRXTnxHM9zmuyJEC5JX4hgWv/iLkHmLRL8Bvq5LunKV1MFXivVT65ItsjiA8jFkqHkKwAVXEMG4tX6JvV7ou57n7hUvB0/5nYj3btVoIBeYKzjN4Y4QM+26Fqmhur3KNnvJzB1SWXUMa85aRwxHQ6PJOHh53O9drTPBxYA1xFU0k0mtE1sxhf9HxMsoylmAlV9RsYcHn+KYNsU29DCIhXjsjUxiNgKKGUAQXvy4c8iGHeBK9ijzj6FRn61KKnOVrR3NsbwKisvQATypkI+Zu/9H9avF1IYl9hdNle5oBABPgRLWdCVauhWbQX92U9xq1Gj4PfLSTtcyUON8A4D4bhNRkugCzkJH+DCsFUWlRv0OnHuUWavbvI7BibyU8T3auWuCYe71djTOoQxGMXSQsL4D0rXsuiOR5QFS9KlctyEod8AO76qPmdjXQJ+iQ1Dhx1kHS//pSpwm8ilNPubzvayE2QbiLGHYsNnJODg1AZ8wVpPqIpGnG9euKs+/f9GUs18ElyAFOYtBV9i/pGcYlOoRxNx2Q+16XSLuzdSAitTn83yFi8VFK535tAGKkojKn0NKYNJ33bV0cb0jd6q1bshzdxj/AV6xjNo9Iv83bQupESNDUMEkrdtkjO9FWt3TTRtveZMN8yqjCc=
+  app: task-driver
+  on:
+    repo: enpitut2018/task_driver
