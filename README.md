@@ -1,24 +1,5 @@
-# README
+# task driver
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Build Status](https://travis-ci.org/enpitut2018/task_driver.svg?branch=master)](https://travis-ci.org/enpitut2018/task_driver)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+We are developing this application for our course (enPiT) in University of Tsukuba. Our project's goal is making a TODO app that drives users to do their tasks.
