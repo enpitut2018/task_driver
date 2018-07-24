@@ -22,11 +22,11 @@
 					// コールバックを実行
 					fn(buffer);
 				});
-			}
-		}};
-		req.open('GET', url, true);
-		req.send('');
-	};
+				}
+			}};
+			req.open('GET', url, true);
+			req.send('');
+		};
 	// サウンドを再生
 	let playSound = function(buffer) {
 	// source を作成
@@ -55,7 +55,6 @@ getAudioBuffer('/audio/' + random_audio, function(buffer) {
 		playSound(buffer);
 	}
 });
-
 </script>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
