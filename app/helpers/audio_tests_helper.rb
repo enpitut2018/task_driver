@@ -1,0 +1,2 @@
+module AudioTestsHelper
+end
