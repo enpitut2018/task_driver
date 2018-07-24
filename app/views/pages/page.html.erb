@@ -1,4 +1,5 @@
 <h1>通知試験地</h1>
+
 <p>Find me in app/views/pages/page.html.erb</p>
 
 <script>
@@ -29,4 +30,4 @@ function makeNotification(message, url) {
 }
 </script>
 
-<input type="button" value="ボタン" onclick="notify('test', 'task/1'"/>
+<input type="button" value="通知する" onclick="notify('ひまか？', '<%= task_path(@task) %>')"/>
