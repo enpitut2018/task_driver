@@ -1,0 +1,33 @@
+<h1>通知試験地</h1>
+
+<p>Find me in app/views/pages/page.html.erb</p>
+
+<script>
+function notify(message, url) {
+    if (!("Notification" in window)) {
+        alert("ブラウザが未対応です");
+    } else if (Notification.permission === "granted") {
+        // 通知が許可されているか確認し、許可されていれば通知を出す
+        makeNotification(message, url);
+    } else if (Notification.permission !== 'denied') {
+        // 通知がまだ許可されていなかった場合に許可を求める
+        Notification.requestPermission(function (permission) {
+            //ユーザが許可したら通知を出す
+            if (permission === "granted") {
+                makeNotification(message, url);
+            }
+        });
+    }
+}
+
+function makeNotification(message, url) {
+    console.log(url)
+    var notification = new Notification("タスクドライバー", {body: message});
+    notification.onclick = function () {
+        notification.close();
+        window.open(url);
+    };
+}
+</script>
+
+<input type="button" value="通知する" onclick="notify('ひまか？', '<%= task_path(@task) %>')"/>
