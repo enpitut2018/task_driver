@@ -246,7 +246,6 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-=======
   omniauth-twitter
 >>>>>>> b69ed0e3af4791837fda6743af9e7e6ce8d24d5d
   pg (~> 0.18)
