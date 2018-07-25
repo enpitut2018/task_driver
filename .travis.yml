@@ -20,11 +20,11 @@ cache: bundler
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.travis.yml config/database.yml
-  - bin/rails db:create
-  - bin/rails db:migrate
+  - bundle exec rails db:create
+  - bundle exec rails db:migrate
 
 script:
-  - bin/rails test
+  - bundle exec rails test
 
 deploy:
   provider: heroku
