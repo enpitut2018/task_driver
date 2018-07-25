@@ -10,7 +10,7 @@ env:
     - RAILS_ENV=development
 before_install:
   - gem install bundler
-bundler_args: "--development"
+bundler_args: "--without development --deployment -j4"
 cache: bundler
 before_script:
   - bundle exec rake db:create
