@@ -1,20 +1,30 @@
 branches:
   only:
     - master
+
 language: ruby
+
 rvm:
   - 2.3.3
-services: postgresql
-env:
-  global:
-    - RAILS_ENV=development
+
+services:
+  - postgresql
+
 before_install:
   - gem install bundler
-bundler_args: "--without development --deployment -j4"
+
+bundler_args: "--without development --jobs=3"
+
 cache: bundler
+
 before_script:
-  - bundle exec rake db:create
-  - bundle exec rake db:migrate RAILS_ENV=development
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+
+script:
+  - bin/rails db:migrate RAILS_ENV=test
+  - bin/rails test
+
 deploy:
   provider: heroku
   api_key:
@@ -22,6 +32,7 @@ deploy:
   app: task-driver
   on:
     repo: enpitut2018/task_driver
+
 notifications:
   slack:
     secure: Re4pUkKvjvo7ignEHFi7lnIXI5SqdwnHqLCvJHA8Rc5fOZHJqKhh4ow9CmWoFqOdBLZ6TLzoh61zYgBGqLnI07PkVLY1lrs67v/Jjx2I6p6d0RMn2X2v2ofC2vCiTGfPmY/8jgl1Z8BuK86+LE18MVTr/3nhMBr+cXu5D5yemQfbP/kgXBD1RBeKMUYM2Avxwh2YVdZIQqFGvzl74YWbRvuwbtFssYlhvWUAgYAFvtxL5oQmq+Lztk36TvvG/OiZYD4DHu1542qp/0jaWApr0RyB57LxI9o6nxHnk+R7r+CIMmv4INW211PTPAnA9HitgP3dUQkpLJLzNhRn3mopTPBHkWb1HGMKh1+Tf2cLt6PnYOwc4dpF86X8HjOMCMNwns9fuy2vgxEPBUIIDTCWOGEdEzCxAY0ACptaP6oqUAiwKjbrIqs2eHnQNQeKCRqsp7u4quAws/u61Z7RZCWO3zmbvnv5xoWQrQcBPk51whNYazAkvxKhKxmE8eAGFii+gFwG2cfltc2QVeCh9V4hJk/b6q1+vZ2Uw6niJOtkV5F7f1H6G+VOrMId9sZ3/mlzLUl4LyN2moQmLdnSEsSztwKhclkTslUESuOdFVVQs0IqhtjdxOJu0PRFEIlI04d7tQt5PBMZEIxTYYUglP2KNoLetDXAMpXRtpD9MzPpt30=
