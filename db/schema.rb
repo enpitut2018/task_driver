@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180724053533) do
+ActiveRecord::Schema.define(version: 20180725033247) do
 
   create_table "audio_tests", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -18,7 +18,13 @@ ActiveRecord::Schema.define(version: 20180724053533) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.datetime "deadline", null: false
+    t.integer "importance", null: false
+    t.text "note"
+    t.integer "status", null: false
+    t.datetime "start_time"
+    t.datetime "finish_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
