@@ -213,11 +213,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-<<<<<<< HEAD
-  pg
-=======
   pg (~> 0.18)
->>>>>>> 68b7e89c312e32a64cae7a1602e6a4ee81cdc573
   puma (~> 3.7)
   rails (~> 5.1.2)
   rails_12factor
