@@ -4,10 +4,12 @@ branches:
 language: ruby
 rvm:
   - 2.3.3
+services: postgresql
 before_install:
   - gem install bundler
+bundler_args: "--without development --deployment -j4"
 before_script:
-  - rails db:create RAILS_ENV=test
+  - rails db:create
   - rails db:migrate RAILS_ENV=test
 deploy:
   provider: heroku
