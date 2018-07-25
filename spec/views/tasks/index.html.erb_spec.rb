@@ -7,12 +7,14 @@ RSpec.describe "tasks/index", type: :view do
         :name => "Name",
         :importance => 2,
         :note => "MyText",
+        :deadline => DateTime.new(2011, 12, 24, 00, 00, 00),
         :status => 3
       ),
       Task.create!(
         :name => "Name",
         :importance => 2,
         :note => "MyText",
+        :deadline => DateTime.new(2011, 12, 24, 00, 00, 00),
         :status => 3
       )
     ])

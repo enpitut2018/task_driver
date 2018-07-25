@@ -24,7 +24,7 @@ before_script:
   - bundle exec rails db:migrate
 
 script:
-  - bundle exec rails test
+  - bundle exec rails spec
 
 deploy:
   provider: heroku
