@@ -73,3 +73,6 @@ gem 'ransack'
 #account
 gem 'devise'
 gem 'omniauth-twitter'
+
+#japanese
+gem 'rails-i18n'
