@@ -1,11 +1,14 @@
 branches:
   only:
-  - master
+    - master
 language: ruby
 rvm:
-- 2.3.3
+  - 2.3.3
 before_install:
-- gem install bundler
+  - gem install bundler
+before_script:
+  - rails db:create RAILS_ENV=test
+  - rails db:migrate RAILS_ENV=test
 deploy:
   provider: heroku
   api_key:
