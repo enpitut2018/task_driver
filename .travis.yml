@@ -5,12 +5,16 @@ language: ruby
 rvm:
   - 2.3.3
 services: postgresql
+env:
+  global:
+    - RAILS_ENV=production
 before_install:
   - gem install bundler
-bundler_args: "--without development --deployment -j4"
+bundler_args: "--production"
+cache: bundler
 before_script:
   - bundle exec rake db:create
-  - bundle exec rake db:migrate RAILS_ENV=test
+  - bundle exec rake db:migrate RAILS_ENV=production
 deploy:
   provider: heroku
   api_key:
