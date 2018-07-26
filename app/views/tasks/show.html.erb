@@ -35,10 +35,8 @@
   <%= @task.finish_time %>
 </p>
 
-<<<<<<< feature/account
 <%= link_to 'タスクを編集する', edit_task_path(@task) %> |
 <%= link_to 'タスク一覧へ戻る', tasks_path %>
-=======
 <script>
 	window.AudioContext = window.AudioContext || window.webkitAudioContext;
 	let context = new AudioContext();
@@ -89,4 +87,3 @@ getAudioBuffer('/audio/' + random_audio, function(buffer) {
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
->>>>>>> develop

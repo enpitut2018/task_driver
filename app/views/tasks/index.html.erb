@@ -50,15 +50,12 @@
         <td><%= result.status %></td>
         <td><%= result.start_time %></td>
         <td><%= result.finish_time %></td>
-        <td><%= link_to 'Show', result %></td>
-        <td><%= link_to 'Edit', edit_task_path(result) %></td>
-        <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '詳細を見る', result %></td>
+        <td><%= link_to 'このタスクを編集する', edit_task_path(result) %></td>
+        <td><%= link_to 'このタスクを削除する', result, method: :delete, data: { confirm: 'ほんとに?' } %></td>
       </tr>  
     <% end %>
   <% end %>
-
-  <script>
-    
   </tbody>
 </table>
 
