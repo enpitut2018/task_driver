@@ -34,6 +34,7 @@ let playSound = function(buffer) {
 };
 
 let audio_files = [
+	'congyo.mp3',
 	'excellent.mp3',
 	'gambarimasyou.mp3',
 	'go.mp3',
