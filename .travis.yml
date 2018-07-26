@@ -1,11 +1,20 @@
 branches:
   only:
-  - master
+    - master
 language: ruby
 rvm:
-- 2.3.3
+  - 2.3.3
+services: postgresql
+env:
+  global:
+    - RAILS_ENV=development
 before_install:
-- gem install bundler
+  - gem install bundler
+bundler_args: "--without development --deployment -j4"
+cache: bundler
+before_script:
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate RAILS_ENV=test
 deploy:
   provider: heroku
   api_key:
