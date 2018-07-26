@@ -76,3 +76,6 @@ gem 'omniauth-twitter'
 
 #japanese
 gem 'rails-i18n'
+
+#envfile
+gem 'dotenv-rails'
