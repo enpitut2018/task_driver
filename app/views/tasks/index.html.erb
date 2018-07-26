@@ -19,7 +19,7 @@
   <tbody>
   <%= search_form_for @q do |f| %>
 
-    # nameが入力テキストを含むレコードを検索
+    <%# nameが入力テキストを含むレコードを検索 %>
     <%= f.label :name_cont, "namae" %>
     <%= f.search_field :name_cont %>
     <%= f.submit %>
