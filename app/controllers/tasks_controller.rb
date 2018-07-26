@@ -7,10 +7,8 @@ class TasksController < ApplicationController
   
     if params['q'].nil?
       @tasks = Task.where(user_id: current_user.id)
-    else
-      params['q']['user_id_eq'] = current_user.id
     end
-    @q = Task.ransack(params[:q])
+    @q = Task.where(user_id: current_user.id).ransack(params[:q])
     @results = @q.result(distinct: true)
   end
 

@@ -6,6 +6,7 @@
     <%= search_form_for @q do |f| %>
     <%= f.label :name_cont, "探す？" %>
     <%= f.search_field :name_cont %>
+    <%= p params[:q] %>
     <%= f.submit %>
   <% end %>
   <% if params[:q].nil? %>
