@@ -12,37 +12,37 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :タスク名 %>
     <%= form.text_field :name, id: :task_name %>
   </div>
 
   <div class="field">
-    <%= form.label :deadline %>
+    <%= form.label :締め切り %>
     <%= form.datetime_select :deadline, id: :task_deadline %>
   </div>
 
   <div class="field">
-    <%= form.label :importance %>
+    <%= form.label :重要度 %>
     <%= form.number_field :importance, id: :task_importance %>
   </div>
 
   <div class="field">
-    <%= form.label :note %>
+    <%= form.label :メモ %>
     <%= form.text_area :note, id: :task_note %>
   </div>
 
   <div class="field">
-    <%= form.label :status %>
+    <%= form.label :進捗 %>
     <%= form.number_field :status, id: :task_status %>
   </div>
 
   <div class="field">
-    <%= form.label :start_time %>
+    <%= form.label :始めた時刻 %>
     <%= form.datetime_select :start_time, id: :task_start_time %>
   </div>
 
   <div class="field">
-    <%= form.label :finish_time %>
+    <%= form.label :終わった時刻 %>
     <%= form.datetime_select :finish_time, id: :task_finish_time %>
   </div>
 

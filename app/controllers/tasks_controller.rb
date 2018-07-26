@@ -4,7 +4,12 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+  
+    if params['q'].nil?
+      @tasks = Task.where(user_id: current_user.id)
+    end
+    @q = Task.where(user_id: current_user.id).ransack(params[:q])
+    @results = @q.result(distinct: true)
   end
 
   # GET /tasks/1
@@ -15,7 +20,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-  end
+  end 
 
   # GET /tasks/1/edit
   def edit
@@ -24,8 +29,12 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    #task_data = {}
+    #task_data.merge!(task_params)
+    #task_data['user_id'] = current_user.id
     @task = Task.new(task_params)
 
+    #p task_params
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
@@ -69,6 +78,8 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time)
+      #uid = current_user.id
+      params['task']['user_id'] = current_user.id
+      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id)
     end
 end

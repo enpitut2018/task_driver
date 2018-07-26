@@ -1,17 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks</h1>
+<h1>タスク</h1>
 
-<table>
+
+    <%= search_form_for @q do |f| %>
+    <%= f.label :name_cont, "探す？" %>
+    <%= f.search_field :name_cont %>
+    <%= p params[:q] %>
+    <%= f.submit %>
+  <% end %>
+  <% if params[:q].nil? %>
+    <p>あったよ</p>
+    <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Deadline</th>
-      <th>Importance</th>
-      <th>Note</th>
-      <th>Status</th>
-      <th>Start time</th>
-      <th>Finish time</th>
+      <th>uid</th>
+      <th>タスク名</th>
+      <th>締め切り</th>
+      <th>重要度</th>
+      <th>メモ</th>
+      <th>進捗</th>
+      <th>始めた時刻</th>
+      <th>終わった時刻</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,21 +29,62 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.name %></td>
+        <td><%= task.user_id %></td>
+        <td><%= task.name %></td>        
         <td><%= task.deadline %></td>
         <td><%= task.importance %></td>
         <td><%= task.note %></td>
         <td><%= task.status %></td>
         <td><%= task.start_time %></td>
         <td><%= task.finish_time %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '詳細を見る', task %></td>
+        <td><%= link_to 'このタスクを編集する', edit_task_path(task) %></td>
+        <td><%= link_to 'このタスクを削除する', task, method: :delete, data: { confirm: 'ほんとに?' } %></td>
       </tr>
     <% end %>
-  </tbody>
+      </tbody>
+</table>  
+  <% else %>
+  <% if @results.empty? %>
+   <p>なかったよ</p>
+  <% else %>
+  <table>
+  <thead>
+    <tr>
+      <th>uid</th>
+      <th>タスク名</th>
+      <th>締め切り</th>
+      <th>重要度</th>
+      <th>メモ</th>
+      <th>進捗</th>
+      <th>始めた時刻</th>
+      <th>終わった時刻</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @results.each do |result| %>
+      <tr>
+        <td><%= result.user_id %></td>
+        <td><%= result.name %></td>
+        <td><%= result.deadline %></td>
+        <td><%= result.importance %></td>
+        <td><%= result.note %></td>
+        <td><%= result.status %></td>
+        <td><%= result.start_time %></td>
+        <td><%= result.finish_time %></td>
+        <td><%= link_to '詳細を見る', result %></td>
+        <td><%= link_to 'このタスクを編集する', edit_task_path(result) %></td>
+        <td><%= link_to 'このタスクを削除する', result, method: :delete, data: { confirm: 'ほんとに?' } %></td>
+      </tr>
+    <% end %>
+      </tbody>
 </table>
+  <% end %>
+   <p>悲しい</p>
+  <% end %>
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to '新しいタスクを作る', new_task_path %>
