@@ -19,7 +19,7 @@
   <tbody>
   <%= search_form_for @q do |f| %>
 
-    # nameが入力テキストを含むレコードを検索
+    <%# nameが入力テキストを含むレコードを検索 %>
     <%= f.label :name_cont, "namae" %>
     <%= f.search_field :name_cont %>
     <%= f.submit %>
@@ -50,15 +50,12 @@
         <td><%= result.status %></td>
         <td><%= result.start_time %></td>
         <td><%= result.finish_time %></td>
-        <td><%= link_to 'Show', result %></td>
-        <td><%= link_to 'Edit', edit_task_path(result) %></td>
-        <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '詳細を見る', result %></td>
+        <td><%= link_to 'このタスクを編集する', edit_task_path(result) %></td>
+        <td><%= link_to 'このタスクを削除する', result, method: :delete, data: { confirm: 'ほんとに?' } %></td>
       </tr>  
     <% end %>
   <% end %>
-
-  <script>
-    
   </tbody>
 </table>
 
