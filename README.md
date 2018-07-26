@@ -13,5 +13,5 @@ We are developing this application for our course (enPiT) in University of Tsuku
 [Yuki Oba](https://github.com/itumizu)
 
 ## links
-* [application URL](task-driver.sukiyaki.party)
+* [application URL](https://task-driver.sukiyaki.party)
 * [CI](https://travis-ci.org/enpitut2018/task_driver)
