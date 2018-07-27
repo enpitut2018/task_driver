@@ -23,11 +23,11 @@
 <p>
   <strong>進捗:</strong>
   <% if @task.status == 1%>
-    To do
+    TODO
   <% elsif @task.status == 2%>
-    Doing
+    DOING
   <% else @task.status == 3%>
-    Done
+    DONE
   <% end %>
 </p>
 
