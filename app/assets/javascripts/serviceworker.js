@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log("load is OK!");
     if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('sw_for_user.js', {scope: "/"});
+        navigator.serviceWorker.register('sw_for_user.js');
         console.log("register is OK!");
         navigator.serviceWorker.ready.then(
             function(registration){
@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 var endpoint = subscription.endpoint;
                 console.log("pushManager RegistrationID:", endpoint.split("/").slice(-1).join());
                 console.log("pushManager endpoint:", endpoint);
+
+                //RegistrationIDをrailsにpostで送信
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/endpoints');
+                xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                xhr.send("ID=" + endpoint.split("/").slice(-1).join());
             }
         ).catch(function(error){
             console.warn("serviceWorker error:", error);
