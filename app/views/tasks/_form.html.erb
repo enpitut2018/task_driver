@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= form.label :進捗 %>
-    <%= form.number_field :status, id: :task_status %>
+    <%= form.select :status, {"To do" => 1, "Doing" => 2, "Done" => 3} %>
   </div>
 
   <div class="field">
