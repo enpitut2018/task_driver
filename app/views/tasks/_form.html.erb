@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :重要度 %>
-    <%= form.number_field :importance, id: :task_importance %>
+    <%= form.select :importance, [["☆", 1],["☆☆", 2], ["☆☆☆", 3], ["☆☆☆☆", 4], ["☆☆☆☆☆", 5]] %>
   </div>
 
   <div class="field">
@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= form.label :進捗 %>
-    <%= form.number_field :status, id: :task_status %>
+    <%= form.select :status, [["TODO", 1],["DOING", 2], ["DONE", 3]] %>
   </div>
 
   <div class="field">

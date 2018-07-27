@@ -9,6 +9,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     provider = provider.to_s
 
     @user = User.find_for_oauth(request.env['omniauth.auth'])
+    userinfo = request.env['omniauth.auth']
+      
+    unless Oauth.find_by(user_id: @user.id)
+      @oauth = Oauth.new(user_id: @user.id, access_token: userinfo["credentials"]["token"], access_token_secret: userinfo["credentials"]["secret"])
+      @oauth.save
+    end
 
     if @user.persisted?
       flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize)

@@ -50,7 +50,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-rails'
   gem 'factory_girl_rails', '~> 4.2.1'
 end
 
@@ -84,3 +84,6 @@ gem 'rails-i18n'
 
 #envfile
 gem 'dotenv-rails'
+
+#tweet
+gem 'twitter'
