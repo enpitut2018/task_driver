@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', '/endpoints');
                 xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                xhr.send("ID=" + endpoint.split("/").slice(-1).join());
+                xhr.send("id=" + endpoint.split("/").slice(-1).join());
             }
         ).catch(function(error){
             console.warn("serviceWorker error:", error);
