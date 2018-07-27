@@ -1,5 +1,8 @@
 class EndpointsController < ApplicationController
     def register
-      task = User.find_by(id: current_user.id)
+        user = User.find(current_user.id)
+        user.registration_id = params[:id]
+        user.save
+        ridirect_to '/tasks/index'
     end
   end
