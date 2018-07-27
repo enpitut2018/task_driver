@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :重要度 %>
-    <%= form.number_field :importance, id: :task_importance %>
+    <%= form.select :status, {"1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5} %>
   </div>
 
   <div class="field">
