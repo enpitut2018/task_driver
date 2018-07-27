@@ -5,9 +5,10 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     if params['q'].nil?
-      @tasks = Task.where(user_id: current_user.id)
+      @tasks = Task.where(user_id: current_user.id).order('priority DESC')
     end
-    @q = Task.where(user_id: current_user.id).ransack(params[:q])
+    
+    @q = Task.where(user_id: current_user.id).order('priority DESC').ransack(params[:q])
     @results = @q.result(distinct: true)
 
   end
