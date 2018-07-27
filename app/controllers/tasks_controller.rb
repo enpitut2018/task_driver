@@ -49,15 +49,17 @@ class TasksController < ApplicationController
     twitter_client.update(text)
   end
 
-  private
-  def twitter_client
-    @oauth = Oauth.where(user_id: current_user.id)[0]
-    @client = Twitter::REST::Client.new do |config|
-      config.consumer_key = ENV['TWITTER_CONSUMER_KEY']
-      config.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
-      config.access_token = @oauth.access_token
-      config.access_token_secret = @oauth.access_token_secret
+  def status_change
+    @task = Task.find(params[:id])
+    if @task.status == 1
+      @task.start_time = Time.zone.now
+      @task.status += 1
+    elsif @task.status == 2
+      @task.finish_time = Time.zone.now
+      @task.status += 1
     end
+    @task.save
+    redirect_to :action => "index"
   end
 
   # PATCH/PUT /tasks/1
@@ -72,18 +74,6 @@ class TasksController < ApplicationController
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
-   end
-  def status_change
-    @task = Task.find(params[:id])
-    if @task.status == 1
-      @task.start_time = Time.zone.now
-      @task.status += 1
-    elsif @task.status == 2
-      @task.finish_time = Time.zone.now
-      @task.status += 1
-    end
-    @task.save
-    redirect_to :action => "index"
   end
   # DELETE /tasks/1
   # DELETE /tasks/1.json
@@ -95,8 +85,18 @@ class TasksController < ApplicationController
     end
   end
 
-
   private
+  def twitter_client
+    @oauth = Oauth.where(user_id: current_user.id)[0]
+    @client = Twitter::REST::Client.new do |config|
+      config.consumer_key = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
+      config.access_token = @oauth.access_token
+      config.access_token_secret = @oauth.access_token_secret
+    end
+  end
+  
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
