@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if('serviceWorker' in navigator){
         navigator.serviceWorker.register('/sw/sw_for_user.js');
         console.log("register is OK!");
-        registration.pushManager.getSubscription().then(
+        navigator.serviceWorker.pushManager.getSubscription().then(
                     function(subscription){
                         if(subscription){
                             console.log("getsubscription is OK!");
