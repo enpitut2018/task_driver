@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             return subscription
                         }
                         console.log("subscription is OK!");
-                        return registration.pushManager.subscribe({userVisibleOnly: true});
+                        return navigator.serviceWorker..pushManager.subscribe({userVisibleOnly: true});
                     }
         ).then(
             function(subscription){
