@@ -94,7 +94,29 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       #uid = current_user.id
+      deadline = Date.new(params['task']["deadline(1i)"].to_i, params['task']["deadline(2i)"].to_i, params['task']["deadline(3i)"].to_i)
+      #deadline = params['task']["deadline(1i)"]
+      diff = (deadline - Date.today).to_i
+      urgency = 5
+
+      if diff == 0
+        urgency = 5
+      elsif diff < 3
+        urgency = 4
+      elsif diff >= 3 && diff <= 31
+        urgency = 3
+      elsif diff > 31 && diff <= 62
+        urgency = 2
+      elsif diff > 62
+        urgency = 1
+      end
+
+      priority = params['task']['importance'].to_i * urgency
+      
       params['task']['user_id'] = current_user.id
-      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id)
+      params['task']['urgency'] = urgency
+      params['task']['priority'] = priority
+
+      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id, :urgency, :priority)
     end
 end
