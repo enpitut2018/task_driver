@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180726064801) do
+ActiveRecord::Schema.define(version: 20180727012620) do
 
   create_table "audio_tests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "oauths", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "access_token"
+    t.string "access_token_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
