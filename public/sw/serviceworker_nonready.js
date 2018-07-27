@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log("load is OK!");
     if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('/sw/sw_for_user.js').then(
+        navigator.serviceWorker.register('/sw/sw_for_user.js', {scope: "/"}).then(
             function(registration){
                 console.log("register is OK!");
                 registration.pushManager.getSubscription().then(
@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function(){
                             return subscription
                         }
                         console.log("subscription is OK!");
-                        console.log(registration.pushManager.subscribe({userVisibleOnly: true}));
                         return registration.pushManager.subscribe({userVisibleOnly: true});
                     }
                 )
