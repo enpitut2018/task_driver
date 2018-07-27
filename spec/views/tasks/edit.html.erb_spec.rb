@@ -4,6 +4,7 @@ RSpec.describe "tasks/edit", type: :view do
   before(:each) do
     @task = assign(:task, Task.create!(
       :name => "MyString",
+      :deadline => DateTime.new(2011, 12, 24, 00, 00, 00),
       :importance => 1,
       :note => "MyText",
       :status => 1
