@@ -84,3 +84,6 @@ gem 'rails-i18n'
 
 #envfile
 gem 'dotenv-rails'
+
+#tweet
+gem 'twitter'
