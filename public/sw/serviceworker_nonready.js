@@ -5,14 +5,15 @@ document.addEventListener('DOMContentLoaded', function(){
             function(registration){
                 console.log("register is OK!");
                 registration.pushManager.getSubscription().then(
-                            function(subscription){
-                                if(subscription){
-                                    console.log("getsubscription is OK!");
-                                    return subscription
-                                }
-                                console.log("subscription is OK!");
-                                return registration.pushManager.subscribe({userVisibleOnly: true});
-                            }
+                    function(subscription){
+                        if(subscription){
+                            console.log("getsubscription is OK!");
+                            return subscription
+                        }
+                        console.log("subscription is OK!");
+                        console.log(registration.pushManager.subscribe({userVisibleOnly: true}));
+                        return registration.pushManager.subscribe({userVisibleOnly: true});
+                    }
                 )
             }
         ).then(
