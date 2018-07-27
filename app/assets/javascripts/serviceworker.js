@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log("load is OK!");
     if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('sw_for_user.js');
+        navigator.serviceWorker.register('/ws/sw_for_user.js');
         console.log("register is OK!");
         navigator.serviceWorker.ready.then(
             function(registration){
