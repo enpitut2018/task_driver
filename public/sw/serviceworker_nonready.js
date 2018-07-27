@@ -3,10 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if('serviceWorker' in navigator){
         navigator.serviceWorker.register('/sw/sw_for_user.js');
         console.log("register is OK!");
-        navigator.serviceWorker.ready.then(
-            function(registration){
-                console.log("ready is OK!");
-                return registration.pushManager.getSubscription().then(
+        registration.pushManager.getSubscription().then(
                     function(subscription){
                         if(subscription){
                             console.log("getsubscription is OK!");
@@ -15,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function(){
                         console.log("subscription is OK!");
                         return registration.pushManager.subscribe({userVisibleOnly: true});
                     }
-                )
-            }
         ).then(
             function(subscription){
                 var endpoint = subscription.endpoint;
