@@ -6,6 +6,7 @@ RSpec.describe "tasks/show", type: :view do
       :name => "Name",
       :importance => 2,
       :note => "MyText",
+      :deadline => DateTime.new(2011, 12, 24, 00, 00, 00),
       :status => 3
     ))
   end

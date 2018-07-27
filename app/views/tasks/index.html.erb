@@ -57,27 +57,34 @@
   <table>
   <thead>
     <tr>
-      <th>uid</th>
       <th>タスク名</th>
       <th>締め切り</th>
       <th>重要度</th>
       <th>メモ</th>
       <th>進捗</th>
+      <th>状態遷移</th>
       <th>始めた時刻</th>
       <th>終わった時刻</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
-  <tbody>
+<tbody>
     <% @results.each do |result| %>
       <tr>
-        <td><%= result.user_id %></td>
-        <td><%= result.name %></td>
+        <td><%= result.name %></td>        
         <td><%= result.deadline %></td>
-        <td><%= result.importance %></td>
+        <td><%= "☆" * result.importance %></td>
         <td><%= result.note %></td>
-        <td><%= result.status %></td>
+        <% if result.status == 1 %>
+          <td>TODO</td>
+          <td><%= button_to 'やる', { :action => "status_change", :id => task.id } %>
+        <% elsif result.status == 2 %>
+          <td>DOING</td>
+          <td><%= button_to 'やった', { :action => "status_change", :id => task.id } %>          
+       <% elsif result.status == 3%>
+          <td>DONE</td>
+          <td></td>       
+        <% end %>
         <td><%= result.start_time %></td>
         <td><%= result.finish_time %></td>
         <td><%= link_to '詳細を見る', result %></td>
@@ -86,7 +93,7 @@
       </tr>
     <% end %>
       </tbody>
-</table>
+</table>  
   <% end %>
 <% end %>
 
