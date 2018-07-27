@@ -1,7 +1,7 @@
-<head>
+<% content_for :manifest do %>
   <link rel="manifest" href="manifest.json"/>
-  <script type="text/javascript" src="serviceworker_nonready.js"></script>
-</head>
+  <script type="text/javascript" src="sw/serviceworker.js"></script>
+<% end %>
 
 <p id="notice"><%= notice %></p>
 

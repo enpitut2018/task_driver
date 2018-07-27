@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     function(subscription){
                         if(subscription){
                             console.log("getsubscription is OK!");
+                            console.log(subscription);
                             return subscription
                         }
                         console.log("subscription is OK!");
