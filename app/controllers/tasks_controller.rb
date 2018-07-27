@@ -4,7 +4,6 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-  
     if params['q'].nil?
       @tasks = Task.where(user_id: current_user.id)
     end
@@ -15,6 +14,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    #tweet("テスト")
   end
 
   # GET /tasks/new
@@ -43,6 +43,21 @@ class TasksController < ApplicationController
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def tweet(text)
+    twitter_client.update(text)
+  end
+
+  private
+  def twitter_client
+    @oauth = Oauth.where(user_id: current_user.id)[0]
+    @client = Twitter::REST::Client.new do |config|
+      config.consumer_key = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
+      config.access_token = @oauth.access_token
+      config.access_token_secret = @oauth.access_token_secret
     end
   end
 
