@@ -14,7 +14,6 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    #tweet("テスト")
   end
 
   # GET /tasks/new
@@ -54,10 +53,23 @@ class TasksController < ApplicationController
     if @task.status == 1
       @task.start_time = Time.zone.now
       @task.status += 1
+
+      if Oauth.where(user_id: current_user.id)[0]
+        tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#TaskDriver"
+        tweet(tweetText)
+      end
+
     elsif @task.status == 2
       @task.finish_time = Time.zone.now
       @task.status += 1
+
+      if Oauth.where(user_id: current_user.id)[0]
+        tweetText = "タスクおわりました！\n応援ありがとうございました!\n#TaskDriver"
+        tweet(tweetText)
+      end
+
     end
+
     @task.save
     redirect_to :action => "index"
   end
@@ -95,7 +107,7 @@ class TasksController < ApplicationController
       config.access_token_secret = @oauth.access_token_secret
     end
   end
-  
+
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -104,9 +116,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      #uid = current_user.id
       deadline = Date.new(params['task']["deadline(1i)"].to_i, params['task']["deadline(2i)"].to_i, params['task']["deadline(3i)"].to_i)
-      #deadline = params['task']["deadline(1i)"]
       diff = (deadline - Date.today).to_i
       urgency = 5
 
