@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log("load is OK!");
     if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('/sw/sw_for_user.js');
-        console.log("register is OK!");
-        navigator.serviceWorker.pushManager.getSubscription().then(
-                    function(subscription){
-                        if(subscription){
-                            console.log("getsubscription is OK!");
-                            return subscription
-                        }
-                        console.log("subscription is OK!");
-                        return navigator.serviceWorker..pushManager.subscribe({userVisibleOnly: true});
-                    }
+        navigator.serviceWorker.register('/sw/sw_for_user.js').then(
+            function(registration){
+                console.log("register is OK!");
+                registration.pushManager.getSubscription().then(
+                            function(subscription){
+                                if(subscription){
+                                    console.log("getsubscription is OK!");
+                                    return subscription
+                                }
+                                console.log("subscription is OK!");
+                                return registration.pushManager.subscribe({userVisibleOnly: true});
+                            }
+                )
+            }
         ).then(
             function(subscription){
                 var endpoint = subscription.endpoint;
