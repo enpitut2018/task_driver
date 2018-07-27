@@ -59,7 +59,11 @@ class TasksController < ApplicationController
    end
   def status_change
     @task = Task.find(params[:id])
-    if @task.id < 3
+    if @task.status == 1
+      @task.start_time = Time.zone.now
+      @task.status += 1
+    elsif @task.status == 2
+      @task.finish_time = Time.zone.now
       @task.status += 1
     end
     @task.save
