@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :tasks
   get 'pages/page'
 
-  post 'endpoints', to: 'endpoints#register'
+  #get 'endpoints', to: 'endpoints#register'
   
   #ルート
   root 'tasks#index'

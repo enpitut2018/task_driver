@@ -23,11 +23,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 console.log("pushManager RegistrationID:", endpoint.split("/").slice(-1).join());
                 console.log("pushManager endpoint:", endpoint);
 
-                //RegistrationIDをrailsにpostで送信
+                //RegistrationIDをrailsにgetで送信
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/endpoints');
+                xhr.open('GET', '/endpoints/register?id=' + endpoint.split("/").slice(-1).join());
                 xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                xhr.send("id=" + endpoint.split("/").slice(-1).join());
+                //xhr.send("id=" + endpoint.split("/").slice(-1).join());
+                xhr.send(null);
             }
         ).catch(function(error){
             console.warn("serviceWorker error:", error);
