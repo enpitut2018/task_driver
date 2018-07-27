@@ -12,7 +12,7 @@
 
 <p>
   <strong>重要度:</strong>
-  <%= @task.importance %>
+  <%= "☆" * @task.importance %>
 </p>
 
 <p>
@@ -22,7 +22,13 @@
 
 <p>
   <strong>進捗:</strong>
-  <%= @task.status %>
+  <% if @task.status == 1%>
+    TODO
+  <% elsif @task.status == 2%>
+    DOING
+  <% else @task.status == 3%>
+    DONE
+  <% end %>
 </p>
 
 <p>

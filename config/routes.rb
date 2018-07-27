@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :tasks
   get 'pages/page'
+  post 'tasks/status_change'
   
   #ルート
   root 'tasks#index'
