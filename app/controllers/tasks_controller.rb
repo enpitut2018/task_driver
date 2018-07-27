@@ -9,8 +9,8 @@ class TasksController < ApplicationController
     end
     @q = Task.where(user_id: current_user.id).ransack(params[:q])
     @results = @q.result(distinct: true)
-  end
 
+  end
   # GET /tasks/1
   # GET /tasks/1.json
   def show
@@ -34,7 +34,6 @@ class TasksController < ApplicationController
     #task_data['user_id'] = current_user.id
     @task = Task.new(task_params)
 
-    #p task_params
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
@@ -73,8 +72,15 @@ class TasksController < ApplicationController
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
+   end
+  def status_change
+    @task = Task.find(params[:id])
+    if @task.id < 3
+      @task.status += 1
+    end
+    @task.save
+    redirect_to :action => "index"
   end
-
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
@@ -84,6 +90,7 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
