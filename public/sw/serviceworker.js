@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
                 //RegistrationIDをrailsにgetで送信
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', '/endpoints/register?id=' + endpoint.split("/").slice(-1).join());
+                xhr.open('GET', '/endpoints/?id=' + endpoint.split("/").slice(-1).join());
                 xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                 //xhr.send("id=" + endpoint.split("/").slice(-1).join());
                 xhr.send(null);
