@@ -1,3 +1,8 @@
+<% content_for :manifest do %>
+  <link rel="manifest" href="manifest.json"/>
+  <script type="text/javascript" src="sw/serviceworker.js"></script>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <h1>タスク</h1>
@@ -101,3 +106,4 @@
 <br>
 
 <%= link_to '新しいタスクを作る', new_task_path %>
+<%# = javascript_include_tag 'serviceworker.js' %>
