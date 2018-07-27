@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log("load is OK!");
     if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('/sw/sw_for_user.js', {scope: "/"}).then(
+        navigator.serviceWorker.register('/sw_for_user.js', {scope: "/"}).then(
             function(registration){
                 console.log("register is OK!");
                 registration.pushManager.getSubscription().then(
