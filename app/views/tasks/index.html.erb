@@ -1,5 +1,6 @@
 <head>
   <link rel="manifest" href="/ws/manifest.json"/>
+  <script type="text/javascript" src="serviceworker.js"></script>
 </head>
 
 <p id="notice"><%= notice %></p>
@@ -92,4 +93,4 @@
 <br>
 
 <%= link_to '新しいタスクを作る', new_task_path %>
-<%= javascript_include_tag 'serviceworker.js' %>
+<%# = javascript_include_tag 'serviceworker.js' %>
