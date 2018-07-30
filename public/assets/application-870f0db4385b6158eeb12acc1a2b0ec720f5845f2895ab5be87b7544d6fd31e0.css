@@ -1,0 +1,267 @@
+/* line 1, /myapp/app/assets/stylesheets/scaffolds.scss */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open+Sans', 'Noto Sans JP';
+}
+
+/* line 7, /myapp/app/assets/stylesheets/scaffolds.scss */
+header {
+  background-color: #C10000;
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* line 13, /myapp/app/assets/stylesheets/scaffolds.scss */
+header a.home_link {
+  font-weight: 800;
+  color: #fff;
+  font-size: 30px;
+  text-decoration: none;
+}
+/* line 19, /myapp/app/assets/stylesheets/scaffolds.scss */
+header nav {
+  float: right;
+}
+/* line 21, /myapp/app/assets/stylesheets/scaffolds.scss */
+header nav a {
+  text-decoration: none;
+  margin: 3px;
+  font-size: 15px;
+  font-weight: 600;
+}
+/* line 26, /myapp/app/assets/stylesheets/scaffolds.scss */
+header nav a:visited {
+  color: #fff;
+}
+
+/* line 33, /myapp/app/assets/stylesheets/scaffolds.scss */
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 41, /myapp/app/assets/stylesheets/scaffolds.scss */
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 47, /myapp/app/assets/stylesheets/scaffolds.scss */
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+/* line 53, /myapp/app/assets/stylesheets/scaffolds.scss */
+a {
+  text-decoration: none;
+}
+/* line 61, /myapp/app/assets/stylesheets/scaffolds.scss */
+a:hover {
+  color: #fff;
+  opacity: .9;
+}
+
+/* line 68, /myapp/app/assets/stylesheets/scaffolds.scss */
+th {
+  padding-bottom: 5px;
+}
+
+/* line 72, /myapp/app/assets/stylesheets/scaffolds.scss */
+td {
+  padding: 0 5px 7px;
+}
+
+/* line 77, /myapp/app/assets/stylesheets/scaffolds.scss */
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+/* line 82, /myapp/app/assets/stylesheets/scaffolds.scss */
+#notice {
+  color: green;
+}
+
+/* line 86, /myapp/app/assets/stylesheets/scaffolds.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 92, /myapp/app/assets/stylesheets/scaffolds.scss */
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px 7px 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+/* line 99, /myapp/app/assets/stylesheets/scaffolds.scss */
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px -7px 0;
+  background-color: #c00;
+  color: #fff;
+}
+/* line 109, /myapp/app/assets/stylesheets/scaffolds.scss */
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+/* line 115, /myapp/app/assets/stylesheets/scaffolds.scss */
+label {
+  display: block;
+}
+/* line 4, /myapp/app/assets/stylesheets/tasks.scss */
+body {
+  background-color: #fafafa;
+}
+
+/* line 9, /myapp/app/assets/stylesheets/tasks.scss */
+header .search_form {
+  position: relative;
+}
+/* line 11, /myapp/app/assets/stylesheets/tasks.scss */
+header .search_form input {
+  width: 250px;
+  outline: none;
+  border: 1px solid #c1cdd4;
+  background: #fff;
+  box-shadow: none;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 28px;
+  border-radius: 3px 3px 3px 3px;
+  height: 35px;
+  padding-left: 33px;
+  margin: 0 auto;
+}
+/* line 25, /myapp/app/assets/stylesheets/tasks.scss */
+header .search_form i {
+  position: absolute;
+  top: 50%;
+  left: 13%;
+  margin-top: -0.5em;
+  margin-left: -1.5em;
+  opacity: .3;
+}
+
+/* line 35, /myapp/app/assets/stylesheets/tasks.scss */
+.container {
+  width: 1000px;
+  margin: auto;
+}
+/* line 38, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards {
+  display: flex;
+  width: 100%;
+}
+/* line 41, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board {
+  width: 33%;
+  background-color: #ededed;
+  margin: 20px 8px;
+  border-radius: 3px 3px 3px 3px;
+  border: 1px solid #ccc;
+  padding-bottom: 35px;
+}
+/* line 48, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board h2 {
+  margin: 0;
+  padding: 13px 20px;
+  border-radius: 3px 3px 3px 3px;
+  background-color: #fdfdfd;
+}
+/* line 54, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul {
+  list-style: none;
+}
+/* line 56, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card {
+  margin: 16px 12px;
+  padding: 8px 28px;
+  padding-bottom: 16px;
+  border-radius: 3px 3px 3px 3px;
+  border: 1px solid #ddd;
+  background-color: #fdfdfd;
+}
+/* line 63, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card a {
+  text-decoration: none;
+  color: #000;
+}
+/* line 66, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card a:hover {
+  opacity: .5;
+}
+/* line 70, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+/* line 74, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card p {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 15px 0;
+  font-size: 15px;
+}
+/* line 82, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card .stars {
+  font-size: 12px;
+  margin-left: 5px;
+  color: #FFC100;
+}
+/* line 87, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card input {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: .1em;
+  color: #fff;
+  padding: 8px 20px;
+  width: 100%;
+  border-radius: 6px;
+  border: none;
+}
+/* line 96, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card input:hover {
+  opacity: .8;
+}
+/* line 100, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card .start {
+  background-color: #00bb00;
+}
+/* line 103, /myapp/app/assets/stylesheets/tasks.scss */
+.container .boards .board ul .card .finish {
+  background-color: #FF8C00;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
