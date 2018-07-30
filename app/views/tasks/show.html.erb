@@ -1,46 +1,48 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>タスク名:</strong>
-  <%= @task.name %>
-</p>
+  <p>
+    <strong>タスク名:</strong>
+    <%= @task.name %>
+  </p>
 
-<p>
-  <strong>締め切り:</strong>
-  <%= @task.deadline %>
-</p>
+  <p>
+    <strong>締め切り:</strong>
+    <%= @task.deadline %>
+  </p>
 
-<p>
-  <strong>重要度:</strong>
-  <%= "☆" * @task.importance %>
-</p>
+  <p>
+    <strong>重要度:</strong>
+    <%= "☆" * @task.importance %>
+  </p>
 
-<p>
-  <strong>メモ:</strong>
-  <%= @task.note %>
-</p>
+  <p>
+    <strong>メモ:</strong>
+    <%= @task.note %>
+  </p>
 
-<p>
-  <strong>進捗:</strong>
-  <% if @task.status == 1%>
+  <p>
+    <strong>進捗:</strong>
+    <% if @task.status == 1%>
     TODO
-  <% elsif @task.status == 2%>
+    <% elsif @task.status == 2%>
     DOING
-  <% else @task.status == 3%>
+    <% else @task.status == 3%>
     DONE
-  <% end %>
-</p>
+    <% end %>
+  </p>
 
-<p>
-  <strong>始めた時刻:</strong>
-  <%= @task.start_time %>
-</p>
+  <p>
+    <strong>始めた時刻:</strong>
+    <%= @task.start_time %>
+  </p>
 
-<p>
-  <strong>終わった時刻:</strong>
-  <%= @task.finish_time %>
-</p>
+  <p>
+    <strong>終わった時刻:</strong>
+    <%= @task.finish_time %>
+  </p>
 
-<%= link_to 'タスクを編集する', edit_task_path(@task) %> |
-<%= link_to 'タスク一覧へ戻る', tasks_path %>
-<%= javascript_include_tag 'audio.js' %>
+  <%= link_to 'タスクを編集する', edit_task_path(@task) %> |
+  <%= link_to 'タスク一覧へ戻る', tasks_path %>
+  <%= javascript_include_tag 'audio.js' %>
+</div>

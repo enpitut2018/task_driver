@@ -36,16 +36,6 @@
     <%= form.select :status, [["TODO", 1],["DOING", 2], ["DONE", 3]] %>
   </div>
 
-  <div class="field">
-    <%= form.label :始めた時刻 %>
-    <%= form.datetime_select :start_time, id: :task_start_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :終わった時刻 %>
-    <%= form.datetime_select :finish_time, id: :task_finish_time %>
-  </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>

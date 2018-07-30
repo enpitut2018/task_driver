@@ -6,12 +6,11 @@ class TasksController < ApplicationController
   def index
     if params['q'].nil?
       @tasks = Task.where(user_id: current_user.id).order('priority DESC')
-    end
-    
+    end    
     @q = Task.where(user_id: current_user.id).order('priority DESC').ransack(params[:q])
-    @results = @q.result(distinct: true)
-
+    @tasks = @q.result(distinct: true)
   end
+
   # GET /tasks/1
   # GET /tasks/1.json
   def show
@@ -72,7 +71,8 @@ class TasksController < ApplicationController
     end
 
     @task.save
-    redirect_to :action => "index"
+    #redirect_to :action => "index"
+    redirect_to controller: 'tasks', action: 'show', id: current_user.id
   end
 
   # PATCH/PUT /tasks/1
