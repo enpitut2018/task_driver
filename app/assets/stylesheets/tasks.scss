@@ -1,3 +1,110 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+	background-color: #fafafa;
+}
+
+header {
+	.search_form {
+		position: relative;
+		input {
+			width: 250px;
+			outline: none;
+			border: 1px solid #c1cdd4;
+			background: #fff;
+			box-shadow: none;
+			box-sizing: border-box;
+			font-size: 14px;
+			line-height: 28px;
+			border-radius: 3px 3px 3px 3px;
+			height: 35px;
+			padding-left: 33px;
+			margin: 0 auto;
+		}
+		i {
+			position:absolute;
+			top: 50%;
+			left: 13%;
+			margin-top: -0.5em;
+			margin-left: -1.5em;
+			opacity: .3;
+		}
+	}
+}
+.container {
+	width: 1000px;
+	margin: auto;
+	.boards {
+		display: flex;
+		width: 100%;
+		.board {
+			width: 33%;
+			background-color: #ededed;
+			margin: 20px 8px;
+			border-radius: 3px 3px 3px 3px;
+			border: 1px solid #ccc;
+			padding-bottom: 35px;
+			h2 {
+				margin: 0;
+				padding: 13px 20px;
+				border-radius: 3px 3px 3px 3px;
+				background-color: #fdfdfd;
+			}
+			ul {
+				list-style: none;
+				.card {
+					margin: 16px 12px;
+					padding: 8px 28px;
+					padding-bottom: 16px;
+					border-radius: 3px 3px 3px 3px;
+					border: 1px solid #ddd;
+					background-color: #fdfdfd;
+					a {
+						text-decoration: none;
+						color: #000;
+						&:hover {
+							opacity: .5;
+						}
+					}
+					h3 {
+						font-size: 20px;
+						margin: 10px 0;
+					}
+					p {
+						width: 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						margin: 15px 0;
+						font-size: 15px;
+					}
+					.stars {
+						font-size: 12px;
+						margin-left: 5px;
+						color: #FFC100;
+					}
+					input {
+						font-weight: 500;
+						font-size: 14px;
+						letter-spacing: .1em;
+						color: #fff;
+						padding: 8px 20px;
+						width: 100%;
+						border-radius: 6px;
+						border: none;
+						&:hover {
+							opacity: .8;
+						}
+					}
+					.start {
+						background-color: #00bb00;
+					}
+					.finish {
+						background-color: #FF8C00;
+					}
+				}
+			}
+		}
+	}
+}
