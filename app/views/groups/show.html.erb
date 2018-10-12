@@ -35,7 +35,7 @@
 </p>
 
 <p>
-  <strong>タスク:</strong>
+  <strong>登録されているタスク:</strong>
   <br>
   <% Task.where(group_id: @group.id).each do |line| %>
     <%= link_to line.name, task_path(line) %>
