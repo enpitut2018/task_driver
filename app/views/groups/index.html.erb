@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1>グループ</h1>
+
+<table>
+  <thead>
+    <tr>
+<%
+=begin
+%>
+      <th>Parent</th>
+<%
+=end
+%>
+      <th>グループ名</th>
+      <th>グループ重要度</th>
+      <th>締め切り</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.importance %></td>
+        <td><%= group.deadline %></td>
+<%
+=begin
+%>
+        <td><%= group.parent_id %></td>
+        <td><%= group.user_id %></td>
+<%
+=end
+%>
+        <td><%= link_to '詳細を見る', group %></td>
+        <td><%= link_to 'グループ情報を編集する', edit_group_path(group) %></td>
+        <td><%= link_to 'グループを削除', group, method: :delete, data: { confirm: 'ほんまか？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新しいグループを作る', new_group_path %>

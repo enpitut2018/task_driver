@@ -22,6 +22,7 @@
         <% if user_signed_in? %>
           <!-- <strong><%= link_to current_user.id, "" %></strong> -->
           <%= link_to 'タスク一覧', tasks_path %>
+          <%= link_to 'グループ', groups_path %>
           <%= link_to 'プロフィール変更', edit_user_registration_path %>
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
           
