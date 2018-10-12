@@ -32,9 +32,16 @@
   </div>
 
   <div class="field">
+    <%= form.label :group_id %>
+    <%= form.number_field :group_id, id: :group_id %>
+  </div>
+
+  <div class="field">
     <%= form.label :進捗 %>
     <%= form.select :status, [["TODO", 1],["DOING", 2], ["DONE", 3]] %>
   </div>
+
+  
 
   <div class="actions">
     <%= form.submit %>
