@@ -87,3 +87,6 @@ gem 'dotenv-rails'
 
 #tweet
 gem 'twitter'
+
+#tree structure
+gem 'awesome_nested_set'
