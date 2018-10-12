@@ -72,7 +72,7 @@ class TasksController < ApplicationController
 
     @task.save
     #redirect_to :action => "index"
-    redirect_to controller: 'tasks', action: 'show', id: current_user.id
+    redirect_to controller: 'tasks', action: 'show', id: task.id
   end
 
   # PATCH/PUT /tasks/1
