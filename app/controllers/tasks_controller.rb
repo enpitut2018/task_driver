@@ -139,6 +139,6 @@ class TasksController < ApplicationController
       params['task']['urgency'] = urgency
       params['task']['priority'] = priority
 
-      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id, :urgency, :priority)
+      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id, :urgency, :priority, :group_id)
     end
 end
