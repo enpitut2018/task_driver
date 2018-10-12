@@ -72,7 +72,7 @@ class TasksController < ApplicationController
 
     @task.save
     #redirect_to :action => "index"
-    redirect_to controller: 'tasks', action: 'show', id: task.id
+    redirect_to controller: 'tasks', action: 'show', id: @task.id
   end
 
   # PATCH/PUT /tasks/1
@@ -139,6 +139,6 @@ class TasksController < ApplicationController
       params['task']['urgency'] = urgency
       params['task']['priority'] = priority
 
-      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id, :urgency, :priority)
+      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id, :urgency, :priority, :group_id)
     end
 end

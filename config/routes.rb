@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :groups
   resources :tasks
   get 'pages/page'
   post 'tasks/status_change'
