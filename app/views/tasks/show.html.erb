@@ -1,48 +1,40 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <% if @task.user_id == current_user.id %>
+  <div class="task">
+    <p id="notice"><%= notice %></p>
 
-  <p>
-    <strong>タスク名:</strong>
-    <%= @task.name %>
-  </p>
+    <h1><%= @task.name %>
+      <% if @task.status == 1%>
+      <span class="status todo">
+        TODO
+      </span>
+      <% elsif @task.status == 2%>
+      <span class="status doing">
+        DOING
+      </span>
+      <% else @task.status == 3%>
+      <span class="status done">
+        DONE
+      </span>
+      <% end %></h1>
 
-  <p>
-    <strong>締め切り:</strong>
-    <%= @task.deadline %>
-  </p>
+      <ul>
+        <li><span class="stars"><%= "★" * @task.importance %></span></li>
+        <li>締め切り: <%= @task.deadline %></li>
+        <li>メモ: <%= @task.note %></li>
+        <li>始めた時刻: <%= @task.start_time %></li>
+        <li>始めた時刻: <%= @task.finish_time %></li>
+      </ul>
 
-  <p>
-    <strong>重要度:</strong>
-    <%= "☆" * @task.importance %>
-  </p>
-
-  <p>
-    <strong>メモ:</strong>
-    <%= @task.note %>
-  </p>
-
-  <p>
-    <strong>進捗:</strong>
-    <% if @task.status == 1%>
-    TODO
-    <% elsif @task.status == 2%>
-    DOING
-    <% else @task.status == 3%>
-    DONE
+      <%= link_to 'タスクを編集する', edit_task_path(@task) %> |
+      <%= link_to 'タスク一覧へ戻る', tasks_path %>
+    </div>
+    <%= javascript_include_tag 'audio.js' %>
+    <% else %>
+    <div class="attention">
+      <i class="fas fa-exclamation-circle"></i>
+      <p>タスクへのアクセス権がありません。</p>
+      <%= link_to 'タスク一覧へ戻る', tasks_path %>
+    </div>
     <% end %>
-  </p>
-
-  <p>
-    <strong>始めた時刻:</strong>
-    <%= @task.start_time %>
-  </p>
-
-  <p>
-    <strong>終わった時刻:</strong>
-    <%= @task.finish_time %>
-  </p>
-
-  <%= link_to 'タスクを編集する', edit_task_path(@task) %> |
-  <%= link_to 'タスク一覧へ戻る', tasks_path %>
-  <%= javascript_include_tag 'audio.js' %>
-</div>
+  </div>
