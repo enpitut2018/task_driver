@@ -21,10 +21,11 @@
 
   <tbody>
     <% @groups.each do |group| %>
-      <tr>
-        <td><%= group.name %></td>
-        <td><%= group.importance %></td>
-        <td><%= group.deadline %></td>
+      <% if group.user_id == current_user.id %>
+        <tr>
+          <td><%= group.name %></td>
+          <td><%= group.importance %></td>
+          <td><%= group.deadline %></td>
 <%
 =begin
 %>
@@ -33,10 +34,11 @@
 <%
 =end
 %>
-        <td><%= link_to '詳細を見る', group %></td>
-        <td><%= link_to 'グループ情報を編集する', edit_group_path(group) %></td>
-        <td><%= link_to 'グループを削除', group, method: :delete, data: { confirm: 'ほんまか？' } %></td>
-      </tr>
+          <td><%= link_to '詳細を見る', group %></td>
+          <td><%= link_to 'グループ情報を編集する', edit_group_path(group) %></td>
+          <td><%= link_to 'グループを削除', group, method: :delete, data: { confirm: 'ほんまか？' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
