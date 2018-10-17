@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181012071348) do
-  
+ActiveRecord::Schema.define(version: 20181017051539) do
+
   create_table "audio_tests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20181012071348) do
     t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "visible", default: 0, null: false
   end
 
   create_table "oauths", force: :cascade do |t|
