@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>グループ</h1>
-
+<h1>あなたのグループ</h1>
 <table>
   <thead>
     <tr>
@@ -42,7 +41,48 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
+
+
+<%#　公開設定されている、グループの欄%>
+<h1>他の人のグループ</h1>
+<table>
+  <thead>
+    <tr>
+<%
+=begin
+%>
+      <th>Parent</th>
+<%
+=end
+%>
+      <th>グループ名</th>
+      <th>グループ重要度</th>
+      <th>締め切り</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @groups.each do |group| %>
+      <% if group.user_id != current_user.id && group.visible == 1%>
+        <tr>
+          <td><%= group.name %></td>
+          <td><%= group.importance %></td>
+          <td><%= group.deadline %></td>
+<%
+=begin
+%>
+        <td><%= group.parent_id %></td>
+        <td><%= group.user_id %></td>
+<%
+=end
+%>
+          <td><%= link_to '詳細を見る', group %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to '新しいグループを作る', new_group_path %>

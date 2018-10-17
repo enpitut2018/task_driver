@@ -2,7 +2,6 @@
   <% if group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
-
       <ul>
       <% group.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -42,6 +41,12 @@
   <div class="field">
     <%= form.label :deadline %>
     <%= form.datetime_select :deadline, id: :group_deadline %>
+  </div>
+
+  <%# 公開・非公開設定のボタン%>
+  <div class="field">
+    公開: <%= form.radio_button 'visible', '1', {} %><br />
+    非公開: <%= form.radio_button 'visible', '0', {} %>
   </div>
 
   <div class="actions">
