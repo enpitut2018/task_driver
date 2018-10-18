@@ -55,17 +55,18 @@ class TasksController < ApplicationController
       @task.status += 1
 
       if Oauth.where(user_id: current_user.id)[0]
-        tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#TaskDriver"
-        tweet(tweetText)
+        # tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#TaskDriver"
+        # tweet(tweetText)
       end
 
     elsif @task.status == 2
       @task.finish_time = Time.zone.now
       @task.status += 1
+      save_commitment(Time.gm(2018, 8, 17))
 
       if Oauth.where(user_id: current_user.id)[0]
-        tweetText = "タスクおわりました！\n応援ありがとうございました!\n#TaskDriver"
-        tweet(tweetText)
+        # tweetText = "タスクおわりました！\n応援ありがとうございました!\n#TaskDriver"
+        # tweet(tweetText)
       end
 
     end
