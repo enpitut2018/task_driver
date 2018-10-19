@@ -34,7 +34,7 @@
   <div class="field">
     <%= form.label :グループ %>
     <%#%= form.number_field :parent_id, id: :group_parent_id %>
-    <%= form.collection_select :parent_id, Group.where('user_id': current_user.id), :id, :name %>
+    <%= form.collection_select :group_id, Group.where('user_id': current_user.id), :id, :name %>
   </div>
 
   <div class="field">
