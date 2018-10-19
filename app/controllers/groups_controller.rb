@@ -71,6 +71,6 @@ class GroupsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
       params['group']['user_id'] = current_user.id
-      params.require(:group).permit(:parent_id, :name, :user_id, :importance, :deadline)
+      params.require(:group).permit(:parent_id, :name, :user_id, :importance, :deadline, :visible)
     end
 end

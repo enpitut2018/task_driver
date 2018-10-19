@@ -158,3 +158,24 @@ header {
 		}
 	}
 }
+
+.done {
+	.graph {
+		margin: 15px 0;
+		background-color: #fff;
+		padding: 15px 20px 15px 20px;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		svg {
+			display: block;
+			margin: 20px auto;
+		}
+		h2 {
+			margin: 10px 15px;
+		}
+	}
+	svg {
+		width: 720px;
+		margin: 30px auto;
+	}
+}
