@@ -1,0 +1,35 @@
+<div class="container done">
+  <section class="graph">
+    <h2>頑張りグラフ</h2>
+    <%= @graph.html_safe %>
+  </section>
+  <div class="boards">
+    <section class="board done">
+      <h2>DONE</h2>
+      <ul>
+        <% @tasks.each do |task| %>
+        <% if task.status == 3 %>
+        <li class="card">
+          <%= link_to(task) do %>
+          <div class="card_header">
+            <h3>
+              <%= task.name %>
+              <span class="stars">
+                <%= "★" * task.importance %>
+              </span>
+            </h3>
+          </div>
+          <% end %>
+          <div class="card_body">
+            <p><%= task.note %></p>
+          </div>
+          <div class="card_footer">
+
+          </div>
+        </li>
+        <% end %>
+        <% end %>
+      </ul>
+    </section>
+  </div>
+</div>
