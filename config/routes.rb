@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :tasks
   get 'pages/page'
   post 'tasks/status_change'
+  get 'endpoints', to: 'endpoints#register'
 
   
   #ルート
