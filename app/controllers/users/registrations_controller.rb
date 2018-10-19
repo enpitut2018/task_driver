@@ -10,9 +10,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    group = Group.create(
+      name: "general",
+      user_id: @user.id
+    )
+    group.save
+  end
 
   # GET /resource/edit
   # def edit
@@ -59,7 +64,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-
+  
   def edit
   end
 end
