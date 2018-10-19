@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   resources :groups
+  get 'tasks/done'
   resources :tasks
   get 'pages/page'
   post 'tasks/status_change'
+
   
   #ルート
   root 'tasks#index'
@@ -17,5 +19,6 @@ Rails.application.routes.draw do
     get "sign_in", :to => "users/sessions#new"
     get "sign_out", :to => "users/sessions#destroy" 
   end
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

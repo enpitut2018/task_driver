@@ -5,7 +5,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # def new
   #   super
   # end
-
+  
   #POST /resource/confirmation
   def create
     super
@@ -15,6 +15,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     )
     group.save
   end
+
 
   # GET /resource/confirmation?confirmation_token=abcdef
   # def show
