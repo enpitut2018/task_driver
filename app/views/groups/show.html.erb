@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
  <% if @group.user_id == current_user.id %>
   <p>
-    <strong>Name:</strong>
+    <strong>グループ名:</strong>
     <%= @group.name %>
   </p>
 
@@ -22,24 +22,35 @@
 
   <p>
     <strong>重要度:</strong>
-    <%= @group.importance %>
+    <% if @group.importance != nil %>
+      <span class="stars"><%= "★" * @group.importance %></span>
+    <% else %>
+      未登録です。
+    <% end %>
+
   </p>
 
   <p>
     <strong>締め切り:</strong>
-    <%= @group.deadline %>
+    <% if @group.deadline != nil %>
+      <%= @group.deadline %>
+    <% else %>
+      未登録です。
+    <% end %>
   </p>
 
   <p>
     <strong>登録されているタスク:</strong>
-    <br>
-    <% Task.where(group_id: @group.id).each do |line| %>
-      <%= link_to line.name, task_path(line) %>
-      <br>
+    <% tasks = Task.where(group_id: @group.id)%>
+    <% if tasks.size == 0 %>
+      なし
+    <% else %>
+      <% tasks.each do |line| %>
+        <%= link_to line.name, task_path(line) %>
+        <br>
+      <% end %>
     <% end %>
-    
   </p>
-
   <%= link_to 'このグループを編集する', edit_group_path(@group) %> |
   <%= link_to 'グループ一覧に戻る', groups_path %>
 
