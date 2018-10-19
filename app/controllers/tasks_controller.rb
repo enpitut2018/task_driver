@@ -27,6 +27,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/done
   def done
+    @tasks = Task.where(user_id: current_user.id).order('finish_time DESC')
     @graph = get_graph
   end
 
