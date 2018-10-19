@@ -25,9 +25,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
                 //RegistrationIDをrailsにgetで送信
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', '/endpoints');
-                xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                xhr.send("id=" + endpoint.split("/").slice(-1).join());
+                xhr.open('GET', '/endpoints?id=#{endpoint.split("/").slice(-1).join()}');
+                xhr.send();
+                //xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                ///xhr.send("id=" + endpoint.split("/").slice(-1).join());
+                //console.log("id=" + endpoint.split("/").slice(-1).join())
             }
         ).catch(function(error){
             console.warn("serviceWorker error:", error);
