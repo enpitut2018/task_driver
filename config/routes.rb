@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   resources :groups
+  get 'tasks/done'
   resources :tasks
   get 'pages/page'
   post 'tasks/status_change'
+
   
   #ルート
   root 'tasks#index'
