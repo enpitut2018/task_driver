@@ -1,35 +1,27 @@
 branches:
   only:
-    - master
-
+  - master
 language: ruby
-
 rvm:
-  - 2.3.3
-
+- 2.3.3
 services:
-  - postgresql
-
+- postgresql
 before_install:
-  - gem install bundler
-
+- gem install bundler
 bundler_args: "--without development --jobs=3"
-
 cache: bundler
-
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - cp config/database.travis.yml config/database.yml
-  - bundle exec rails db:create
-  - bundle exec rails db:migrate
-
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.travis.yml config/database.yml
+- bundle exec rails db:create
+- bundle exec rails db:migrate
 script:
-  - bundle exec rails assets:precompile
+- bundle exec rails assets:precompile
 
 deploy:
   provider: heroku
   api_key:
-    secure: i36bS5fu6oIZkztoJ5ieFWEDAOw+nvwRXTnxHM9zmuyJEC5JX4hgWv/iLkHmLRL8Bvq5LunKV1MFXivVT65ItsjiA8jFkqHkKwAVXEMG4tX6JvV7ou57n7hUvB0/5nYj3btVoIBeYKzjN4Y4QM+26Fqmhur3KNnvJzB1SWXUMa85aRwxHQ6PJOHh53O9drTPBxYA1xFU0k0mtE1sxhf9HxMsoylmAlV9RsYcHn+KYNsU29DCIhXjsjUxiNgKKGUAQXvy4c8iGHeBK9ijzj6FRn61KKnOVrR3NsbwKisvQATypkI+Zu/9H9avF1IYl9hdNle5oBABPgRLWdCVauhWbQX92U9xq1Gj4PfLSTtcyUON8A4D4bhNRkugCzkJH+DCsFUWlRv0OnHuUWavbvI7BibyU8T3auWuCYe71djTOoQxGMXSQsL4D0rXsuiOR5QFS9KlctyEod8AO76qPmdjXQJ+iQ1Dhx1kHS//pSpwm8ilNPubzvayE2QbiLGHYsNnJODg1AZ8wVpPqIpGnG9euKs+/f9GUs18ElyAFOYtBV9i/pGcYlOoRxNx2Q+16XSLuzdSAitTn83yFi8VFK535tAGKkojKn0NKYNJ33bV0cb0jd6q1bshzdxj/AV6xjNo9Iv83bQupESNDUMEkrdtkjO9FWt3TTRtveZMN8yqjCc=
+    secure: Xz9duXfxNQzf6MhXfWaKp0c559Juu2KaDHfHqpxPLDcvQSHm/blrc6zdb1ZojF7X1Hc+uX/ThcdF5EWg+sTTYSAFfx/xQjAmeVDEofay0PLsBlVCzkUWc/HegoNv0VM/C9RATj9vTdBN1dpw4X4aIxpRY4M1vKkgsHcoOkZFZFDkoBR2Iiar6CNAk6JcXWEG/DveZ/LrVxaW3p77vd2CwZhQmIjg4jc5QNB3/NUldYCQ5Nr6Fo+ShDqNZeH8D0daSbpNsKqv3p788Gg3Vf0URU0YK7N6uPFsPnBjEJkwHlEnfqqbI24+hs01pWgNhoHNT1zLbnnuMFhSdU8URAdJZDP5f+GYfV9W77L7GOyrAMv39KoFlFdl/Oh42MEUHCHACQKm98QBSNhUFhGr6I8tQRdHfymQRXeEx3trNG6kESb+M9ysA3lay6DgbTXpmxPsoP5p0+OvKKyjadle66TptNSzWj0ExNyHyfu7Xp+id0VrS6e/VyNOTE9jplZCTpVd3EdGm5ZtmqmU6Anb9zClWVOFBW2iq5b94tsFS8s6NsgvuGhcKFkZjE/fL2dPzbgOPQKVDuzYhwvFlUFerbxBf43307BnLJ63sQkYlq2UK2tl1rZX0sOoZDAqVmPgXT/vaRYg4veBzgel7PtCynViVzuuzjauPHKZjsJ6+m6jnCI=
   run: "rake db:migrate"
   app: task-driver
   on:
