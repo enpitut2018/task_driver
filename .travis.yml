@@ -24,7 +24,7 @@ before_script:
   - bundle exec rails db:migrate
 
 script:
-  - rails assets:precompile RAILS_ENV=production
+  - bundle exec rails assets:precompile RAILS_ENV=production
 
 deploy:
   provider: heroku
