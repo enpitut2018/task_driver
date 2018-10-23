@@ -23,6 +23,9 @@ before_script:
   - bundle exec rails db:create
   - bundle exec rails db:migrate
 
+script:
+  - rails assets:precompile RAILS_ENV=production
+
 deploy:
   provider: heroku
   api_key:
