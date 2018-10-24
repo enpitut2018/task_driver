@@ -79,6 +79,7 @@
 =end
 %>
           <td><%= link_to '詳細を見る', group %></td>
+          <td><%= button_to 'Forkする', { :action => "fork", :id => group.id }, { :class => 'group' } %></td>
         </tr>
       <% end %>
     <% end %>

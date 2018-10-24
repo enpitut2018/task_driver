@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post 'groups/fork'
   resources :groups
   get 'tasks/done'
   resources :tasks
