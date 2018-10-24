@@ -1,6 +1,6 @@
 task :push_notification => :environment do 
     #登録されているすべてのレジストレーションIDを取得
-    endpoints = Users.where.not(endpoint: nil).select("endpoint")
+    endpoints = User.where.not(endpoint: nil).select("endpoint")
     
     endpoints.each do |endpoint|
         #全てのレジストレーションIDについてcurlを実行
