@@ -93,4 +93,16 @@ class ApplicationController < ActionController::Base
   def format_date(date)
     date.strftime('%Y%m%d')
   end
+
+  def get_ancestor_groups(group)
+    array = [group]
+    current_node = group
+    while current_node = Group.where(id: current_node.parent_id)[0] do
+      array.push(current_node)
+    end
+    return array.reverse!
+  end
+
+
+  helper_method :get_ancestor_groups
 end

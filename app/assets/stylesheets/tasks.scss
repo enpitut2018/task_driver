@@ -97,9 +97,18 @@ header {
 			padding-bottom: 35px;
 			h2 {
 				margin: 0;
-				padding: 13px 20px;
+				padding: 13px 23px;
 				border-radius: 3px 3px 3px 3px;
 				background-color: #fdfdfd;
+				span {
+					float: right;
+					color: #fff;
+					font-weight: 600;
+					background-color: #666;
+					border-radius: 50px 50px 50px 50px / 50px 50px 50px 50px;
+					font-size: 70%;
+					padding: 3px 12px;
+				}
 			}
 			ul {
 				list-style: none;
@@ -110,6 +119,25 @@ header {
 					border-radius: 3px 3px 3px 3px;
 					border: 1px solid #ddd;
 					background-color: #fdfdfd;
+					.card_body {
+						.tags {
+							width: 100%;
+							margin: 8px 0;
+							display: inline-flex;
+							justify-content: flex-end;
+							.tag {
+								font-size: 80%;
+								margin: 0 2px;
+								padding: 2px 5px;
+								border-radius: 5px;
+								background-color: #555;
+								font-weight: 400;
+								a {
+									color: #fff;
+								}
+							}
+						}
+					}
 					a {
 						text-decoration: none;
 						color: #000;
@@ -155,6 +183,14 @@ header {
 					}
 				}
 			}
+			.no_content {
+				margin: 80px 0;
+				font-weight: 600;
+				letter-spacing: .08em;
+				text-align: center;
+				color: #888;
+				font-size: 130%;
+			}
 		}
 	}
 }
@@ -192,6 +228,7 @@ header {
 	right: 40px;
 	width: 65px;
 	height: 65px;
+	box-shadow: 0 0 3px 0 #000;
 	.circle_inner {
 		font-size: 2.3em;
 		color: #fff;

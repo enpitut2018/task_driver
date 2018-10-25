@@ -26,10 +26,17 @@
 	<% end %> -->
 	<div class="boards">
 		<section class="board">
-			<h2>TODO</h2>
+			<% tasks_todo = @tasks.where(status: 1) %>
+			<h2>TODO<span><%= tasks_todo.count %></span></h2>
+			<% if tasks_todo.all.count == 0 %>
+			<p class="no_content">There is no content yet.</p>
+			<% end %>
 			<ul>
-				<% @tasks.each do |task| %>
-				<% if task.status == 1 %>
+				<% 
+				tasks_todo.all.each do |task|
+					current_group = Group.where(id: task.group_id)[0]
+					ancestors = get_ancestor_groups(current_group)
+				%>
 				<li class="card">
 					<%= link_to(task) do %>
 					<div class="card_header">
@@ -42,7 +49,16 @@
 					</div>
 					<% end %>
 					<div class="card_body">
-						<p><%= task.note %></p>
+						<% if !task.note.empty? %>
+							<p><%= task.note %></p>
+						<% end %>
+						<div class="tags">
+							<% ancestors.each do |group| %>
+								<span class="tag">
+									<%= link_to group.name, group %>
+								</span>
+							<% end %>
+						</div>
 						<%= button_to 'start', { :action => "status_change", :id => task.id }, { :class => 'start' } %>
 					</div>
 					<div class="card_footer">
@@ -50,14 +66,20 @@
 					</div>
 				</li>
 				<% end %>
-				<% end %>
 			</ul>
 		</section>
 		<section class="board">
-			<h2>DOING</h2>
+			<% tasks_doing = @tasks.where(status: 2) %>
+			<h2>DOING<span><%= tasks_doing.count %></span></h2>
+			<% if tasks_doing.all.count == 0 %>
+			<p class="no_content">There is no content yet.</p>
+			<% end %>
 			<ul>
-				<% @tasks.each do |task| %>
-				<% if task.status == 2 %>
+				<% 
+				tasks_doing.all.each do |task|
+					current_group = Group.where(id: task.group_id)[0]
+					ancestors = get_ancestor_groups(current_group)
+				%>
 				<li class="card">
 					<%= link_to(task) do %>
 					<div class="card_header">
@@ -70,124 +92,27 @@
 					</div>
 					<% end %>
 					<div class="card_body">
-						<p><%= task.note %></p>
+						<% if !task.note.empty? %>
+							<p><%= task.note %></p>
+						<% end %>
+						<div class="tags">
+							<% ancestors.each do |group| %>
+								<span class="tag">
+									<%= link_to group.name, group %>
+								</span>
+							<% end %>
+						</div>
 						<%= button_to 'finish', { :action => "status_change", :id => task.id }, { :class => 'finish' } %>
 					</div>
 					<div class="card_footer">
+
 					</div>
 				</li>
-				<% end %>
 				<% end %>
 			</ul>
 		</section>
 	</div>
 </div>
-<!-- 		<table>
-			<thead>
-				<tr>
-					<th>タスク名</th>
-					<th>締め切り</th>
-					<th>重要度</th>
-					<th>メモ</th>
-					<th>進捗</th>
-					<th>状態遷移</th>
-					<th>始めた時刻</th>
-					<th>終わった時刻</th>
-					<th colspan="3"></th>
-				</tr>
-			</thead>
-			<tbody>
-			<% @tasks.each do |task| %>
-			<tr>
-				<% if task.status == 1 %>
-					<td><%= task.name %></td>        
-					<td><%= task.deadline %></td>
-					<td><%= "☆" * task.importance %></td>
-					<td><%= task.note %></td>
-					<td>TODO</td>
-					<td><%= button_to 'やる', { :action => "status_change", :id => task.id } %>
-					<td><%= task.start_time %></td>
-					<td><%= task.finish_time %></td>
-					<td><%= link_to '詳細を見る', task %></td>
-					<td><%= link_to 'このタスクを編集する', edit_task_path(task) %></td>
-					<td><%= link_to 'このタスクを削除する', task, method: :delete, data: { confirm: 'ほんとに?' } %></td>
-				<% end %>
-			</tr>
-			<% end %>
-			</tbody>
-			</table>
-			<h2>DOING</h2>
-			<table>
-			<thead>
-				<tr>
-					<th>タスク名</th>
-					<th>締め切り</th>
-					<th>重要度</th>
-					<th>メモ</th>
-					<th>進捗</th>
-					<th>状態遷移</th>
-					<th>始めた時刻</th>
-					<th>終わった時刻</th>
-					<th colspan="3"></th>
-				</tr>
-			</thead>
-			<tbody>
-			<% @tasks.each do |task| %>
-			<tr>
-				<% if task.status == 2 %>
-					<td><%= task.name %></td>        
-					<td><%= task.deadline %></td>
-					<td><%= "☆" * task.importance %></td>
-					<td><%= task.note %></td>
-					<td>DOING</td>
-					<td><%= button_to 'やった', { :action => "status_change", :id => task.id } %>
-					<td><%= task.start_time %></td>
-					<td><%= task.finish_time %></td>
-					<td><%= link_to '詳細を見る', task %></td>
-					<td><%= link_to 'このタスクを編集する', edit_task_path(task) %></td>
-					<td><%= link_to 'このタスクを削除する', task, method: :delete, data: { confirm: 'ほんとに?' } %></td>
-				<% end %>
-			</tr>
-			<% end %>
-			</tbody>
-			</table>
-			<h2>DONE</h2>
-			<table>
-			<thead>
-				<tr>
-					<th>タスク名</th>
-					<th>締め切り</th>
-					<th>重要度</th>
-					<th>メモ</th>
-					<th>進捗</th>
-					<th>状態遷移</th>
-					<th>始めた時刻</th>
-					<th>終わった時刻</th>
-					<th colspan="3"></th>
-				</tr>
-			</thead>
-			<tbody>
-			<% @tasks.each do |task| %>
-				<tr>
-				<% if task.status == 3 %>
-					<td><%= task.name %></td>        
-					<td><%= task.deadline %></td>
-					<td><%= "☆" * task.importance %></td>
-					<td><%= task.note %></td>
-					<td>DONE</td>
-					<td></td>
-					<td><%= task.start_time %></td>
-					<td><%= task.finish_time %></td>
-					<td><%= link_to '詳細を見る', task %></td>
-					<td><%= link_to 'このタスクを編集する', edit_task_path(task) %></td>
-					<td><%= link_to 'このタスクを削除する', task, method: :delete, data: { confirm: 'ほんとに?' } %></td>
-				<% end %>
-				</tr>
-			<% end %>
-			</tbody>
-	</table>
-<br>
-</div> -->
 <%= link_to(new_task_path) do %>
 <div class="icon_circle">
 <div class="circle_inner">

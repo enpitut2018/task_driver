@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     if params['q'].nil?
       @tasks = Task.where(user_id: current_user.id).order('priority DESC')
-    end    
+    end
     @q = Task.where(user_id: current_user.id).order('priority DESC').ransack(params[:q])
     @tasks = @q.result(distinct: true)
   end
