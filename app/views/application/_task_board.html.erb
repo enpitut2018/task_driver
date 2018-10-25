@@ -1,0 +1,18 @@
+<section class="board">
+	<% tasks = @tasks.where(status: status) %>
+	<% if status == 1 %>
+		<h2>TODO<span><%= tasks.count %></span></h2>
+	<% elsif status == 2 %>
+		<h2>DOING<span><%= tasks.count %></span></h2>
+	<% elsif status == 3 %>
+		<h2>DONE<span><%= tasks.count %></span></h2>
+	<% end %>
+	<% if tasks.all.count == 0 %>
+	<p class="no_content">There is no content yet.</p>
+	<% end %>
+	<ul>
+		<% tasks.all.each do |task| %>
+		<%= render 'application/task_card', task: task, status: status %>
+		<% end %>
+	</ul>
+</section>
