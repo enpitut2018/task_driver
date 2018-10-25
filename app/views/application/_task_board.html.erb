@@ -1,5 +1,5 @@
 <section class="board">
-	<% tasks = @tasks.where(status: status) %>
+	<% tasks = tasks.where(status: status) %>
 	<% if status == 1 %>
 		<h2>TODO<span><%= tasks.count %></span></h2>
 	<% elsif status == 2 %>

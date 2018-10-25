@@ -89,6 +89,7 @@ module Pixela
 		end
 	end
 
+	private
 	def format_date(date)
 		date.strftime('%Y%m%d')
 	end

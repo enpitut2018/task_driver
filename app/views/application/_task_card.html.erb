@@ -26,9 +26,9 @@
 			<% end %>
 		</div>
 		<% if status == 1 %>
-			<%= button_to 'start', { :action => "status_change", :id => task.id }, { :class => 'start' } %>
+			<%= button_to 'start', { :action => "status_change", :controller => "tasks", :id => task.id }, { :class => 'start' } %>
 		<% elsif status == 2 %>
-			<%= button_to 'finish', { :action => "status_change", :id => task.id }, { :class => 'finish' } %>
+			<%= button_to 'finish', { :action => "status_change", :controller => "tasks", :id => task.id }, { :class => 'finish' } %>
 		<% end %>
 	</div>
 </li>
