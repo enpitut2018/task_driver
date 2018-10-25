@@ -80,33 +80,6 @@
 				<% end %>
 			</ul>
 		</section>
-		<section class="board">
-			<h2>DONE</h2>
-			<ul>
-				<% @tasks.each do |task| %>
-				<% if task.status == 3 %>
-				<li class="card">
-					<%= link_to(task) do %>
-					<div class="card_header">
-						<h3>
-							<%= task.name %>
-							<span class="stars">
-								<%= "★" * task.importance %>
-							</span>
-						</h3>
-					</div>
-					<% end %>
-					<div class="card_body">
-						<p><%= task.note %></p>
-					</div>
-					<div class="card_footer">
-
-					</div>
-				</li>
-				<% end %>
-				<% end %>
-			</ul>
-		</section>
 	</div>
 </div>
 <!-- 		<table>
@@ -215,5 +188,10 @@
 	</table>
 <br>
 </div> -->
-
-<%= link_to '新しいタスクを作る', new_task_path %>
+<%= link_to(new_task_path) do %>
+<div class="icon_circle">
+<div class="circle_inner">
+	<i class="fas fa-plus"></i>
+</div>
+</div>
+<% end %>
