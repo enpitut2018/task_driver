@@ -25,14 +25,8 @@
 		<% end %>
 	<% end %> -->
 	<div class="boards">
-		<%= render 'application/task_board', status: 1 %>
-		<%= render 'application/task_board', status: 2 %>
+		<%= render 'application/task_board', status: 1, tasks: @tasks %>
+		<%= render 'application/task_board', status: 2, tasks: @tasks %>
 	</div>
 </div>
-<%= link_to(new_task_path) do %>
-<div class="icon_circle">
-<div class="circle_inner">
-	<i class="fas fa-plus"></i>
-</div>
-</div>
-<% end %>
+<%= render 'application/task_create_button' %>
