@@ -32,6 +32,18 @@ header {
 		}
 	}
 }
+//ここから5分タイマー
+
+.timer {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	border: 2px solid #D04255;
+	background-color: #FFF;
+	display: none;
+	z-index: 1
+  }
+// ここまで5分タイマー 
 .container {
 	.attention {
 		margin-top: 50px;

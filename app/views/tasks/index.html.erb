@@ -1,6 +1,7 @@
 <% content_for :manifest do %>
 	<link rel="manifest" href="manifest.json"/>
 	<%= javascript_include_tag '/sw/serviceworker.js' %>
+	<%= javascript_include_tag 'timer.js' %>
 <% end %>
 <% content_for :title do %>
 	ホーム
@@ -13,6 +14,7 @@
 		</div>
 	<% end %>
 <% end %>
+
 
 <div class="container">
 	<p id="notice"><%= notice %></p>
@@ -127,7 +129,7 @@
 			<% @tasks.each do |task| %>
 			<tr>
 				<% if task.status == 1 %>
-					<td><%= task.name %></td>        
+					<td><%= task.name %></td>
 					<td><%= task.deadline %></td>
 					<td><%= "☆" * task.importance %></td>
 					<td><%= task.note %></td>
@@ -162,7 +164,7 @@
 			<% @tasks.each do |task| %>
 			<tr>
 				<% if task.status == 2 %>
-					<td><%= task.name %></td>        
+					<td><%= task.name %></td>
 					<td><%= task.deadline %></td>
 					<td><%= "☆" * task.importance %></td>
 					<td><%= task.note %></td>
@@ -197,7 +199,7 @@
 			<% @tasks.each do |task| %>
 				<tr>
 				<% if task.status == 3 %>
-					<td><%= task.name %></td>        
+					<td><%= task.name %></td>
 					<td><%= task.deadline %></td>
 					<td><%= "☆" * task.importance %></td>
 					<td><%= task.note %></td>
