@@ -70,16 +70,10 @@ class GroupsController < ApplicationController
     search(params[:id], @parent_group.id)
 
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'でけた' }
+      format.html { redirect_to groups_url, notice: 'グループをフォークしました。。' }
       format.json { head :no_content }
     end
-    # まず、親のグループを参照
-    # 親グループを作成
-    # 子のグループがあるかどうか確認
-    # 子のグループがある場合は、そのグループを作成
-    # その子のグループがあるかどうか、確認
-    #　以下繰り返し
-
+    
   end
 
   # POST /groups
