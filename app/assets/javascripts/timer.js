@@ -45,6 +45,7 @@ function tmWrite(int)
 
   if (int<=0)
   {
+    clearInterval(timer1);
     reSet();
     alert("5分間がんばりました！えらい！");
   }
