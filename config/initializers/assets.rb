@@ -16,3 +16,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += %w( audio.js )
 #Rails.application.config.assets.precompile += %w( serviceworker.js )
+Rails.application.config.assets.precompile += %w( timer.js )
+Rails.application.config.assets.precompile += %w( overlay.js )
