@@ -25,6 +25,12 @@ class TasksController < ApplicationController
   def edit
   end
 
+  # GET /tasks/done
+  def done
+    @tasks = Task.where(user_id: current_user.id).order('finish_time DESC')
+    @graph = get_graph
+  end
+
   # POST /tasks
   # POST /tasks.json
   def create
@@ -55,17 +61,18 @@ class TasksController < ApplicationController
       @task.status += 1
 
       if Oauth.where(user_id: current_user.id)[0]
-        tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#TaskDriver"
-        tweet(tweetText)
+        # tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#TaskDriver"
+        # tweet(tweetText)
       end
 
     elsif @task.status == 2
       @task.finish_time = Time.zone.now
       @task.status += 1
+      save_commitment(Time.gm(2018, 8, 17))
 
       if Oauth.where(user_id: current_user.id)[0]
-        tweetText = "タスクおわりました！\n応援ありがとうございました!\n#TaskDriver"
-        tweet(tweetText)
+        # tweetText = "タスクおわりました！\n応援ありがとうございました!\n#TaskDriver"
+        # tweet(tweetText)
       end
 
     end
@@ -109,36 +116,35 @@ class TasksController < ApplicationController
     end
   end
 
-    private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def task_params
-      deadline = Date.new(params['task']["deadline(1i)"].to_i, params['task']["deadline(2i)"].to_i, params['task']["deadline(3i)"].to_i)
-      diff = (deadline - Date.today).to_i
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def task_params
+    deadline = Date.new(params['task']["deadline(1i)"].to_i, params['task']["deadline(2i)"].to_i, params['task']["deadline(3i)"].to_i)
+    diff = (deadline - Date.today).to_i
+    urgency = 5
+
+    if diff == 0
       urgency = 5
-
-      if diff == 0
-        urgency = 5
-      elsif diff < 3
-        urgency = 4
-      elsif diff >= 3 && diff <= 31
-        urgency = 3
-      elsif diff > 31 && diff <= 62
-        urgency = 2
-      elsif diff > 62
-        urgency = 1
-      end
-
-      priority = params['task']['importance'].to_i * urgency
-      
-      params['task']['user_id'] = current_user.id
-      params['task']['urgency'] = urgency
-      params['task']['priority'] = priority
-
-      params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id, :urgency, :priority, :group_id)
+    elsif diff < 3
+      urgency = 4
+    elsif diff >= 3 && diff <= 31
+      urgency = 3
+    elsif diff > 31 && diff <= 62
+      urgency = 2
+    elsif diff > 62
+      urgency = 1
     end
+
+    priority = params['task']['importance'].to_i * urgency
+
+    params['task']['user_id'] = current_user.id
+    params['task']['urgency'] = urgency
+    params['task']['priority'] = priority
+
+    params.require(:task).permit(:name, :deadline, :importance, :note, :status, :start_time, :finish_time, :user_id, :urgency, :priority, :group_id)
+  end
 end

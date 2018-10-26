@@ -15,8 +15,19 @@ class User < ApplicationRecord
               username: auth.info.nickname,
               password: Devise.friendly_token[0, 20]
             )
+            #ここでGeneralタグ生成?
+            group = Group.create(
+              name: "General",
+              user_id: user.id
+              
+            )
+            group.save
           end
+
           user.skip_confirmation!
+          
+
+
           user
         end
         
