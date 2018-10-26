@@ -41,21 +41,24 @@
   <% end %>
   <input type="button" id="start" value="スタート" onclick="cntStart()">
 </div>
+<% timer == 1 %>
+<%=if timer == 1 %>
+  <div class="timer" id="timer">
+    <%= javascript_include_tag('timer.js', 'overlay.js') %>
+  <!--  
+        <%= label_tag("残り時間:") %>
+        <%= text_field_tag 'timer', "5" %>分
+        <%= text_field_tag 'timer', "0" %>秒
+        <%= link_to 'スタート', 'javascript:void(0);', onclick: "cntStart()" %>
+        <%= link_to 'ストップ', 'javascript:void(0);', onclick: "cntStop()" %>
+        <%= link_to 'リセット', 'javascript:void(0);', onclick: "reSet()" %>
+  -->    
 
-<div class="timer" id="timer">
-  <%= javascript_include_tag('timer.js', 'overlay.js') %>
-<!--  
+    <form name="timer">
       <%= label_tag("残り時間:") %>
-      <%= text_field_tag 'timer', "5" %>分
-      <%= text_field_tag 'timer', "0" %>秒
-      <%= link_to 'スタート', 'javascript:void(0);', onclick: "cntStart()" %>
-      <%= link_to 'ストップ', 'javascript:void(0);', onclick: "cntStop()" %>
-      <%= link_to 'リセット', 'javascript:void(0);', onclick: "reSet()" %>
--->    
-  <form name="timer">
-    <%= label_tag("残り時間:") %>
-    <input type="text" value="5">分
-    <input type="text" value="0">秒<br>
-    <input type="button" id="stop" value="ストップ" onclick="cntStop()">
-  </form>
-</div>
+      <input type="text" value="5">分
+      <input type="text" value="0">秒<br>
+      <input type="button" id="stop" value="ストップ" onclick="cntStop()">
+    </form>
+  </div>
+<% end %>
