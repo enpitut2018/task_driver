@@ -43,7 +43,11 @@
 %>
 <div class="sidebar_button"><div class="button_inner"><i class="fas fa-bars"></i></div></div>
 <section class="side_bar">
-  <h2>ボード</h2>
+  <h2>ボード
+    <%= link_to new_group_path do %>
+      <i class="fas fa-plus-circle"></i>
+    <% end %>
+    </h2>
   <ul>
     <li><%= link_to root_path do %><i class="fas fa-home fa-sm"></i>ホーム<% end %></li>
     <% 
