@@ -1,50 +1,60 @@
+<div id="overlay">
 <div class="container">
   <% if @task.user_id == current_user.id %>
-  <div class="task">
-    <p id="notice"><%= notice %></p>
-    <%= javascript_include_tag 'timer.js' %>
+    <div class="task">
+      <p id="notice"><%= notice %></p>
 
-    <h1><%= @task.name %>
-      <% if @task.status == 1%>
-      <span class="status todo">
-        TODO
-      </span>
-      <% elsif @task.status == 2%>
-      <span class="status doing">
-        DOING
-      </span>
-      <% else @task.status == 3%>
-      <span class="status done">
-        DONE
-      </span>
-      <% end %></h1>
+      <h1><%= @task.name %>
+        <% if @task.status == 1%>
+          <span class="status todo">
+            TODO
+          </span>
+        <% elsif @task.status == 2%>
+          <span class="status doing">
+            DOING
+          </span>
+        <% else @task.status == 3%>
+          <span class="status done">
+            DONE
+          </span>
+        <% end %>
+      </h1>
 
       <ul>
         <li><span class="stars"><%= "★" * @task.importance %></span></li>
         <li>締め切り: <%= @task.deadline %></li>
         <li>メモ: <%= @task.note %></li>
         <li>始めた時刻: <%= @task.start_time %></li>
-        <li>始めた時刻: <%= @task.finish_time %></li>
+        <li>終わった時刻: <%= @task.finish_time %></li>
       </ul>
-
-      <div class="Timer">
-      	<form name="timer">
-      		<input type="text" value="5">分
-      		<input type="text" value="0">秒<br>
-      		<input type="button" value="スタート" onclick="cntStart()">
-      		<input type="button" value="ストップ" onclick="cntStop()">
-      	</form>
-      </div>
 
       <%= link_to 'タスクを編集する', edit_task_path(@task) %> |
       <%= link_to 'タスク一覧へ戻る', tasks_path %>
     </div>
     <%= javascript_include_tag 'audio.js' %>
-    <% else %>
+  <% else %>
     <div class="attention">
       <i class="fas fa-exclamation-circle"></i>
-      <p>タスクへのアクセス権がありません。</p>
-      <%= link_to 'タスク一覧へ戻る', tasks_path %>
+        <p>タスクへのアクセス権がありません。</p>
+        <%= link_to 'タスク一覧へ戻る', tasks_path %>
     </div>
-    <% end %>
-  </div>
+  <% end %>
+</div>
+<input type="button" id="start" value="スタート" onclick="cntStart()">
+</div>
+<div class="timer" id="timer">
+  <%= javascript_include_tag('timer.js', 'overlay.js') %>
+<!--    <form name="timer">
+      <%= label_tag("残り時間:") %>
+      <%= text_field_tag 'timer', "5" %>分
+      <%= text_field_tag 'timer', "0" %>秒
+      <%= link_to 'スタート', 'javascript:void(0);', onclick: "cntStart()" %>
+      <%= link_to 'ストップ', 'javascript:void(0);', onclick: "cntStop()" %>
+      <%= link_to 'リセット', 'javascript:void(0);', onclick: "reSet()" %>
+-->    
+  <form name="timer">
+    <input type="text" value="5">分
+    <input type="text" value="0">秒<br>
+    <input type="button" id="stop" value="ストップ" onclick="cntStop()">
+  </form>
+</div>
