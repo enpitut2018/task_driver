@@ -39,12 +39,27 @@
         <%= link_to 'タスク一覧へ戻る', tasks_path %>
     </div>
   <% end %>
-  <input type="button" id="start" value="スタート" onclick="cntStart()">
+  <%= javascript_include_tag('timer.js', 'overlay.js') %>
+  <input type="button" id="start" value="スタート" onclick="cntStart();">
+  
 </div>
-<% timer == 1 %>
-<%=if timer == 1 %>
+
+<% if @timer == 1 then %>
+  <script>
+    var time = document.getElementById("start");
+    time.click();
+  </script>
+<% end %>
+
   <div class="timer" id="timer">
-    <%= javascript_include_tag('timer.js', 'overlay.js') %>
+    <form name="timer">
+      <%= label_tag("残り時間:") %>
+      <input type="text" value="5">分
+      <input type="text" value="0">秒<br>
+      <input type="button" id="stop" value="ストップ" onclick="cntStop()">
+    </form>
+  </div>
+
   <!--  
         <%= label_tag("残り時間:") %>
         <%= text_field_tag 'timer', "5" %>分
@@ -53,12 +68,32 @@
         <%= link_to 'ストップ', 'javascript:void(0);', onclick: "cntStop()" %>
         <%= link_to 'リセット', 'javascript:void(0);', onclick: "reSet()" %>
   -->    
+<script>
+$(function() {
+    // 「start」ボタンをクリック時に、fadeInメソッドでHTML要素を表示する
+    $('#start').on('click', function() {
+      $('#timer').fadeIn();
+      $('#overlay').css(
+        {
+            display: 'none'
+        }          
+      ) 
+    }
+    );
+    
+    // 「stop」ボタンをクリック時に、fadeOutメソッドでHTML要素を非表示にする
+    $('#stop').on('click', function() {
+      $('#timer').fadeOut();
+      $('#overlay').css(
+        {
+            display: 'block'
+        }          
+      )
+ 
 
-    <form name="timer">
-      <%= label_tag("残り時間:") %>
-      <input type="text" value="5">分
-      <input type="text" value="0">秒<br>
-      <input type="button" id="stop" value="ストップ" onclick="cntStop()">
-    </form>
-  </div>
-<% end %>
+    }
+    )
+  }
+  );
+
+</script>

@@ -14,10 +14,10 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    //5分タイマーを作動させるフラグ
-    if(params[:timer] == 1){
+    #5分タイマーを作動させるフラグ
+    if (params[:timer] == '1')
       @timer = 1;
-    }
+    end
   end
 
   # GET /tasks/new
