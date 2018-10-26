@@ -41,6 +41,31 @@
 <%
 =end
 %>
+<div class="sidebar_button"><div class="button_inner"><i class="fas fa-bars"></i></div></div>
+<section class="side_bar">
+  <h2>ボード
+    <%= link_to new_group_path do %>
+      <i class="fas fa-plus-circle"></i>
+    <% end %>
+    </h2>
+  <ul>
+    <li><%= link_to root_path do %><i class="fas fa-home fa-sm"></i>ホーム<% end %></li>
+    <% 
+    groups = Group.all
+    groups.each do |group|
+    %>
+      <li>
+        <%= link_to(group) do %>
+        <% if group.visible == 0 %>
+        <i class="fas fa-lock fa-sm"></i>
+        <% else %>
+        <i class="fas fa-lock-open fa-sm"></i>
+        <% end %>
+        <%= group.name %>
+        <% end %>
+      </li>
+  <% end %>
+</section>
       <p class="alert"><%= alert %></p>
       <%= yield %>
     </article>
@@ -48,4 +73,19 @@
       
     </footer>
   </body>
+  <script>
+    var button = document.querySelector('.sidebar_button');
+    function closeSideBar() {
+      let body = document.querySelector('body');
+      body.classList.remove('open');
+    }
+    function openSideBar() {
+      let body = document.querySelector('body');
+      let container = document.querySelector('.container');
+      body.classList.add('open');
+      container.addEventListener('click', closeSideBar, false);
+      console.log('clicked');
+    }
+    button.addEventListener('click', openSideBar, false);
+  </script>
 </html>

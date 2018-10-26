@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  include GroupUtil
 
   # GET /groups
   # GET /groups.json
@@ -10,6 +11,12 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @id = params['id']
+    @group = Group.where(id: @id)[0]
+    @ancestors = get_ancestor_groups(@group)
+    @descendants = get_descendant_groups(@group)
+    @tasks_todo = Task.where(group_id: @descendants.map{ |group| group.id}, status: 1).order('priority DESC')
+    @tasks_doing = Task.where(group_id: @descendants.map{ |group| group.id}, status: 2).order('priority DESC')
   end
 
   # GET /groups/new
@@ -116,6 +123,8 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  helper_method :get_ancestor_groups
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,6 +1,7 @@
 <% content_for :manifest do %>
 	<link rel="manifest" href="manifest.json"/>
 	<%= javascript_include_tag '/sw/serviceworker.js' %>
+	<%= javascript_include_tag 'timer.js' %>
 <% end %>
 <% content_for :title do %>
 	ホーム
@@ -14,7 +15,9 @@
 	<% end %>
 <% end %>
 
+
 <div class="container">
+	<h1>ホーム</h1>
 	<p id="notice"><%= notice %></p>
 
 <!-- 	<% if params[:q] %>
@@ -25,195 +28,8 @@
 		<% end %>
 	<% end %> -->
 	<div class="boards">
-		<section class="board">
-			<h2>TODO</h2>
-			<ul>
-				<% @tasks.each do |task| %>
-				<% if task.status == 1 %>
-				<li class="card">
-					<%= link_to(task) do %>
-					<div class="card_header">
-						<h3>
-							<%= task.name %>
-							<span class="stars">
-								<%= "★" * task.importance %>
-							</span>
-						</h3>
-					</div>
-					<% end %>
-					<div class="card_body">
-						<p><%= task.note %></p>
-						<%= button_to 'start', { :action => "status_change", :id => task.id }, { :class => 'start' } %>
-					</div>
-					<div class="card_footer">
-
-					</div>
-				</li>
-				<% end %>
-				<% end %>
-			</ul>
-		</section>
-		<section class="board">
-			<h2>DOING</h2>
-			<ul>
-				<% @tasks.each do |task| %>
-				<% if task.status == 2 %>
-				<li class="card">
-					<%= link_to(task) do %>
-					<div class="card_header">
-						<h3>
-							<%= task.name %>
-							<span class="stars">
-								<%= "★" * task.importance %>
-							</span>
-						</h3>
-					</div>
-					<% end %>
-					<div class="card_body">
-						<p><%= task.note %></p>
-						<%= button_to 'finish', { :action => "status_change", :id => task.id }, { :class => 'finish' } %>
-					</div>
-					<div class="card_footer">
-					</div>
-				</li>
-				<% end %>
-				<% end %>
-			</ul>
-		</section>
-		<section class="board">
-			<h2>DONE</h2>
-			<ul>
-				<% @tasks.each do |task| %>
-				<% if task.status == 3 %>
-				<li class="card">
-					<%= link_to(task) do %>
-					<div class="card_header">
-						<h3>
-							<%= task.name %>
-							<span class="stars">
-								<%= "★" * task.importance %>
-							</span>
-						</h3>
-					</div>
-					<% end %>
-					<div class="card_body">
-						<p><%= task.note %></p>
-					</div>
-					<div class="card_footer">
-
-					</div>
-				</li>
-				<% end %>
-				<% end %>
-			</ul>
-		</section>
+		<%= render 'application/task_board', status: 1, tasks: @tasks %>
+		<%= render 'application/task_board', status: 2, tasks: @tasks %>
 	</div>
 </div>
-<!-- 		<table>
-			<thead>
-				<tr>
-					<th>タスク名</th>
-					<th>締め切り</th>
-					<th>重要度</th>
-					<th>メモ</th>
-					<th>進捗</th>
-					<th>状態遷移</th>
-					<th>始めた時刻</th>
-					<th>終わった時刻</th>
-					<th colspan="3"></th>
-				</tr>
-			</thead>
-			<tbody>
-			<% @tasks.each do |task| %>
-			<tr>
-				<% if task.status == 1 %>
-					<td><%= task.name %></td>        
-					<td><%= task.deadline %></td>
-					<td><%= "☆" * task.importance %></td>
-					<td><%= task.note %></td>
-					<td>TODO</td>
-					<td><%= button_to 'やる', { :action => "status_change", :id => task.id } %>
-					<td><%= task.start_time %></td>
-					<td><%= task.finish_time %></td>
-					<td><%= link_to '詳細を見る', task %></td>
-					<td><%= link_to 'このタスクを編集する', edit_task_path(task) %></td>
-					<td><%= link_to 'このタスクを削除する', task, method: :delete, data: { confirm: 'ほんとに?' } %></td>
-				<% end %>
-			</tr>
-			<% end %>
-			</tbody>
-			</table>
-			<h2>DOING</h2>
-			<table>
-			<thead>
-				<tr>
-					<th>タスク名</th>
-					<th>締め切り</th>
-					<th>重要度</th>
-					<th>メモ</th>
-					<th>進捗</th>
-					<th>状態遷移</th>
-					<th>始めた時刻</th>
-					<th>終わった時刻</th>
-					<th colspan="3"></th>
-				</tr>
-			</thead>
-			<tbody>
-			<% @tasks.each do |task| %>
-			<tr>
-				<% if task.status == 2 %>
-					<td><%= task.name %></td>        
-					<td><%= task.deadline %></td>
-					<td><%= "☆" * task.importance %></td>
-					<td><%= task.note %></td>
-					<td>DOING</td>
-					<td><%= button_to 'やった', { :action => "status_change", :id => task.id } %>
-					<td><%= task.start_time %></td>
-					<td><%= task.finish_time %></td>
-					<td><%= link_to '詳細を見る', task %></td>
-					<td><%= link_to 'このタスクを編集する', edit_task_path(task) %></td>
-					<td><%= link_to 'このタスクを削除する', task, method: :delete, data: { confirm: 'ほんとに?' } %></td>
-				<% end %>
-			</tr>
-			<% end %>
-			</tbody>
-			</table>
-			<h2>DONE</h2>
-			<table>
-			<thead>
-				<tr>
-					<th>タスク名</th>
-					<th>締め切り</th>
-					<th>重要度</th>
-					<th>メモ</th>
-					<th>進捗</th>
-					<th>状態遷移</th>
-					<th>始めた時刻</th>
-					<th>終わった時刻</th>
-					<th colspan="3"></th>
-				</tr>
-			</thead>
-			<tbody>
-			<% @tasks.each do |task| %>
-				<tr>
-				<% if task.status == 3 %>
-					<td><%= task.name %></td>        
-					<td><%= task.deadline %></td>
-					<td><%= "☆" * task.importance %></td>
-					<td><%= task.note %></td>
-					<td>DONE</td>
-					<td></td>
-					<td><%= task.start_time %></td>
-					<td><%= task.finish_time %></td>
-					<td><%= link_to '詳細を見る', task %></td>
-					<td><%= link_to 'このタスクを編集する', edit_task_path(task) %></td>
-					<td><%= link_to 'このタスクを削除する', task, method: :delete, data: { confirm: 'ほんとに?' } %></td>
-				<% end %>
-				</tr>
-			<% end %>
-			</tbody>
-	</table>
-<br>
-</div> -->
-
-<%= link_to '新しいタスクを作る', new_task_path %>
+<%= render 'application/task_create_button' %>

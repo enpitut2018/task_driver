@@ -90,3 +90,6 @@ gem 'twitter'
 
 #tree structure
 gem 'awesome_nested_set'
+
+#jquery
+gem "jquery-rails"
