@@ -21,11 +21,66 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
-    @group = Group.new
+    @group = Group.new()
   end
 
   # GET /groups/1/edit
   def edit
+  end
+
+  # Fork method
+  def fork
+    def search(parent_id, new_parent_id)
+      while true do
+        @groups = Group.where(parent_id: parent_id)
+        if @groups.empty?
+          break
+        else
+          @groups.each do |group|
+            group_attribute = group.attributes
+            group_attribute.delete('id')
+            group_attribute.delete('created_at')
+            group_attribute.delete('updated_at')
+            @group = Group.new(group_attribute.merge({:user_id => current_user.id, :parent_id => new_parent_id}))
+            @group.save
+            @tasks = Task.where(group_id: group.id)
+            
+            @tasks.each do |task|
+              task_attribute = task.attributes
+
+              task_attribute.delete('id')
+              task_attribute.delete('created_at')
+              task_attribute.delete('updated_at')
+              @task = Task.new(task_attribute.merge({:user_id => current_user.id, :group_id => new_parent_id}))
+              @task.save
+            end
+
+            search(group.id, @group.id)
+          end
+          break
+        end
+      end
+      #return new_parent_id
+    end
+
+    # respond_to do |format|
+    #   format.html { redirect_to groups_url, notice: attribute }
+    #   format.json { head :no_content }
+    # end
+
+    @group = Group.where(id: params[:id])
+    attribute = @group[0].attributes
+    attribute.delete('id')
+
+    @parent_group = Group.new(attribute.merge({:user_id => current_user.id}))
+    @parent_group.save
+    search(params[:id], @parent_group.id)
+
+    respond_to do |format|
+      format.html { redirect_to groups_url, notice: 'グループをフォークしました。。' }
+      format.json { head :no_content }
+    end
+    
   end
 
   # POST /groups
