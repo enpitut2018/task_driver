@@ -1,63 +1,52 @@
-<p id="notice"><%= notice %></p>
- <% if @group.user_id == current_user.id %>
-  <p>
-    <strong>グループ名:</strong>
-    <%= @group.name %>
-  </p>
+<div class="container">
+    <% if @group.user_id == current_user.id || @group.visible == 1 %>
+    <h1>
+        <%= @group.name %>
+        <%= link_to edit_group_path(@group) do %>
+        <i class="fas fa-cog"></i>
+        <% end %>
+        <% if @group.importance != nil %>
+        <span class="stars"><%= "★" * @group.importance %></span>
+        <% end %>
+    </h1>
+    <p>
+        <% if @group.deadline != nil %>
+        <strong>締め切り:</strong><%= @group.deadline %>
+        <% end %>
+    </p>
+    <div class="breadcrumbs">
+        <% @ancestors.each_with_index do |group, index| %>
+        <% if index != @ancestors.size - 1 %>
+        <span class="breadcrumb">
+            <%= link_to group.name, group %> >
+        </span>
+        <% else %>
+        <span class="breadcrumb">
+            <%= group.name %>
+        </span>
+        <% end %>
+        <% end %>
+    </div>
+    <p id="notice"><%= notice %></p>
+    <div class="boards">
+        <%= render 'application/task_board', status: 1, tasks: @tasks_todo %>
+        <%= render 'application/task_board', status: 2, tasks: @tasks_doing %>
+    </div>
+    <%= link_to 'グループ一覧に戻る', groups_path %>
 
-<%
-=begin
-%>
-  <p>
-    <strong>Parent:</strong>
-    <%= @group.parent_id %>
-  </p>
-  <p>
-    <strong>User:</strong>
-    <%= @group.user_id %>
-  </p>
-<%
-=end
-%>
-
-  <p>
-    <strong>重要度:</strong>
-    <% if @group.importance != nil %>
-      <span class="stars"><%= "★" * @group.importance %></span>
-    <% else %>
-      未登録です。
+    <%= link_to({:controller => "tasks", :action => "new"}) do %>
+    <div class="icon_circle">
+        <div class="circle_inner">
+            <i class="fas fa-plus"></i>
+        </div>
+    </div>
     <% end %>
 
-  </p>
-
-  <p>
-    <strong>締め切り:</strong>
-    <% if @group.deadline != nil %>
-      <%= @group.deadline %>
     <% else %>
-      未登録です。
-    <% end %>
-  </p>
-
-  <p>
-    <strong>登録されているタスク:</strong>
-    <% tasks = Task.where(group_id: @group.id)%>
-    <% if tasks.size == 0 %>
-      なし
-    <% else %>
-      <% tasks.each do |line| %>
-        <%= link_to line.name, task_path(line) %>
-        <br>
-      <% end %>
-    <% end %>
-  </p>
-  <%= link_to 'このグループを編集する', edit_group_path(@group) %> |
-  <%= link_to 'グループ一覧に戻る', groups_path %>
-
-<% else %>
-  <div class="attention">
-    <i class="fas fa-exclamation-circle"></i>
-    <p>グループへのアクセス権がありません。</p>
-    <%= link_to 'タスク一覧へ戻る', tasks_path %>
+    <div class="attention">
+      <i class="fas fa-exclamation-circle"></i>
+      <p>グループへのアクセス権がありません。</p>
+      <%= link_to 'タスク一覧へ戻る', tasks_path %>
   </div>
-<% end %>
+  <% end %>
+</div>
