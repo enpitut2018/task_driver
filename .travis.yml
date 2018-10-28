@@ -8,6 +8,7 @@ services:
 - postgresql
 before_install:
 - gem install bundler
+- chmod +x bin/travis.sh
 bundler_args: "--without development --jobs=3"
 cache: bundler
 before_script:
@@ -16,8 +17,7 @@ before_script:
 - bundle exec rails db:create
 - bundle exec rails db:migrate
 script:
-- echo deploying...
-- bundle exec rails assets:precompile
+- bin/travis.sh
 deploy:
   provider: heroku
   api_key:
