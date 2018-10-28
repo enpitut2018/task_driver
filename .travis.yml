@@ -17,6 +17,7 @@ before_script:
 - bundle exec rails db:migrate
 script:
 - echo deploying...
+- bundle exec rails assets:precompile
 deploy:
   provider: heroku
   api_key:
