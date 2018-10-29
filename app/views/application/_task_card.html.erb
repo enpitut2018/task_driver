@@ -1,0 +1,34 @@
+<%
+	current_group = Group.where(id: task.group_id)[0]
+	ancestors = get_ancestor_groups(current_group)
+%>
+
+<li class="card">
+	<%= link_to(task) do %>
+	<div class="card_header">
+		<h3>
+			<%= task.name %>
+			<span class="stars">
+				<%= "★" * task.importance %>
+			</span>
+		</h3>
+	</div>
+	<% end %>
+	<div class="card_body">
+		<% if !task.note.empty? %>
+		<p><%= task.note %></p>
+		<% end %>
+		<div class="tags">
+			<% ancestors.each do |group| %>
+			<span class="tag">
+				<%= link_to group.name, group %>
+			</span>
+			<% end %>
+		</div>
+		<% if status == 1 %>
+			<%= button_to 'start', { :action => "status_change", :controller => "tasks", :id => task.id }, { :class => 'start' } %>
+		<% elsif status == 2 %>
+			<%= button_to 'finish', { :action => "status_change", :controller => "tasks", :id => task.id }, { :class => 'finish' } %>
+		<% end %>
+	</div>
+</li>
