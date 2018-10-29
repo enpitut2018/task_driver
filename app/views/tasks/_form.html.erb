@@ -32,6 +32,12 @@
   </div>
 
   <div class="field">
+    <%= form.label :グループ %>
+    <%#%= form.number_field :parent_id, id: :group_parent_id %>
+    <%= form.collection_select :group_id, Group.where('user_id': current_user.id), :id, :name %>
+  </div>
+
+  <div class="field">
     <%= form.label :進捗 %>
     <%= form.select :status, [["TODO", 1],["DOING", 2], ["DONE", 3]] %>
   </div>

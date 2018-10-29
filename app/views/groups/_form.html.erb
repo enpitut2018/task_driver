@@ -1,0 +1,56 @@
+<%= form_with(model: group, local: true) do |form| %>
+  <% if group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+      <ul>
+      <% group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :グループ %>
+    <%#%= form.number_field :parent_id, id: :group_parent_id %>
+    <%= form.collection_select :parent_id, Group.where('user_id': current_user.id), :id, :name, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :グループ名 %>
+    <%= form.text_field :name, id: :group_name %>
+  </div>
+
+<%
+=begin
+%>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: :group_user_id %>
+  </div>
+
+<%
+=end
+%>
+
+  <div class="field">
+    <%= form.label :重要度 %>
+    <%= form.select :importance, [["☆", 1],["☆☆", 2], ["☆☆☆", 3], ["☆☆☆☆", 4], ["☆☆☆☆☆", 5]] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :締め切り %>
+    <%= form.datetime_select :deadline, id: :group_deadline %>
+  </div>
+
+  <%# 公開・非公開設定のボタン%>
+  <div class="field">
+    公開: <%= form.radio_button 'visible', '1', {} %><br />
+    非公開: <%= form.radio_button 'visible', '0', {} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

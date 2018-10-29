@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180727044426) do
+
+ActiveRecord::Schema.define(version: 20181017051539) do
+
 
   create_table "audio_tests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.integer "parent_id"
+    t.string "name", null: false
+    t.integer "user_id", null: false
+    t.integer "importance"
+    t.datetime "deadline"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "visible", default: 0, null: false
   end
 
   create_table "oauths", force: :cascade do |t|
@@ -38,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180727044426) do
     t.integer "user_id"
     t.integer "urgency"
     t.integer "priority"
+    t.integer "group_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,6 +77,7 @@ ActiveRecord::Schema.define(version: 20180727044426) do
     t.string "provider"
     t.string "uid"
     t.string "username"
+    t.string "endpoint"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
