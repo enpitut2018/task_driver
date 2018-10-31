@@ -46,8 +46,10 @@
 
 <% if @timer == 1 then %>
   <script>
-    var time = document.getElementById("start");
-    time.click();
+    window.onload = function(){
+      var time = document.getElementById("start");
+      time.click();
+    }
   </script>
 <% end %>
 
