@@ -14,8 +14,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
     group = Group.create(
       name: "general",
-      user_id: @user.id
+      user_id: current_user.id
     )
+    
     group.save
   end
 
