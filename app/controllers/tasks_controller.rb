@@ -37,6 +37,12 @@ class TasksController < ApplicationController
     @graph = get_graph
   end
 
+  # GET /tasks/importance
+  def importance
+    importance = Task.where(user_id: current_user.id).order('priorith DESC').limit(1)
+    redirect_to controller: 'tasks', action: 'show', id: importance.id, timer: 1
+  end
+
   # POST /tasks
   # POST /tasks.json
   def create

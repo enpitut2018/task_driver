@@ -37,6 +37,6 @@ self.addEventListener('notificationclick', function(event){
         }
         else if(event.action == "yes2"){
             console.log("openwindow");
-            clients.openWindow("/tasks/1?timer=1");
+            clients.openWindow("/tasks/importance");
         }
 }, false);
