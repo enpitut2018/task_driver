@@ -4,9 +4,9 @@ $(function() {
       $('#timer').fadeIn();
       $('#overlay').css(
         {
-            display: 'none'
+          display: 'none'
         }          
-      )
+      ) 
     }
     );
     
@@ -15,7 +15,7 @@ $(function() {
       $('#timer').fadeOut();
       $('#overlay').css(
         {
-            display: 'block'
+          display: 'block'
         }          
       )
  
