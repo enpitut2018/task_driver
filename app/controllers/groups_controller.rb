@@ -41,17 +41,17 @@ class GroupsController < ApplicationController
             group_attribute.delete('id')
             group_attribute.delete('created_at')
             group_attribute.delete('updated_at')
-            @group = Group.new(group_attribute.merge({:user_id => current_user.id, :parent_id => new_parent_id}))
+            @group = Group.new(group_attribute.merge({:user_id => current_user.id, :parent_id => new_parent_id, :visible => 0}))
             @group.save
+
             @tasks = Task.where(group_id: group.id)
-            
             @tasks.each do |task|
               task_attribute = task.attributes
-
               task_attribute.delete('id')
               task_attribute.delete('created_at')
               task_attribute.delete('updated_at')
-              @task = Task.new(task_attribute.merge({:user_id => current_user.id, :group_id => new_parent_id}))
+
+              @task = Task.new(task_attribute.merge({:user_id => current_user.id, :group_id => @group.id}))
               @task.save
             end
 
@@ -72,8 +72,21 @@ class GroupsController < ApplicationController
     attribute = @group[0].attributes
     attribute.delete('id')
 
-    @parent_group = Group.new(attribute.merge({:user_id => current_user.id}))
+    @parent_group = Group.new(attribute.merge({:user_id => current_user.id, :visible => 0}))
     @parent_group.save
+
+    @tasks = Task.where(group_id: params[:id])
+
+    @tasks.each do |task|
+      task_attribute = task.attributes
+      task_attribute.delete('id')
+      task_attribute.delete('created_at')
+      task_attribute.delete('updated_at')
+
+      @task = Task.new(task_attribute.merge({:user_id => current_user.id, :group_id => @parent_group.id}))
+      @task.save
+    end
+
     search(params[:id], @parent_group.id)
 
     respond_to do |format|
