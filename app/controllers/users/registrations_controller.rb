@@ -12,10 +12,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
+
     group = Group.create(
       name: "general",
       user_id: @user.id
     )
+    
     group.save
   end
 
