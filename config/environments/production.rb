@@ -60,6 +60,9 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "myapp_#{Rails.env}"
+  mail = ENV['GMAIL_ID']
+  pass = ENV['GMAIL_PASSWORD']
+
   config.action_mailer.perform_caching = false
 
   config.action_mailer.default_url_options = { host: 'task-driver.herokuapp.com'}
@@ -70,8 +73,8 @@ Rails.application.configure do
     :address => "smtp.gmail.com",
     :port => 587,
     :domain => 'smtp.gmail.com',
-    :user_name => ENV['GMAIL_ID'], 
-    :password => ENV['GMAIL_PASSWORD'], 
+    :user_name => mail, 
+    :password => pass, 
     :authentication => 'login'
   }
   

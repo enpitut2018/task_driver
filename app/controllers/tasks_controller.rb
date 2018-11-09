@@ -1,12 +1,14 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  include Pixela
+  include GroupUtil
 
   # GET /tasks
   # GET /tasks.json
   def index
     if params['q'].nil?
       @tasks = Task.where(user_id: current_user.id).order('priority DESC')
-    end    
+    end
     @q = Task.where(user_id: current_user.id).order('priority DESC').ransack(params[:q])
     @tasks = @q.result(distinct: true)
   end
@@ -108,6 +110,8 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  helper_method :get_ancestor_groups
 
   private
   def twitter_client

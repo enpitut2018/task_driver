@@ -16,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       name: "general",
       user_id: @user.id
     )
+    
     group.save
   end
 
