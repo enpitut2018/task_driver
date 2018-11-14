@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181017051539) do
+ActiveRecord::Schema.define(version: 20181114060139) do
 
   create_table "audio_tests", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -76,6 +76,9 @@ ActiveRecord::Schema.define(version: 20181017051539) do
     t.string "uid"
     t.string "username"
     t.string "endpoint"
+    t.string "key"
+    t.string "auth"
+    t.string "encoding"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
