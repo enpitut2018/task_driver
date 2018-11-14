@@ -16,6 +16,10 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    #5分タイマーを作動させるフラグ
+    if (params[:timer] == '1')
+      @timer = 1;
+    end
   end
 
   # GET /tasks/new
@@ -145,7 +149,12 @@ class TasksController < ApplicationController
 
     priority = params['task']['importance'].to_i * urgency
 
-    params['task']['user_id'] = current_user.id
+    if params['task'].key?('id')
+      params['task']['user_id'] = Task.find(params['task']['id']).user_id
+    else
+      params['task']['user_id'] = current_user.id
+    end
+
     params['task']['urgency'] = urgency
     params['task']['priority'] = priority
 
