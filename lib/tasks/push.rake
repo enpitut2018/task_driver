@@ -5,10 +5,6 @@ task :push_notification => :environment do
     clients.each do |client|
         #全てのレジストレーションIDについてcurlを実行
         if client.encoding == 'aes128gcm' then
-            jwtHeader = Base64.encode64('{
-                "alg":"ES256",
-                "typ":"JWT"
-                }') #JWTヘッダー
             payload = {
                 "aud":"https://fcm.googleapis.com", 
                 "exp":1464269795, 

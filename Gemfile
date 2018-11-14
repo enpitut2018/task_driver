@@ -95,7 +95,7 @@ gem 'awesome_nested_set'
 gem "jquery-rails"
 
 #URLEncoder
-gem "base64"
+#gem "base64"
 
 #create JWT
 gem 'jwt'
