@@ -1,4 +1,6 @@
 class EndpointsController < ApplicationController
+    protect_from_forgery :except => [:register]
+
     def register
       user = User.find_by(id: current_user.id)
       user.endpoint = params[:endpoint]
