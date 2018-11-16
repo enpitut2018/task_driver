@@ -6,12 +6,13 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    
+
     if current_user.sign_in_count.zero?
       group = Group.create(
         name: "general",
-        user_id: @user.id
+        user_id: current_user.id
       )
+      
       group.save
     end
 
