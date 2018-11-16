@@ -54,7 +54,8 @@
 <% end %>
 
   <div class="timer" id="timer">
-    <form name="timer">
+  <h1>とりあえず5分「<%= @task.name %>」をやっていこう！</h1>
+    <form class="timer_form">
       <%= label_tag("残り時間:") %>
       <input type="text" value="5">分
       <input type="text" value="0">秒<br>
