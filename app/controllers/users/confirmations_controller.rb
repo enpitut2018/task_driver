@@ -9,11 +9,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   #POST /resource/confirmation
   def create
     super
-    group = Group.create(
-      name: "general",
-      user_id: @user.id
-    )
-    group.save
   end
 
 
