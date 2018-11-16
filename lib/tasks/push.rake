@@ -1,6 +1,6 @@
 task :push_notification => :environment do 
     #エンドポイントが登録されているすべてのユーザを取得
-    clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("endpoint, key, auth, encoding")
+    clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("username, endpoint, key, auth, encoding")
     
     clients.each do |client|
         #全てのエンドポイントについてcurlを実行
@@ -19,7 +19,7 @@ task :push_notification => :environment do
                 message: {
                     icon: 'https://example.com/images/demos/icon-512x512.png',
                     title: "今暇？",
-                    body: body,
+                    body: client.username,
                     target_url: "https://fcm.googleapis.com/wp/#{client.endpoint}" # 任意のキー、値
                 }.to_json
             }
