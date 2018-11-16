@@ -94,8 +94,14 @@ gem 'awesome_nested_set'
 #jquery
 gem "jquery-rails"
 
+#OpenSSL
+gem 'openssl'
+
 #URLEncoder
-#gem "base64"
+gem "base64"
 
 #create JWT
-gem 'jwt'
+#gem 'jwt'
+
+#For web-push
+gem 'webpush'
