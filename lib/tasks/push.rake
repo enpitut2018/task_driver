@@ -7,7 +7,7 @@ task :push_notification => :environment do
         if client.encoding == 'aes128gcm' then
 
             payload = {
-                endpoint: client.endpoint, # ブラウザでregistration.pushManager.getSubscription()で取得したsubscriptionのendpoint
+                endpoint: https://fcm.googleapis.com/fcm/send/client.endpoint, # ブラウザでregistration.pushManager.getSubscription()で取得したsubscriptionのendpoint
                 p256dh: client.key, # 同じくsubscriptionのp256dh
                 auth: client.auth, # 同じくsubscriptionのauth
                 ttl: 86400, # 任意の値
@@ -20,13 +20,12 @@ task :push_notification => :environment do
                     icon: 'https://example.com/images/demos/icon-512x512.png',
                     title: "今暇？",
                     body: client.username,
-                    target_url: "https://fcm.googleapis.com/wp/#{client.endpoint}" # 任意のキー、値
                 }.to_json
             }
             Webpush.payload_send(payload) #送信
 
 
-            =begin
+=begin
             jwtClaim = {
                 "aud":"https://fcm.googleapis.com", 
                 "exp":1464269795, 
@@ -36,9 +35,18 @@ task :push_notification => :environment do
             
             payload_key = OpenSSL::PKey::EC.new('prime256v1')
             payload_key.generate_key #メッセージ暗号化用の鍵ペアを生成（使い捨て）
-            client_key = OpenSSL::PKey::EC.new(client.key) #クライアント公開鍵をもとにECオブジェクトを生成
-            shared_key = payload_key.dh_compute_key(client_key) #共有鍵を生成
+
+            group = OpenSSL::PKey::EC::Group.new('prime256v1')
+            client_public_key_bn = OpenSSL::BN.new(Base64.urlsafe_decode64(client.key), 2)
+            client_public_key = OpenSSL::PKey::EC::Point.new(group, client_public_key_bn) #クライアント公開鍵を元にEC::Pointオブジェクトを生成
+
+            shared_key = payload_key.dh_compute_key(client_public_key) #共有鍵を生成
             
+            auth_token = Base64.urlsafe_decode64(client.auth)
+
+            salt = Random.new.bytes(16) #HKDF暗号に使うsaltを生成
+            prk = HKDF.new(shared_key, salt: auth_token, algorithm: 'SHA256', info: "Content-Encoding: aes128gcm\0").next_bytes(32)
+
 
             system("
                 curl -v -X POST
@@ -48,7 +56,7 @@ task :push_notification => :environment do
                     -H \"\" 
                     https://fcm.googleapis.com/wp/#{client.endpoint}
             ")
-            =end
+=end
 
         elsif client.encoding == 'aesgcm' then
             system('curl --header "Authorization: key=' + ENV['FIREBASE_KEY'] + '" --header Content-Type:"application/json" https://fcm.googleapis.com/fcm/send -d "{\"registration_ids\": [\"' + endpoint.endpoint + '\"]}"')

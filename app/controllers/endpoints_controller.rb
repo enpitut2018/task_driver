@@ -9,7 +9,8 @@ class EndpointsController < ApplicationController
       user.auth = params[:auth]
       user.encoding = params[:contentEncoding]
       user.save
-      ridirect_to '/tasks/index'
+      
+      #ridirect_to '/tasks/index'  コメントのままでおけ
     end
 
     def getVapidPublicKey
