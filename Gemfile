@@ -93,3 +93,8 @@ gem 'awesome_nested_set'
 
 #jquery
 gem "jquery-rails"
+
+#GraphQL
+gem 'graphql', '1.7.7'
+
+gem 'graphiql-rails', group: :development
