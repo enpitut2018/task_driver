@@ -1,5 +1,5 @@
 <% content_for :manifest do %>
-	<%# <link rel="manifest" href="manifest.json"/> %>
+	<link rel="manifest" href="manifest.json"/>
 	<%= javascript_include_tag '/sw/serviceworker.js' %>
 	<%= javascript_include_tag 'timer.js' %>
 <% end %>

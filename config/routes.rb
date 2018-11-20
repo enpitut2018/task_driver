@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'tasks/status_change'
   post 'endpoints', to: 'endpoints#register'
 
+  get 'endpoints/getVapidPublicKey'
+
   
   #ルート
   root 'tasks#index'

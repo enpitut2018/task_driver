@@ -41,13 +41,15 @@ document.addEventListener('DOMContentLoaded', function(){
                         }
 
                         //未登録の場合
-                        console.log("subscription is OK!");
-                        fetch('/endpoints#getVapidPublicKey').then(function(responce){
+                        console.log("subscription is OK!");                            
+                        fetch('/endpoints/getVapidPublicKey').then(function(responce){
+                            console.log("good");
                             return responce.json(); //VAPID(サーバ側で生成したもの)を取得
                         }).then(function(keyJson){
+                            console.log(keyJson.vapidPublicKey);
                             const convertedVapidKey = urlBase64ToUint8Array(keyJson.vapidPublicKey); //unit8に変換
                             return convertedVapidKey;
-                        }).then(function(convKey){
+                        }).then(function(convertedVapidKey){
                             return registration.pushManager.subscribe({
                                 userVisibleOnly: true,
                                 applicationServerKey: convertedVapidKey //VAPIDで使用するサーバ公開鍵
