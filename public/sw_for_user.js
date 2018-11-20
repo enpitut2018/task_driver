@@ -1,6 +1,8 @@
 self.addEventListener('push', function(evt){
     console.log("Notification start");
-    var json = evt.data.json();
+
+    //通知送信時のmessage:の中身を取得(json形式)
+    var json = evt.data.json(); 
     evt.waitUntil(
         self.registration.showNotification('今だらだらしてた？',
             {
@@ -13,8 +15,8 @@ self.addEventListener('push', function(evt){
                     title: "やる気がでません"
                 }],
                 data: {
-                    target_url: 
-                }
+                    target_url: evt.json
+                },
                 vibrate: [200, 100, 200, 100, 200, 100, 200]
             }
         )
@@ -24,5 +26,5 @@ self.addEventListener('push', function(evt){
 self.addEventListener('notificationclick', function(event){
     event.notification.close();
     console.log("openwindow");
-    clients.openWindow("/tasks/importance");
+    clients.openWindow("");
 }, false);
