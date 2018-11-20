@@ -3,6 +3,11 @@ task :push_notification => :environment do
     clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
     
     clients.each do |client|
+        #各ユーザーの最重要タスクを取得
+        Net::HTTP.start('/') {|http|
+            res = JSON.parse(http.get('/tasks/importance'))
+        }
+
         #全てのエンドポイントについてcurlを実行
         payload = {
             endpoint: 'https://fcm.googleapis.com/fcm/send/client.endpoint', # ブラウザでregistration.pushManager.getSubscription()で取得したsubscriptionのendpoint
@@ -15,9 +20,11 @@ task :push_notification => :environment do
                 private_key: ENV['VAPID_SECRET_KEY']
             },
             message: {
-                icon: 'https://example.com/images/demos/icon-512x512.png',
-                title: "今暇？",
-                body: client.username,
+                title: "task",
+                body: {
+                    name: res.name,
+                    id: res.id
+                }
             }.to_json
         }
         Webpush.payload_send(payload) #送信
