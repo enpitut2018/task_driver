@@ -15,7 +15,7 @@ self.addEventListener('push', function(evt){
                     title: "やる気がでません"
                 }],
                 data: {
-                    target_url: evt.json
+                    target_url: json.body.target_url + json.body.id + "timer=1"
                 },
                 vibrate: [200, 100, 200, 100, 200, 100, 200]
             }
@@ -26,5 +26,5 @@ self.addEventListener('push', function(evt){
 self.addEventListener('notificationclick', function(event){
     event.notification.close();
     console.log("openwindow");
-    clients.openWindow("");
+    clients.openWindow(event.notification.data != null ? event.notification.data.target_url : '/');
 }, false);
