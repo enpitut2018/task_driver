@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   post 'groups/fork'
   resources :groups
   get 'tasks/done'
+  get 'tasks/importance'
   resources :tasks
   get 'pages/page'
   post 'tasks/status_change'

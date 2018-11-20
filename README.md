@@ -23,8 +23,16 @@ We are developing this application for our course (enPiT) in University of Tsuku
 これらの機能により、タスクをやらなきゃいけないけど取り掛かるまでが長い・・・といった始めるまでの心理的なハードルをできるだけ下げることができます。
 
 ## links
+
+### service URLs
+
 * [application URL](https://task-driver.sukiyaki.party)
 * [CI](https://travis-ci.org/enpitut2018/task_driver)
+
+### related repositories
+
+* frontend [enpitut2018/task_driver_frontend](https://github.com/enpitut2018/task_driver_frontend)
+* local doker environment [enpitut2018/task_driver_docker_env](https://github.com/enpitut2018/task_driver_docker_env)
 
 ## members
 [Chihiro Sato](https://github.com/lmn8cs)  

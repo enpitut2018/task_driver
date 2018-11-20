@@ -96,3 +96,6 @@ gem "jquery-rails"
 
 #seed manager
 gem 'seed-fu', '~> 2.3'
+
+#erd generator
+gem 'rails-erd'
