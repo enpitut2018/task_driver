@@ -1,11 +1,11 @@
-# ADHD予備軍 "task driver"
+# †Task Dragon Knight† "Folivora"
 
 [![Build Status](https://travis-ci.org/enpitut2018/task_driver.svg?branch=master)](https://travis-ci.org/enpitut2018/task_driver)
 
 We are developing this application for our course (enPiT) in University of Tsukuba. Our project's goal is making a TODO app that drives users to do their tasks.
 
 ## エレベーターピッチ
-タスクの入力が面倒で、計画が立てられないことを解決したい。TODOリストが続かない人向けの、計画を提示するだけでなく、計画を実行させてくれる「タスクドライバー(仮)」です。  
+タスクの入力が面倒で、計画が立てられないことを解決したい。TODOリストが続かない人向けの、計画を提示するだけでなく、計画を実行させてくれる「Folivora」です。  
 これは、タスクの重みの数値化・他人の計画のフォークにより計画を立て、通知によりタスクの入力や実行を促します。Googleカレンダーとは違って、アプリがユーザを管理します。
 
 ## 機能
