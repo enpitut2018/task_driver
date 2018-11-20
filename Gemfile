@@ -92,4 +92,7 @@ gem 'twitter'
 gem 'awesome_nested_set'
 
 #jquery
-gem "jquery-rails"
+gem 'jquery-rails'
+
+#erd generator
+gem 'rails-erd'
