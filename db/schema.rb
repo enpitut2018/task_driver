@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20181114060139) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "provider"
-    t.string "uid"
-    t.string "username"
+    t.string "uid" #twitterアカウントのID
+    t.string "username" #twitterアカウントの名前
     t.string "endpoint"
     t.string "key"
     t.string "auth"

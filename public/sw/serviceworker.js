@@ -89,11 +89,6 @@ document.addEventListener('DOMContentLoaded', function(){
                         contentEncoding: contentEncoding
                     })
                 });
-
-                /*RegistrationIDをrailsにgetで送信
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', "/endpoints?id=" + endpoint.split("/").slice(-1).join());
-                xhr.send();*/
             }
         ).catch(function(error){
             console.warn("serviceWorker error:", error);
