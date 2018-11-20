@@ -10,16 +10,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-
-    group = Group.create(
-      name: "general",
-      user_id: @user.id
-    )
-    
-    group.save
-  end
+  # def create
+  #   super
+  # end
 
   # GET /resource/edit
   # def edit

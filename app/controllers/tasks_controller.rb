@@ -6,6 +6,16 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+
+    if current_user.sign_in_count.zero?
+      group = Group.create(
+        name: "general",
+        user_id: current_user.id
+      )
+      
+      group.save
+    end
+
     if params['q'].nil?
       @tasks = Task.where(user_id: current_user.id).order('priority DESC')
     end
