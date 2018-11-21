@@ -10,16 +10,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-
-    group = Group.create(
-      name: "general",
-      user_id: @user.id
-    )
-    
-    group.save
-  end
+  # def create
+  #   super
+  # end
 
   # GET /resource/edit
   # def edit
@@ -32,9 +25,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    super
+    @tasks = Task.where(user_id: @user.id)
+    @tasks.each do |task|
+      task.destroy
+    end
+
+    @groups = Group.where(user_id: @user.id)
+    @groups.each do |group|
+      group.destroy
+    end
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign

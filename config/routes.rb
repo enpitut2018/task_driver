@@ -2,10 +2,14 @@ Rails.application.routes.draw do
   post 'groups/fork'
   resources :groups
   get 'tasks/done'
+  get 'tasks/importance'
   resources :tasks
   get 'pages/page'
   post 'tasks/status_change'
-  get 'endpoints', to: 'endpoints#register'
+  post 'endpoints', to: 'endpoints#register'
+  get 'endpoints/getVapidPublicKey'
+
+
 
   
   #ルート
