@@ -93,3 +93,6 @@ gem 'awesome_nested_set'
 
 #jquery
 gem "jquery-rails"
+
+# rack-cors
+gem 'rack-cors'
