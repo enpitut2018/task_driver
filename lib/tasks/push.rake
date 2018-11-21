@@ -26,7 +26,7 @@ task :push_notification => :environment do
                     title: "task",
                     body: {
                         name: res.name,
-                        id: res.id
+                        id: res.id,
                         target_url: "/tasks/"
                     }
                 }.to_json
