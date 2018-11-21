@@ -1,34 +1,37 @@
 task :push_notification => :environment do 
-    #エンドポイントが登録されているすべてのユーザを取得
-    clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
-    
-    clients.each do |client|
-        #各ユーザーの最重要タスクを取得
-        Net::HTTP.start('/') {|http|
-            res = JSON.parse(http.get('/tasks/importance'))
-        }
+    hour = DateTime.now.hour
+    if(!(hour > 1 && hour < 7)) then
+        #エンドポイントが登録されているすべてのユーザを取得
+        clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
+        
+        clients.each do |client|
+            
+            #各ユーザーの最重要タスクを取得
+            Net::HTTP.start('/') {|http|
+                res = JSON.parse(http.get('/tasks/importance'))
+            }
 
-        #全てのエンドポイントについてcurlを実行
-        payload = {
-            endpoint: 'https://fcm.googleapis.com/fcm/send/client.endpoint', # ブラウザでregistration.pushManager.getSubscription()で取得したsubscriptionのendpoint
-            p256dh: client.key, # 同じくsubscriptionのp256dh
-            auth: client.auth, # 同じくsubscriptionのauth
-            ttl: 86400, # 任意の値
-            vapid: {
-                subject: 'https://task-driver.sukiyaki.party', # APPサーバのコンタクト用URIとか('mailto:' もしくは 'https://')
-                public_key: ENV['VAPID_PUBLIC_KEY'],
-                private_key: ENV['VAPID_SECRET_KEY']
-            },
-            message: {
-                title: "task",
-                body: {
-                    name: res.name,
-                    id: res.id
-                    target_url: "/tasks/"
-                }
-            }.to_json
-        }
-        Webpush.payload_send(payload) #送信
+            #全てのエンドポイントについてcurlを実行
+            payload = {
+                endpoint: 'https://fcm.googleapis.com/fcm/send/client.endpoint', # ブラウザでregistration.pushManager.getSubscription()で取得したsubscriptionのendpoint
+                p256dh: client.key, # 同じくsubscriptionのp256dh
+                auth: client.auth, # 同じくsubscriptionのauth
+                ttl: 86400, # 任意の値
+                vapid: {
+                    subject: 'https://task-driver.sukiyaki.party', # APPサーバのコンタクト用URIとか('mailto:' もしくは 'https://')
+                    public_key: ENV['VAPID_PUBLIC_KEY'],
+                    private_key: ENV['VAPID_SECRET_KEY']
+                },
+                message: {
+                    title: "task",
+                    body: {
+                        name: res.name,
+                        id: res.id
+                        target_url: "/tasks/"
+                    }
+                }.to_json
+            }
+            Webpush.payload_send(payload) #送信
 
 
 =begin
