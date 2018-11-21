@@ -90,7 +90,7 @@ class TasksController < ApplicationController
       @task.status += 1
 
       if Oauth.where(user_id: current_user.id)[0]
-        # tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#TaskDriver"
+        # tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#Folivora"
         # tweet(tweetText)
       end
 
@@ -100,7 +100,7 @@ class TasksController < ApplicationController
       save_commitment(Time.gm(2018, 8, 17))
 
       if Oauth.where(user_id: current_user.id)[0]
-        # tweetText = "タスクおわりました！\n応援ありがとうございました!\n#TaskDriver"
+        # tweetText = "タスクおわりました！\n応援ありがとうございました!\n#Folivora"
         # tweet(tweetText)
       end
 

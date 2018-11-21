@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title><% if yield(:title).present? %><%= yield :title %> - <% end %>TaskDriver</title>
+    <title><% if yield(:title).present? %><%= yield :title %> - <% end %>Folivora</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -15,7 +15,7 @@
   <body>
     <header>
       <div class="header_logo">
-        <%= link_to 'TaskDriver', root_path, { :class => 'home_link' } %>
+        <%= link_to 'Folivora', root_path, { :class => 'home_link' } %>
       </div>
       <%= yield :search %>
       <nav>
