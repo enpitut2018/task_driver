@@ -54,7 +54,7 @@ class TasksController < ApplicationController
     else
       limit = 1
     end
-    importance = Task.where(user_id: current_user.id).order('importance DESC, urgency DESC').limit(limit)
+    importance = Task.where(user_id: current_user.id, status: 1).order('importance DESC, urgency DESC').limit(limit)
     
     render :json => importance
     # redirect_to controller: 'tasks', action: 'show', id: importance.id, timer: 1
