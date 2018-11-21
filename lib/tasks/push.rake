@@ -8,7 +8,7 @@ task :push_notification => :environment do
             
             #各ユーザーの最重要タスクを取得
             Net::HTTP.start('/') {|http|
-                res = JSON.parse(http.get('/tasks/importance'))
+                res = JSON.parse(http.get('/tasks/importance')) #resには配列がはいる
             }
 
             #全てのエンドポイントについてcurlを実行
@@ -25,8 +25,8 @@ task :push_notification => :environment do
                 message: {
                     title: "task",
                     body: {
-                        name: res.name,
-                        id: res.id,
+                        name: res[0].name,
+                        id: res[0].id,
                         target_url: "/tasks/"
                     }
                 }.to_json
