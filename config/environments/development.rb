@@ -66,5 +66,6 @@ Rails.application.configure do
 
   config.web_console.whitelisted_ips = '0.0.0.0/0'
 
+  # allowed origin
   config.x.cors_allowed_origins = 'http://localhost:3000'
 end
