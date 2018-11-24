@@ -96,3 +96,6 @@ gem "jquery-rails"
 
 # rack-cors
 gem 'rack-cors'
+
+# devise-JWT
+gem 'devise-jwt'
