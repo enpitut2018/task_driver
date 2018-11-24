@@ -98,3 +98,9 @@ gem "jquery-rails"
 gem 'graphql', '1.7.7'
 
 gem 'graphiql-rails', group: :development
+
+# rack-cors
+gem 'rack-cors'
+
+# devise-JWT
+gem 'devise-jwt'
