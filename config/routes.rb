@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   post 'groups/fork'
-  resources :groups
+  # resources :groups
   get 'tasks/done'
-  resources :tasks
+  # resources :tasks
   get 'pages/page'
   post 'tasks/status_change'
   get 'endpoints', to: 'endpoints#register'
@@ -20,6 +20,11 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "sign_in", :to => "users/sessions#new"
     get "sign_out", :to => "users/sessions#destroy" 
+  end
+
+  scope :v1, defaults: { format: :json } do
+    resources :groups
+    resources :tasks
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
