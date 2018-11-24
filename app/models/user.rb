@@ -2,7 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable,
+         :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
          
          def self.find_for_oauth(auth)
           user = User.where(uid: auth.uid, provider: auth.provider).first
