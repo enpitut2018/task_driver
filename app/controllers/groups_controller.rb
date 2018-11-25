@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
   include GroupUtil
 
   # GET /groups
@@ -63,11 +64,6 @@ class GroupsController < ApplicationController
       #return new_parent_id
     end
 
-    # respond_to do |format|
-    #   format.html { redirect_to groups_url, notice: attribute }
-    #   format.json { head :no_content }
-    # end
-
     @group = Group.where(id: params[:id])
     attribute = @group[0].attributes
     attribute.delete('id')
@@ -90,7 +86,7 @@ class GroupsController < ApplicationController
     search(params[:id], @parent_group.id)
 
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'グループをフォークしました。。' }
+      format.html { redirect_to groups_url, notice: 'グループをフォークしました。' }
       format.json { head :no_content }
     end
     
@@ -104,7 +100,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to @group, notice: 'グループが作成されました。' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -118,7 +114,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to @group, notice: 'グループが更新されました。' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -130,7 +126,33 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+    def search(parent_id)
+      while true do
+        @groups = Group.where(parent_id: parent_id)
+        if @groups.empty?
+          break
+        else
+          @groups.each do |group|
+            @tasks = Task.where(group_id: group.id)
+            @tasks.each do |task|
+              task.destroy
+            end
+            search(group.id)
+            group.destroy
+          end
+          break
+        end
+      end
+      #return new_parent_id
+    end
+
+    search(@group.id)
+    @tasks = Task.where(group_id: @group.id)
+    @tasks.each do |task|
+      task.destroy
+    end
     @group.destroy
+    
     respond_to do |format|
       format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
