@@ -5,4 +5,5 @@ Types::UserType = GraphQL::ObjectType.define do
   field :username, types.String
   field :created_at, !types.String
   field :updated_at, !types.String
+  connection :groups, !Types::GroupType.connection_type
 end

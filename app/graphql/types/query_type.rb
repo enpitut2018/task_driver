@@ -8,4 +8,9 @@ Types::QueryType = GraphQL::ObjectType.define do
       ctx[:current_user]
     }
   end
+
+  field :group, !Types::GroupType do
+    resolve -> (_obj, args, ctx) {
+    }
+  end
 end
