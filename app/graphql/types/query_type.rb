@@ -13,4 +13,9 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve -> (_obj, args, ctx) {
     }
   end
+
+  field :task, !Types::TaskType do
+    resolve -> (_obj, args, ctx) {
+    }
+  end
 end
