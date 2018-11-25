@@ -93,3 +93,12 @@ gem 'awesome_nested_set'
 
 #jquery
 gem "jquery-rails"
+
+#seed manager
+gem 'seed-fu', '~> 2.3'
+
+#erd generator
+gem 'rails-erd'
+
+#web-push(openssl,jwt,base64を含む)
+gem "webpush"

@@ -1,12 +1,13 @@
 module GroupUtil
   extend ActiveSupport::Concern
 
-  def get_ancestor_groups(group)
-    ancestors = [group]
-    current_node = group
+  def get_ancestor_groups(current_node)
+    ancestors = [current_node]
+
     while current_node = Group.where(id: current_node.parent_id)[0] do
       ancestors.push(current_node)
     end
+    
     return ancestors.reverse!
   end
 
