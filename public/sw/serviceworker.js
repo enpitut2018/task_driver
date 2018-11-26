@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             console.log("getsubscription is OK!");
                             return subscription
                         }
-                        
+
                         //未登録の場合
                         console.log("subscription is OK!");                            
                         fetch('/endpoints/getVapidPublicKey').then(function(responce){
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function(){
             //以下は購読成功時の処理
             function(subscription){
                 endpoint = subscription.endpoint; //エンドポイントURL
-                console.log("pushManager RegistrationID:", endpoint.split("/").slice(-1).join());
+                console.log("pushManager RegistrationID:", endpoint);
                 publicKey = encodeBase64URL(subscription.getKey('p256dh')); //クライアント公開鍵
                 console.log("publicKey:", publicKey);
                 authSecret = encodeBase64URL(subscription.getKey('auth')); //auth secret
