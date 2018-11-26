@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', function(){
         ).then(
             //以下は購読成功時の処理
             function(subscription){
-                const endpoint = subscription.endpoint; //エンドポイントURL
+                endpoint = subscription.endpoint; //エンドポイントURL
                 console.log("pushManager RegistrationID:", endpoint.split("/").slice(-1).join());
                 publicKey = encodeBase64URL(subscription.getKey('p256dh')); //クライアント公開鍵
                 console.log("publicKey:", publicKey);
-                const authSecret = encodeBase64URL(subscription.getKey('auth')); //auth secret
+                authSecret = encodeBase64URL(subscription.getKey('auth')); //auth secret
                 console.log("authSecret:", authSecret);
                 let contentEncoding; //プッシュ通知のときに使用するContent-Encoding
                 if ('supportedContentEncodings' in PushManager) {
