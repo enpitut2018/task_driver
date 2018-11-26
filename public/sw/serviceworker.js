@@ -34,19 +34,18 @@ document.addEventListener('DOMContentLoaded', function(){
                 //console.log("ready is OK!");
                 return registration.pushManager.getSubscription().then(
                     function(subscription){
-                        //すでに登録済みの場合
-                        if(subscription){
+                        if(subscription){ //すでに登録済みの場合
                             console.log("getsubscription is OK!");
                             return subscription
                         }
-
+                        
                         //未登録の場合
                         console.log("subscription is OK!");                            
                         fetch('/endpoints/getVapidPublicKey').then(function(responce){
                             console.log("good");
                             return responce.json(); //VAPID(サーバ側で生成したもの)を取得
                         }).then(function(keyJson){
-                            console.log(keyJson.vapidPublicKey);
+                            //console.log(keyJson.vapidPublicKey);
                             const convertedVapidKey = urlBase64ToUint8Array(keyJson.vapidPublicKey); //unit8に変換
                             return convertedVapidKey;
                         }).then(function(convertedVapidKey){
@@ -71,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 if ('supportedContentEncodings' in PushManager) {
                     contentEncoding = PushManager.supportedContentEncodings.includes('aes128gcm') ? 'aes128gcm' : 'aesgcm';
                 }
-                  else{
+                else{
                     contentEncoding = 'aesgcm';
                 }
                 //以上の4つのパラメーターをDBに登録しておく
