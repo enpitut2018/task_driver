@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 console.log("pushManager RegistrationID:", endpoint.split("/").slice(-1).join());
                 publicKey = encodeBase64URL(subscription.getKey('p256dh')); //クライアント公開鍵
                 console.log("publicKey:", publicKey);
-                const publicKey_pem = "-----BEGIN EC PUBLIC KEY-----\n" + publicKey + "\n-----END EC PUBLIC KEY-----\n"
                 const authSecret = encodeBase64URL(subscription.getKey('auth')); //auth secret
                 console.log("authSecret:", authSecret);
                 let contentEncoding; //プッシュ通知のときに使用するContent-Encoding
@@ -84,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     headers: {'Content-Type': 'application/json; charset=UTF-8'},
                     body: JSON.stringify({
                         endpoint: endpoint,
-                        publicKey: publicKey_pem,
+                        publicKey: publicKey,
                         auth: authSecret,
                         contentEncoding: contentEncoding
                     })
