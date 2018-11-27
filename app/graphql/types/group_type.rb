@@ -4,8 +4,8 @@ Types::GroupType = GraphQL::ObjectType.define do
   field :user_id, !types.ID
   field :name, !types.String
   field :parent_id, types.ID
-  field :created_at, !types.String
-  field :updated_at, !types.String
+  field :created_at, !Types::MomentType
+  field :updated_at, !Types::MomentType
   field :deadline, types.String
   field :importance, types.Int
   field :visible, types.Boolean

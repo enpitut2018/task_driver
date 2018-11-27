@@ -8,8 +8,8 @@ Types::TaskType = GraphQL::ObjectType.define do
   field :status, !types.Int
   field :start_time, types.String
   field :finish_time, types.String
-  field :created_at, !types.String
-  field :updated_at, !types.String
+  field :created_at, !Types::MomentType
+  field :updated_at, !Types::MomentType
   field :user_id, !types.ID
   field :urgency, types.Int
   field :priority, types.Int
