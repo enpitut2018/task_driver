@@ -1,4 +1,6 @@
 class GraphqlController < ApplicationController
+  protect_from_forgery except: :execute
+  before_action :authenticate_user!
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]

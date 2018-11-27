@@ -2,7 +2,8 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-
+  protect_from_forgery except: [ :create, :create_api, :show_api ]
+  respond_to :json
   # GET /resource/sign_in
   # def new
   #   super
@@ -14,12 +15,13 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def show
+    respond_to :json
   end
 
   private
 
   def current_token
-    request.env['warden-jwt_auth.token']
+  	request.env['warden-jwt_auth.token']
   end
 
   # DELETE /resource/sign_out

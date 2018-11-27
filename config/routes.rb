@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/v1"
   end
-
-  post "/graphql", to: "graphql#execute"
 
   post 'groups/fork'
   resources :groups
@@ -18,34 +16,25 @@ Rails.application.routes.draw do
 
   #ルート
   root 'tasks#index'
-  
-  # devise_for :users, controllers: { 
-  #   omniauth_callbacks: 'users/omniauth_callbacks',
-  #   :registrations => 'users/registrations',
-  #   :sessions => 'users/sessions'  
-  #  }
 
-  # devise_scope :user do
-  #   get "sign_in", :to => "users/sessions#new"
-  #   get "sign_out", :to => "users/sessions#destroy" 
-  # end
+  devise_scope :user do
+    get "sign_in", :to => "users/sessions#new"
+    post "sign_in", :to => "users/sessions#create"
+    get "sign_out", :to => "users/sessions#destroy" 
+  end
 
   scope :v1, defaults: { format: :json } do
-    resources :groups
-    resources :tasks
+    post '/', to: 'graphql#execute'
 
-    devise_for :users, controllers: { 
+    devise_for :users, controllers: {
       omniauth_callbacks: 'users/omniauth_callbacks',
       :registrations => 'users/registrations',
       :sessions => 'users/sessions'
     }
 
     devise_scope :user do
-      get 'sign_in', :to => 'users/sessions#new'
-      get 'sign_out', :to => 'users/sessions#destroy'
-      get 'users/current', :to => 'users/sessions#show'
+      get 'users/current', to: 'users/sessions#show'
     end
-
   end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
