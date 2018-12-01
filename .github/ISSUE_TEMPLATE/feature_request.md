@@ -8,4 +8,4 @@ about: Suggest an idea for this project
 * 
 
 <!--- ## 実装の方針 --->
-*
+<!--- * --->
