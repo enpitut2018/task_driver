@@ -4,15 +4,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+  respond_to :json
+
   # GET /resource/sign_up
   # def new
   #   super
   # end
 
-  # POST /resource
-  # def create
-  #   super
-  # end
+  # POST /v1/sign_up
+  def create
+    user = User.new(post_params)
+
+    if user.save
+      render :json => user.as_json(:success => 'success', :email => user.email), :status => 201
+    else
+      warden.custome_failure!
+      render :json => user.errors, :status => 422
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -37,6 +46,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       group.destroy
     end
   end
+
+  private
+  def post_params
+    # モデル作成に必要な引数を指定
+    params.require(:user).permit(
+      :email, :password, :password_confirmation, :username
+      )
+end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
