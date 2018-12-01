@@ -1,6 +1,10 @@
 class GraphqlController < ApplicationController
   protect_from_forgery except: :execute
-  before_action :authenticate_user!
+
+  # GraphiQLからの認証なしでのアクセスを許可
+  # GraphiQLはdevelopment環境のみでマウントされる
+  before_action :authenticate_user!, :if => :not_graphiql?
+
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -31,5 +35,9 @@ class GraphqlController < ApplicationController
     else
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
+  end
+
+  def not_graphiql?
+    request.headers[:referer] != 'http://localhost:3001/graphiql'
   end
 end
