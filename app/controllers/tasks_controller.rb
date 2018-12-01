@@ -8,6 +8,16 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+
+    if current_user.sign_in_count.zero?
+      group = Group.create(
+        name: "general",
+        user_id: current_user.id
+      )
+      
+      group.save
+    end
+
     if params['q'].nil?
       @tasks = Task.where(user_id: current_user.id).order('priority DESC')
     end
@@ -37,6 +47,19 @@ class TasksController < ApplicationController
   def done
     @tasks = Task.where(user_id: current_user.id).order('finish_time DESC')
     @graph = get_graph
+  end
+
+  # GET /tasks/importance
+  def importance
+    if params[:limit]
+      limit = params[:limit].to_i
+    else
+      limit = 1
+    end
+    importance = Task.where(user_id: current_user.id, status: 1).order('importance DESC, urgency DESC').limit(limit)
+    
+    render :json => importance
+    # redirect_to controller: 'tasks', action: 'show', id: importance.id, timer: 1
   end
 
   # POST /tasks
@@ -69,7 +92,7 @@ class TasksController < ApplicationController
       @task.status += 1
 
       if Oauth.where(user_id: current_user.id)[0]
-        # tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#TaskDriver"
+        # tweetText = "今から頑張って、タスクに取り組みます！\n応援してください!\n完了報告をお楽しみに！#Folivora"
         # tweet(tweetText)
       end
 
@@ -79,7 +102,7 @@ class TasksController < ApplicationController
       save_commitment(Time.gm(2018, 8, 17))
 
       if Oauth.where(user_id: current_user.id)[0]
-        # tweetText = "タスクおわりました！\n応援ありがとうございました!\n#TaskDriver"
+        # tweetText = "タスクおわりました！\n応援ありがとうございました!\n#Folivora"
         # tweet(tweetText)
       end
 
