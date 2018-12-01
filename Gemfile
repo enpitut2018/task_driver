@@ -100,5 +100,15 @@ gem 'seed-fu', '~> 2.3'
 #erd generator
 gem 'rails-erd'
 
+#GraphQL
+gem 'graphql', '1.7.7'
+gem 'graphiql-rails', group: :development
+
+# rack-cors
+gem 'rack-cors'
+
+# devise-JWT
+gem 'devise-jwt'
+
 #web-push(openssl,jwt,base64を含む)
 gem "webpush"
