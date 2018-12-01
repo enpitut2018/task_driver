@@ -3,39 +3,40 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/v1"
   end
 
-  post 'groups/fork'
-  resources :groups
+  # post 'groups/fork'
+  # resources :groups
 
-  get 'tasks/done'
-  post 'tasks/status_change'
-  get 'tasks/importance'
-  resources :tasks
+  # get 'tasks/done'
+  # post 'tasks/status_change'
+  # get 'tasks/importance'
+  # resources :tasks
 
-  get 'pages/page'
+  # get 'pages/page'
 
-  get 'endpoints', to: 'endpoints#register'
-  get 'endpoints/getVapidPublicKey'
+  # get 'endpoints', to: 'endpoints#register'
+  # get 'endpoints/getVapidPublicKey'
 
   #ルート
-  root 'tasks#index'
+  # root 'tasks#index'
 
-  devise_scope :user do
-    get "sign_in", :to => "users/sessions#new"
-    post "sign_in", :to => "users/sessions#create"
-    get "sign_out", :to => "users/sessions#destroy" 
-  end
+  # devise_scope :user do
+  #   get "sign_in", :to => "users/sessions#new"
+  #   post "sign_in", :to => "users/sessions#create"
+  #   get "sign_out", :to => "users/sessions#destroy" 
+  # end
 
   scope :v1, defaults: { format: :json } do
     post '/', to: 'graphql#execute'
 
-    devise_for :users, controllers: {
-      omniauth_callbacks: 'users/omniauth_callbacks',
+    devise_for :users, :path => '', controllers: {
+      :omniauth_callbacs => 'users/omniauth_callbacks',
       :registrations => 'users/registrations',
       :sessions => 'users/sessions'
     }
 
     devise_scope :user do
-      get 'users/current', to: 'users/sessions#show'
+      get 'user', to: 'users/sessions#show'
+      post 'sign_up', to: 'users/registrations#create'
     end
   end
   
