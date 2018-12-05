@@ -1,6 +1,4 @@
 self.addEventListener('push', function(evt){
-    console.log("Notification start");
-
     //通知送信時のmessage:の中身を取得(json形式)
     var json = evt.data.json(); 
     evt.waitUntil(
