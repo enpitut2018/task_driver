@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181114060139) do
+ActiveRecord::Schema.define(version: 20181203213845) do
 
   create_table "audio_tests", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20181114060139) do
     t.integer "visible", default: 0, null: false
   end
 
+  create_table "jwt_blacklists", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
   create_table "oauths", force: :cascade do |t|
     t.integer "user_id"
     t.string "access_token"
@@ -41,7 +47,7 @@ ActiveRecord::Schema.define(version: 20181114060139) do
     t.datetime "deadline", null: false
     t.integer "importance", null: false
     t.text "note"
-    t.integer "status", null: false
+    t.integer "status", default: 1, null: false
     t.datetime "start_time"
     t.datetime "finish_time"
     t.datetime "created_at", null: false
@@ -49,7 +55,7 @@ ActiveRecord::Schema.define(version: 20181114060139) do
     t.integer "user_id"
     t.integer "urgency"
     t.integer "priority"
-    t.integer "group_id"
+    t.integer "group_id", null: false
   end
 
   create_table "users", force: :cascade do |t|

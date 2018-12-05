@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
   include Pixela
   include GroupUtil
 
@@ -54,7 +56,12 @@ class TasksController < ApplicationController
     else
       limit = 1
     end
-    importance = Task.where(user_id: current_user.id, status: 1).order('importance DESC, urgency DESC').limit(limit)
+    
+    if current_user.id.empty? || current_user.id.nil?
+      importance = Task.where(user_id: params[:id], status: 1).order('importance DESC, urgency DESC').limit(limit)
+    else
+      importance = Task.where(user_id: current_user.id, status: 1).order('importance DESC, urgency DESC').limit(limit)
+    end
     
     render :json => importance
     # redirect_to controller: 'tasks', action: 'show', id: importance.id, timer: 1

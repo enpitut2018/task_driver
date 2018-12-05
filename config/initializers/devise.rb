@@ -261,6 +261,19 @@ Devise.setup do |config|
   twitter_consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
   config.omniauth :twitter, twitter_consumer_key, twitter_consumer_secret
 
+  ###########################################
+  ###  setting of secrets for devise-JWT  ###
+  ###########################################
+
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.secrets.jwt_secret
+    jwt.expiration_time = 3600
+    # jwt.dispatch_requests = [ ['POST', %r{^/v1$}] ]
+    # jwt.request_formats = { v1: [:json] }
+  end
+
+  # config.skip_session_storage = [:http_auth, :params_auth]
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
