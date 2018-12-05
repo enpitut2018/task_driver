@@ -1,6 +1,6 @@
 task :push_notification => :environment do 
     hour = DateTime.now.hour
-    if(!(hour > 1 && hour < 7)) then
+    #if(!(hour > 1 && hour < 7)) then
         #エンドポイントが登録されているすべてのユーザを取得
         clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
         
@@ -67,5 +67,5 @@ task :push_notification => :environment do
             ")
 =end
         end
-    end
+    #end
 end
