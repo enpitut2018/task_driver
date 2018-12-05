@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181203213845) do
+ActiveRecord::Schema.define(version: 20181205043234) do
 
   create_table "audio_tests", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20181203213845) do
     t.integer "urgency"
     t.integer "priority"
     t.integer "group_id", null: false
+    t.index ["deadline"], name: "index_tasks_on_deadline"
   end
 
   create_table "users", force: :cascade do |t|
