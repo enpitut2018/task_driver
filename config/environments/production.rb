@@ -106,5 +106,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # allowed origin
-  config.x.cors_allowed_origins = 'https://forivora.sukiyaki.party'
+  config.x.cors_allowed_origins = 'https://folivora.sukiyaki.party'
 end
