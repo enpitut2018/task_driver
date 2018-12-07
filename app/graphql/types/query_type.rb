@@ -18,4 +18,10 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve -> (_obj, args, ctx) {
     }
   end
+
+  field :contribution, !Types::ContributionType do
+    resolve -> (_obj, args, ctx) {
+    }
+  end
+  
 end
