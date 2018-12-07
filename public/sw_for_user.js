@@ -4,10 +4,10 @@ self.addEventListener('push', function(evt){
     evt.waitUntil(
         self.registration.showNotification('今だらだらしてた？',
             {
-                body: json.body.name + "が最優先タスクとして残ってるよ！",
+                body: json.body.name,
                 actions: [{
                     action: "yes",
-                    title: "5分だけチャレンジ"
+                    title: "5分だけでもチャレンジ"
                 }, {
                     action: "no",
                     title: "やる気がでません"

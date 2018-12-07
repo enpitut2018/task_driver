@@ -30,7 +30,7 @@ task :push_notification => :environment do
                 res = JSON.parse(http.get("/tasks/importance?id=#{client.id}")) #resには配列がはいる
             }
             body = {
-                name: res[0].name, 
+                name: res[0].name + "最優先タスクとして残ってるよ！", 
                 id: res[0].id, 
                 target_url: "/tasks/"
             }
@@ -43,20 +43,21 @@ end
 task :deadline_notification => :environment do
     today = Time.now #今日締め切りのタスクを検索するための日付
 
-    tasks = Task.where("deadline >= ? and deadline < ?", Time.new(today.year, today.month, today.day), Time.new(today.year, today.month, today.day+1)).select("user_id, name, deadline")
-    ids = Array.new #idを一意に管理する配列
-    tasks.each do |task|
-        ids.push(task.id) #idを配列に追加する
-    end
-    ids.uniq! #重複したidをユニークにする
-
-    clients = User.where(id: ids)where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
-
+    clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
     clients.each do |client|
+        tasks = Task.where("user_id = ? and deadline >= ? and deadline < ?", client.id, Time.new(today.year, today.month, today.day), Time.new(today.year, today.month, today.day+1)).select("name, deadline")
+        name = ""
+        tasks.each do |task|
+            if name == ""
+                name = task.name
+            else
+                name += "と#{task.name}"
+            end
+        end
         body = {
-            name: 
+            name: name + "が今日締め切りです！"
         }
-    end
 
-    notification(client, body)
+        notification(client, body)
+    end
 end
