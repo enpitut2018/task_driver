@@ -28,5 +28,12 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve -> (_obj, args, ctx) {
     }
   end
-  
+
+  field :task, !Types::TaskType do
+    argument :id, types.ID
+    resolve ->(obj, args, ctx) {
+      Task.find(args['id'])
+    }
+  end
+
 end
