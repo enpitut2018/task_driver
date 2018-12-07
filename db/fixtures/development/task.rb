@@ -6,7 +6,7 @@ csv.each do |task|
 		s.id = task[0]
 		s.name = task[1]
 		s.importance = task[2]
-		s.status = task[3]
+		s.status = task[3].to_i
 		s.group_id = task[4]
 		s.deadline = DateTime.new(2019, 1, 1, 00, 00, 00)
 	end
