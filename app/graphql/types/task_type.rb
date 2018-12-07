@@ -15,4 +15,5 @@ Types::TaskType = GraphQL::ObjectType.define do
   field :urgency, types.Int, '緊急度'
   field :priority, types.Int, '優先度'
   field :group_id, !types.ID, 'グループID'
+  field :crap, !types.Int, '拍手'
 end
