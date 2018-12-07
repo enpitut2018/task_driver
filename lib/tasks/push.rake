@@ -42,9 +42,15 @@ end
 
 task :deadline_notification => :environment do
     today = Time.now #今日締め切りのタスクを検索するための日付
-    tasks = Task.where("deadline >= ? and deadline < ?", Time.new(today.year, today.month, today.day), Time.new(today.year, today.month, today.day+1)).select("user_id, name")
-    tasks.
-    clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
+
+    tasks = Task.where("deadline >= ? and deadline < ?", Time.new(today.year, today.month, today.day), Time.new(today.year, today.month, today.day+1)).select("user_id, name, deadline")
+    ids = Array.new #idを一意に管理する配列
+    tasks.each do |task|
+        ids.push(task.id) #idを配列に追加する
+    end
+    ids.uniq! #重複したidをユニークにする
+
+    clients = User.where(id: ids)where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
 
     clients.each do |client|
         body = {
