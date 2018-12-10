@@ -5,7 +5,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :me, !Types::UserType do
     resolve -> (_obj, args, ctx) {
-      User.find(ctx[:current_user_id])
+      User.find(ctx[:current_user].id)
     }
   end
 
