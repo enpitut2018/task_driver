@@ -8,6 +8,6 @@ Types::GroupType = GraphQL::ObjectType.define do
   field :updated_at, !Types::MomentType, '更新日時'
   field :deadline, Types::MomentType, '締め切り'
   field :importance, types.Int, '重要度'
-  field :visible, types.Boolean, '公開/非公開'
+  field :public, types.Boolean, '公開/非公開'
   connection :tasks, Types::TaskType.connection_type, 'タスク'
 end
