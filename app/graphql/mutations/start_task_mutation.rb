@@ -1,21 +1,24 @@
-Mutations::StartTaskMutation = GraphQL::Relay::Mutation.define do
-  name "StartTaskMutation"
+class Mutations::StartTask < GraphQL::Schema::Mutation
+  name 'StartTaskMutation'
+  null false
 
-  input_field :task_id, !types.ID
+  argument :task_id, ID, required: true
 
-  return_field :contribution, !Types::ContributionType
+  field :contribution, Types::ContributionType, null: false
+  field :errors, [String], null: false
 
-  resolve ->(obj, args, ctx) {
-  	begin
-      task = Task.find(inputs.task_id)
-      task.status = 2
-      contribution = Contribution.create(:user_id => ctx[:current_user_id], :task_id => inputs.task_id)
-      contribution.save
-    rescue => e
-      return GraphQL::ExecutionError.new(e.message)
+  # 引数にargumentが入ってくるのはqueryと同じ挙動
+  def resolve(id:)
+    task = Task.find(id)
+    task.status = 2
+    contribution = Contribution.create(:user_id => context[:current_user].id)
+    if contribution.save
+      { contribution: contribution, errors: [] }
+    else
+      {
+        contribution: contribution,
+        errors: contribution.errors.full_messages
+      }
     end
-
-    { contribution: contribution }
-
-  }
+  end
 end
