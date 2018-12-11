@@ -1,5 +1,5 @@
 class Types::QueryType < Types::BaseObject
-  name "Query"
+  graphql_name "Query"
 
   field :me, Types::UserType, null: true do
     description 'ログインユーザーの情報を返す'
