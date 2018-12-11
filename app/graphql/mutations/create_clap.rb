@@ -1,5 +1,5 @@
 class Mutations::CreateClap < GraphQL::Schema::Mutation
-  name 'CreateClap'
+  graphql_name 'CreateClapMutation'
   null false
 
   argument :task_id, ID, required: true

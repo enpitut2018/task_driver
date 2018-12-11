@@ -1,5 +1,5 @@
 class Mutations::StartTask < GraphQL::Schema::Mutation
-  name 'StartTaskMutation'
+  graphql_name 'StartTaskMutation'
   null false
 
   argument :task_id, ID, required: true
