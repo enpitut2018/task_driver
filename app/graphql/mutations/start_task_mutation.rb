@@ -8,8 +8,8 @@ class Mutations::StartTask < GraphQL::Schema::Mutation
   field :errors, [String], null: false
 
   # 引数にargumentが入ってくるのはqueryと同じ挙動
-  def resolve(id:)
-    task = Task.find(id)
+  def resolve(task_id:)
+    task = Task.find(task_id)
     task.status = 2
     contribution = Contribution.create(:user_id => context[:current_user].id)
     if contribution.save
