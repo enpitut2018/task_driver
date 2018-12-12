@@ -6,4 +6,5 @@ Types::UserType = GraphQL::ObjectType.define do
   field :created_at, !Types::MomentType, '作成時刻'
   field :updated_at, !Types::MomentType, '更新時刻'
   connection :groups, !Types::GroupType.connection_type, '所有グループ'
+  connection :contributions, !Types::ContributionType.connection_type, 'コントリビューション'
 end
