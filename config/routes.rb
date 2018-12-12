@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   # get 'pages/page'
 
-  # get 'endpoints', to: 'endpoints#register'
+  post 'endpoints', to: 'endpoints#register'
   get 'endpoints/getVapidPublicKey'
 
   #ルート
