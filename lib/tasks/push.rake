@@ -33,6 +33,7 @@ task :push_notification => :environment do
                 name: res[0].name + "最優先タスクとして残ってるよ！", 
                 id: res[0].id, 
                 target_url: "/tasks/"
+
             }
 
             notification(client, body)
