@@ -8,13 +8,13 @@ Rails.application.routes.draw do
 
   # get 'tasks/done'
   # post 'tasks/status_change'
-  # get 'tasks/importance'
+  get 'tasks/importance'
   # resources :tasks
 
   # get 'pages/page'
 
-  # get 'endpoints', to: 'endpoints#register'
-  # get 'endpoints/getVapidPublicKey'
+  post 'endpoints', to: 'endpoints#register'
+  get 'endpoints/getVapidPublicKey'
 
   #ルート
   # root 'tasks#index'
