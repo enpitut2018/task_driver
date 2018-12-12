@@ -1,15 +1,13 @@
-Types::MomentType = GraphQL::ScalarType.define do
-  name 'MomentType'
+class Types::MomentType < Types::BaseScalar
+  graphql_name 'MomentType'
   description "return string format for generating a moment object in moment.js Example: '2018-01-01 00:00:00 +0900'"
 
-  coerce_input ->(value, ctx) {
-    # input: instance of ActiveSupport::TimeWithZone
+  def self.coerce_input(value, ctx)
     if !value.is_a?(ActiveSupport::TimeWithZone)
       raise GraphQL::CoercionError, "#{input_value.inspect} is not a instance of TimeWithZone"
     end
-  }
-  coerce_result ->(value, ctx) {
-    # output: 
+  end
+  def self.coerce_result(value, ctx)
     value.to_time.to_s
-  }
+  end
 end

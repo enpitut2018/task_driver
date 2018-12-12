@@ -101,8 +101,9 @@ gem 'seed-fu', '~> 2.3'
 gem 'rails-erd'
 
 #GraphQL
-gem 'graphql', '1.7.7'
+gem 'graphql', '~> 1.8', '>= 1.8.11'
 gem 'graphiql-rails', group: :development
+gem 'parser', '~> 2.3', '>= 2.3.1.2'
 
 # rack-cors
 gem 'rack-cors'
