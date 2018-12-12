@@ -9,7 +9,8 @@ class Mutations::CreateClap < GraphQL::Schema::Mutation
 
   def resolve(task_id:)
     task = Task.find(task_id)
-    if task.clap += 1
+    task.clap = task.clap + 1
+    if task.save
       { task: task, errors: [] }
     else
       { task: task, errors: task.errors.full_messages }
