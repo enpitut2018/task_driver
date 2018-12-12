@@ -10,22 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181207051157) do
+ActiveRecord::Schema.define(version: 20181205043234) do
 
   create_table "audio_tests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "contributions", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "task_id"
-    t.datetime "finish_time"
-    t.boolean "is_finish?"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["task_id"], name: "index_contributions_on_task_id"
-    t.index ["user_id"], name: "index_contributions_on_user_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -67,7 +56,7 @@ ActiveRecord::Schema.define(version: 20181207051157) do
     t.integer "urgency"
     t.integer "priority"
     t.integer "group_id", null: false
-    t.integer "crap", default: 0, null: false
+    t.index ["deadline"], name: "index_tasks_on_deadline"
   end
 
   create_table "users", force: :cascade do |t|
