@@ -8,6 +8,6 @@ csv.each do |group|
 		s.name = group[2]
 		s.user_id = group[3]
 		s.importance = group[4]
-		s.visible = group[5]
+		s.public = group[5]
 	end
 end
