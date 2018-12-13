@@ -8,5 +8,9 @@ class Types::GroupType < Types::BaseObject
   field :deadline, Types::MomentType, '締め切り', null: true
   field :importance, Integer, '重要度', null: true
   field :visible, Boolean, '公開/非公開', null: true
-  field :tasks, Types::TaskType.connection_type, 'タスク', null: true, connection: true
+  field :tasks, [Types::TaskType], 'タスク', null: true
+
+  def tasks
+    object.tasks
+  end
 end
