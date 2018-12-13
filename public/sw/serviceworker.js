@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function(){
                 //console.log("ready is OK!");
                 return registration.pushManager.getSubscription().then(
                     function(subscription){
-                        if(subscription){ //すでに登録済みの場合
+                        //すでに登録済みの場合
+                        if(subscription){
                             console.log("getsubscription is OK!");
                             return subscription
                         }
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             console.log("good");
                             return responce.json(); //VAPID(サーバ側で生成したもの)を取得
                         }).then(function(keyJson){
-                            //console.log(keyJson.vapidPublicKey);
+                            console.log(keyJson.vapidPublicKey);
                             const convertedVapidKey = urlBase64ToUint8Array(keyJson.vapidPublicKey); //unit8に変換
                             return convertedVapidKey;
                         }).then(function(convertedVapidKey){
@@ -60,17 +61,18 @@ document.addEventListener('DOMContentLoaded', function(){
         ).then(
             //以下は購読成功時の処理
             function(subscription){
-                endpoint = subscription.endpoint; //エンドポイントURL
-                console.log("pushManager RegistrationID:", endpoint);
+                const endpoint = subscription.endpoint; //エンドポイントURL
+                console.log("pushManager RegistrationID:", endpoint.split("/").slice(-1).join());
                 publicKey = encodeBase64URL(subscription.getKey('p256dh')); //クライアント公開鍵
                 console.log("publicKey:", publicKey);
-                authSecret = encodeBase64URL(subscription.getKey('auth')); //auth secret
+                const publicKey_pem = "-----BEGIN EC PUBLIC KEY-----\n" + publicKey + "\n-----END EC PUBLIC KEY-----\n"
+                const authSecret = encodeBase64URL(subscription.getKey('auth')); //auth secret
                 console.log("authSecret:", authSecret);
                 let contentEncoding; //プッシュ通知のときに使用するContent-Encoding
                 if ('supportedContentEncodings' in PushManager) {
                     contentEncoding = PushManager.supportedContentEncodings.includes('aes128gcm') ? 'aes128gcm' : 'aesgcm';
                 }
-                else{
+                  else{
                     contentEncoding = 'aesgcm';
                 }
                 //以上の4つのパラメーターをDBに登録しておく
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     headers: {'Content-Type': 'application/json; charset=UTF-8'},
                     body: JSON.stringify({
                         endpoint: endpoint,
-                        publicKey: publicKey,
+                        publicKey: publicKey_pem,
                         auth: authSecret,
                         contentEncoding: contentEncoding
                     })

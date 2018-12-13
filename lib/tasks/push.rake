@@ -23,16 +23,20 @@ task :push_notification => :environment do
     #if(!(hour > 1 && hour < 7)) then
         #エンドポイントが登録されているすべてのユーザを取得
         clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
-        
+
         clients.each do |client|
             #各ユーザーの最重要タスクを取得
-            Net::HTTP.start('/') {|http|
+            https = Net::HTTP.new('/', 443)
+            https.use_ssl = true
+            https.verify_mode = OpenSSL::SSL::VERIFY_NONE
+            https.satrt{
                 res = JSON.parse(http.get("/tasks/importance?id=#{client.id}")) #resには配列がはいる
             }
             body = {
                 name: res[0].name + "最優先タスクとして残ってるよ！", 
                 id: res[0].id, 
                 target_url: "/tasks/"
+
             }
 
             notification(client, body)
