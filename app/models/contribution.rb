@@ -5,5 +5,5 @@ class Contribution < ApplicationRecord
   enum finality: { final: true, not_final: false }
   enum status: { active: true, inactive: false }
 
-  validates :status, uniqueness: { scope: [:user_id, :task_id], on: :create }
+  validates :status, uniqueness: { scope: [:user_id, :task_id], on: :save }
 end
