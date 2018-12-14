@@ -13,6 +13,11 @@ class Types::TaskType < Types::BaseObject
   field :urgency, Integer, '緊急度', null: true
   field :priority, Integer, '優先度', null: true
   field :group_id, ID, 'グループID', null: false
-  field :clap, Integer, '拍手', null: false
-  field :contributions, Types::ContributionType.connection_type, 'コントリビューション', null: false, connection: true
+  field :crap, Integer, '拍手', null: false
+  field :contributions, [Types::ContributionType], null: true
+  
+  def contriubtions
+    description 'コントリビューション'
+    object.contributions
+  end
 end
