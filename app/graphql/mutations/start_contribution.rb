@@ -10,7 +10,7 @@ class Mutations::StartContribution < GraphQL::Schema::Mutation
 
   def resolve(task_id:)
     task = Task.find(task_id)
-    contribution = Contribution.new(:user_id => 2, :task_id => task.id)
+    contribution = Contribution.new(:user_id => context[:current_user].id, :task_id => task.id)
     if contribution.save && task.doing!
       { contribution: contribution, task: task, errors: [] }
     else
