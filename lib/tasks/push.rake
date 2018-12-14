@@ -29,7 +29,7 @@ task :push_notification => :environment do
             https = Net::HTTP.new('/', 443)
             https.use_ssl = true
             https.verify_mode = OpenSSL::SSL::VERIFY_NONE
-            https.satrt{
+            https.start{
                 res = JSON.parse(http.get("/tasks/importance?id=#{client.id}")) #resには配列がはいる
             }
             body = {
