@@ -1,4 +1,5 @@
 class Types::MutationType < GraphQL::Schema::Object
+  field :createTask, mutation: Mutations::CreateTaskMutation
   field :startContribution, mutation: Mutations::StartContribution
   field :finishContribution, mutation: Mutations::FinishContribution
   field :createClap, mutation: Mutations::CreateClap
