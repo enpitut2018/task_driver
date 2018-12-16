@@ -2,6 +2,7 @@ class Types::MutationType < GraphQL::Schema::Object
   field :startContribution, mutation: Mutations::StartContribution
   field :finishContribution, mutation: Mutations::FinishContribution
   field :createClap, mutation: Mutations::CreateClap
+  field :createTask, mutation: Mutations::CreateTask
   
   # TODO: Remove me
   field :test_field, String, description: "An example field added by the generator", null: true

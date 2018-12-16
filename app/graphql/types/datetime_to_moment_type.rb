@@ -1,5 +1,5 @@
-class Types::MomentType < Types::BaseScalar
-  graphql_name 'MomentType'
+class Types::DatetimeToMomentType < Types::BaseScalar
+  graphql_name 'DatetimeToMomentType'
   description "return string format for generating a moment object in moment.js Example: '2018-01-01 00:00:00 +0900'"
 
   def self.coerce_input(value, ctx)
