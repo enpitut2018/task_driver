@@ -7,6 +7,7 @@ class Types::MomentType < Types::BaseScalar
       raise GraphQL::CoercionError, "#{input_value.inspect} is not a instance of TimeWithZone"
     end
   end
+  
   def self.coerce_result(value, ctx)
     value.to_time.to_s
   end
