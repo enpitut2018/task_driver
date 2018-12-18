@@ -14,8 +14,13 @@ class Types::TaskType < Types::BaseObject
   field :priority, Integer, '優先度', null: true
   field :group_id, ID, 'グループID', null: false
   field :clap, Integer, '拍手', null: false
+  field :group, Types::GroupType, 'グループ', null: false
   field :contributions, [Types::ContributionType], null: true
-  
+
+  def group
+    Group.find(object.group_id)
+  end
+
   def contriubtions
     description 'コントリビューション'
     object.contributions
