@@ -6,8 +6,8 @@ class Mutations::UpdateGroup < GraphQL::Schema::Mutation
   argument :parent_id, ID, description: '親グループID', required: false
   argument :name, String, description: '作成グループ名', required: false
   argument :importance, Integer, description: '重要度', required: false
-  argument :deadline, Types::MomentToDatetimeType, description: '締め切り', required: false
-  argument :publicity, Types::Boolean, description: '公開/非公開設定', required: false
+  argument :deadline, Types::MomentInputType, description: '締め切り', required: false
+  argument :publicity, Boolean, description: '公開/非公開設定', required: false
 
   field :group, Types::GroupType, null: false
   field :errors, [String], null: false
