@@ -4,7 +4,7 @@ class Mutations::UpdateTask < GraphQL::Schema::Mutation
 
   argument :task_id, ID, description: 'タスクID', required: true
   argument :name, String, description: 'タスク名', required: false
-  argument :deadline, Types::MomentToDatetimeType, description: '締め切り', required: false
+  argument :deadline, Types::MomentInputType, description: '締め切り', required: false
   argument :importance, Integer, description: '重要度', required: false
   argument :note, String, description: 'メモ', required: false
   argument :group_id, ID, description: 'グループID', required: false
@@ -13,6 +13,7 @@ class Mutations::UpdateTask < GraphQL::Schema::Mutation
   field :errors, [String], null: false
 
   def resolve(task_id:, name:, deadline:, importance:, group_id:, note:)
+    deadline = DateTime.new(deadline.year, deadline.month, deadline.day, deadline.hour, deadline.minute, deadline.second)
     task = Task.find(task_id)
 
     task.name = name if !name.nil?
