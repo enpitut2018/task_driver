@@ -5,6 +5,7 @@
 #####################################################################################
 #####################################################################################
 
+=begin
 def notification(client, body)
     payload = {
         endpoint: client.endpoint, # ブラウザでregistration.pushManager.getSubscription()で取得したsubscriptionのendpoint
@@ -23,3 +24,4 @@ def notification(client, body)
     }
     Webpush.payload_send(payload) #送信
 end
+=end
