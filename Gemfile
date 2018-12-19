@@ -113,3 +113,5 @@ gem 'devise-jwt'
 
 #web-push(openssl,jwt,base64を含む)
 gem "webpush"
+
+gem 'oauth2'

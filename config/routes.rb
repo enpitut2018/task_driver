@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     post '/', to: 'graphql#execute'
 
     devise_for :users, :path => '', controllers: {
-      :omniauth_callbacs => 'users/omniauth_callbacks',
+      :omniauth_callbacks => 'users/omniauth_callbacks',
       :registrations => 'users/registrations',
       :sessions => 'users/sessions'
     }
