@@ -13,7 +13,7 @@ class Mutations::CreateTask < GraphQL::Schema::Mutation
 
   def resolve(name:, deadline:, importance:, group_id:, note:)
     deadline = DateTime.new(deadline.year, deadline.month, deadline.day, deadline.hour, deadline.minute, deadline.second)
-    task = Task.new(:name => name, :deadline => deadline, :importance => importance, :group_id => group_id, :user_id => 1, :note => note)
+    task = Task.new(:name => name, :deadline => deadline, :importance => importance, :group_id => group_id, :user_id => context[:current_user].id, :note => note)
     if task.save
       { task: task, errors: [] }
     else
