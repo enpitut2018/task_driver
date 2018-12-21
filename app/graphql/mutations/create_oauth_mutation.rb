@@ -19,7 +19,7 @@ class Mutations::CreateOauthMutation < GraphQL::Schema::Mutation
     res = http.request(req)
 
     tokens = {}
-    json.split('&').each do |line|
+    res.body.split('&').each do |line|
         result = line.split('=')
         tokens[result[0]] = result[1]
     end
