@@ -15,6 +15,10 @@ class Types::QueryType < Types::BaseObject
     argument :id, ID, 'グループID', required: true
   end
 
+  field :groups, [Types::GroupType], null: true do
+    description '全てのグループの情報を返す'
+  end
+
   field :task, Types::TaskType, null: true do
     description '指定したIDを持つタスクの情報を返す'
     argument :id, ID, 'タスクID', required: true
@@ -34,11 +38,38 @@ class Types::QueryType < Types::BaseObject
   end
 
   def group(id:)
-    Group.find(id)
+    group = Group.find(id)
+    if group[:public]
+      # 公開グループの場合の処理
+      group
+    elsif context[:current_user].nil?
+      # GraphiQLでエラーを出さないための処理
+      nil
+    elsif context[:current_user].id == group[:user_id]
+      # 所有ユーザーの場合の処理
+      group
+    else
+      # 所有ユーザーでない場合の処理
+      nil
+    end
   end
 
   def task(id:)
-    Task.find(id)
+    task = Task.find(id)
+    group = Group.find(task.group_id)
+    if group[:public]
+      # 公開グループのタスクの場合
+      task
+    elsif context[:current_user].nil?
+      # GraphiQLでエラーを出さないための処理
+      nil
+    elsif context[:current_user].id == group[:user_id]
+      # 所有ユーザーの場合の処理
+      task
+    else
+      # 所有ユーザーでない場合の処理
+      nil
+    end
   end
 
   def contribution(id:)
