@@ -9,6 +9,9 @@ class Mutations::DeleteTask < GraphQL::Schema::Mutation
 
   def resolve(task_id:)
     task = Task.find(task_id)
+    if task.user_id != context[:current_user].id
+      return { task: task, errors: ['specified task is not yours.'] }
+    end
 
     if task.destroy
       { task: task, errors: [] }

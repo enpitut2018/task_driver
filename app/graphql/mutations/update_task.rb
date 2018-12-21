@@ -15,6 +15,10 @@ class Mutations::UpdateTask < GraphQL::Schema::Mutation
   def resolve(task_id:, name:, deadline:, importance:, group_id:, note:)
     task = Task.find(task_id)
 
+    if task.user_id != context[:current_user].ID
+      return { task: task, errors: ['specified task is not yours.'] }
+    end
+
     task.name = name if !name.nil?
     task.deadline = daeadline if !deadline.nil?
     task.importance = importance if !importance.nil?
