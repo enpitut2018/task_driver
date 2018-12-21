@@ -16,11 +16,5 @@ class Mutations::CreateClap < GraphQL::Schema::Mutation
     else
       { task: task, errors: task.errors.full_messages }
     end
-
-    client = User.find(task.user_id)
-    body = {
-      name: "あなたの頑張りを応援しています！ 応援人数：#{count}人"
-    }
-    notification(client, body)
   end
 end
