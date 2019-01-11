@@ -11,7 +11,7 @@ class Mutations::FinishContribution < GraphQL::Schema::Mutation
 
   def resolve(contribution_id:, finality:)
     contribution = Contribution.find(contribution_id)
-    if contribution.user_id != context[:current_user].ID
+    if contribution.user_id != context[:current_user].id
       return { task: nil, contribution: contribution, errors: ['specified contribution is not yours.'] }
     end
 
