@@ -26,7 +26,7 @@ We are developing this application for our course (enPiT) in University of Tsuku
 
 ### service URLs
 
-* [application URL](https://task-driver.sukiyaki.party)
+* [application URL](https://folivora.sukiyaki.party)
 * [CI](https://travis-ci.org/enpitut2018/task_driver)
 
 ### related repositories
