@@ -1,4 +1,6 @@
 class Types::MutationType < GraphQL::Schema::Object
+  field :createOauthMutation, mutation: Mutations::CreateOauthMutation
+  field :createRedirecturlMutation, mutation: Mutations::CreateRedirecturlMutation
 
   field :startContribution, mutation: Mutations::StartContribution
   field :finishContribution, mutation: Mutations::FinishContribution
