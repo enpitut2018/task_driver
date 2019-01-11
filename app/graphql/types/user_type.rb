@@ -9,7 +9,11 @@ class Types::UserType < Types::BaseObject
 	field :contributions, [Types::ContributionType], 'コントリビューション', null: true
 
 	def groups
-		object.groups
+		if context[:current_user].id == object.id
+			object.groups
+		else
+			Group.where(:user_id => context[:current_user].id, :public => true)
+		end
 	end 
 
 	def tasks

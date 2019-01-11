@@ -11,6 +11,9 @@ class Mutations::FinishContribution < GraphQL::Schema::Mutation
 
   def resolve(contribution_id:, finality:)
     contribution = Contribution.find(contribution_id)
+    if contribution.user_id != context[:current_user].id
+      return { task: nil, contribution: contribution, errors: ['specified contribution is not yours.'] }
+    end
 
     if contribution.status == 'active'
       task = Task.find(contribution.task_id)

@@ -3,7 +3,7 @@ class GraphqlController < ApplicationController
 
   # GraphiQLからの認証なしでのアクセスを許可
   # GraphiQLはdevelopment環境のみでマウントされる
-  before_action :authenticate_user!, :if => :not_graphiql?
+  # before_action :authenticate_user!, :if => :not_graphiql?
 
   def execute
     variables = ensure_hash(params[:variables])

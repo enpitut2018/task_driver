@@ -12,8 +12,14 @@ class Mutations::CreateTask < GraphQL::Schema::Mutation
   field :errors, [String], null: false
 
   def resolve(name:, deadline:, importance:, group_id:, note:)
+    group = Group.find(group_id)
+
     deadline = DateTime.new(deadline.year, deadline.month, deadline.day, deadline.hour, deadline.minute, deadline.second)
     task = Task.new(:name => name, :deadline => deadline, :importance => importance, :group_id => group_id, :user_id => 1, :note => note)
+    
+    if group.user_id != context[:current_user].id
+      return { task: task, errors: ['specified group is not yours.'] }
+    end
     if task.save
       { task: task, errors: [] }
     else
