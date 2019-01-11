@@ -29,6 +29,11 @@ class Types::QueryType < Types::BaseObject
     argument :id, ID, 'コントリビューションID', required: true
   end
 
+  field :activities, [Types::ActivityType], null: true do
+    description '指定したIDを持つユーザーのを日付ごとにまとめた終了タスクと終了コントリビューションを配列として返す'
+    argument :user_id, ID, 'ユーザーID', required: true
+  end
+
   def me
     User.find(context[:current_user].id)
   end
@@ -74,5 +79,18 @@ class Types::QueryType < Types::BaseObject
 
   def contribution(id:)
     Contribution.find(id)
+  end
+
+  def activities(user_id:)
+    # 指定したユーザーのコントリビューションとタスクをそれぞれ終了日毎にグループ化してhashを生成
+    # {"20180101" => [#<Contribution>, ...], "20180102" =>[], ...}
+    grouped_contributions = Contribution.finished.where(user_id: user_id).group_by{|c| c.finished_at.strftime('%Y%m%d')}
+    grouped_tasks = Task.finished.where(user_id: user_id).group_by{|t| t.finish_time.strftime('%Y%m%d')}
+
+    # hashの配列に変換
+    # [{ :date => "20180101", :contributions => [#<Contribution>, ...], :tasks => [#<Task>, ...] }, ...]
+    grouped_contributions.map{ |idx, val|
+      grouped_tasks[:idx].nil? ? { :date => idx, :contributions => val, :tasks => [] } : { :date => idx, :contributions => val, :tasks => grouped_tasks[:idx] }
+    }
   end
 end

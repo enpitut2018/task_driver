@@ -3,4 +3,6 @@ class Task < ApplicationRecord
     belongs_to :group
     has_many :contributions, dependent: :destroy
     enum status: { todo: 1, doing: 2, done: 3 }
+
+    scope :finished, -> { where.not(finish_time: nil) }
 end
