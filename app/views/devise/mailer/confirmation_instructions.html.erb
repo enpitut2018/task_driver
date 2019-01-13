@@ -6,4 +6,10 @@
 <br>
 以下のリンクにアクセスしていただくと、認証が完了します。</p>
 
-<p><%= link_to 'メールアドレスを認証する', confirmation_url(@resource, confirmation_token: @token) %></p>
+<%
+=begin%>
+ <p><%= link_to 'メールアドレスを認証する', confirmation_url(@resource, confirmation_token: @token) %></p> 
+<%
+=end%>
+
+<p><%= link_to 'メールアドレスを認証する', ENV['APPLICATION_FRONT_URL'] + "/confirm?confirmation_token=" + @token %></p>

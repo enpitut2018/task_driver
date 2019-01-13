@@ -31,12 +31,14 @@ Rails.application.routes.draw do
     devise_for :users, :path => '', controllers: {
       :omniauth_callbacks => 'users/omniauth_callbacks',
       :registrations => 'users/registrations',
-      :sessions => 'users/sessions'
+      :sessions => 'users/sessions',
+      # :confirm => 'confirmations#confirm'
     }
 
     devise_scope :user do
       get 'user', to: 'users/sessions#show'
       post 'sign_up', to: 'users/registrations#create'
+      post 'confirm', to: 'users/confirmations#confirm'
     end
   end
   
