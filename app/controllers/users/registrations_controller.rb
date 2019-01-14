@@ -16,8 +16,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user = User.new(post_params)
 
     if user.save
-      groups = Group.new(name: "General", user_id: user.id, public: false)
-      groups.save
+      group = Group.new(name: "General", user_id: user.id, public: false)
+      group.save
       
       render :json => user.as_json(:success => 'success', :email => user.email), :status => 201
       
