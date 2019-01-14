@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get 'user', to: 'users/sessions#show'
       post 'sign_up', to: 'users/registrations#create'
       post 'confirm', to: 'users/confirmations#confirm'
+      post 'reset', to: 'users/passwords#reset'
     end
   end
   
