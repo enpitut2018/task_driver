@@ -30,7 +30,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def confirm
     account = User.find_by_confirmation_token(post_params[:confirmation_token])
     
-    if account.confirmed_at.empty?
+    if account.confirmed_at.blank?
       account = User.confirm_by_token(account.confirmation_token)
       account.update(username: post_params[:username])
     
