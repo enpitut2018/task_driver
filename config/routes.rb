@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     devise_scope :user do
       get 'user', to: 'users/sessions#show'
       post 'sign_up', to: 'users/registrations#create'
+      post 'redirect', to: 'users/omniauth_callbacks#redirect'
+      post 'callbacklogin', to: 'users/omniauth_callbacks#callbacklogin'
     end
   end
   
