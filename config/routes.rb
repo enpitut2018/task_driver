@@ -31,8 +31,7 @@ Rails.application.routes.draw do
     devise_for :users, :path => '', controllers: {
       :omniauth_callbacks => 'users/omniauth_callbacks',
       :registrations => 'users/registrations',
-      :sessions => 'users/sessions',
-      # :confirm => 'confirmations#confirm'
+      :sessions => 'users/sessions'
     }
 
     devise_scope :user do
@@ -40,6 +39,8 @@ Rails.application.routes.draw do
       post 'sign_up', to: 'users/registrations#create'
       post 'confirm', to: 'users/confirmations#confirm'
       post 'reset', to: 'users/passwords#reset'
+      post 'redirect', to: 'users/omniauth_callbacks#redirect'
+      post 'callbacklogin', to: 'users/omniauth_callbacks#callbacklogin'
     end
   end
   
