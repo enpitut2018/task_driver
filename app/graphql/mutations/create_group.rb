@@ -6,7 +6,7 @@ class Mutations::CreateGroup < GraphQL::Schema::Mutation
   argument :name, String, description: '作成グループ名', required: true
   argument :importance, Integer, description: '重要度', required: true
   argument :deadline, Types::MomentInputType, description: '締め切り', required: true
-  argument :publicity, Boolean, description: '公開/非公開設定', required: false
+  argument :publicity, Boolean, description: '公開/非公開設定', required: true
 
   field :group, Types::GroupType, null: false
   field :errors, [String], null: false
@@ -16,8 +16,7 @@ class Mutations::CreateGroup < GraphQL::Schema::Mutation
     if parent_group.user_id != context[:current_user].id
       return { group: parent_group, errors: ['specified parent group is not yours.'] }
     end
-    group = Group.new(:parent_id => parent_id, :name => name, :user_id => context[:current_user].id, :importance => importance, :deadline => deadline)
-    group.public = publicity if !publicity.nil?
+    group = Group.new(:parent_id => parent_id, :name => name, :user_id => context[:current_user].id, :importance => importance, :deadline => deadline, :public => publicity)
     if group.save
       { group: group, errors: [] }
     else
