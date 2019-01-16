@@ -24,7 +24,7 @@ class Mutations::CreateOauthMutation < GraphQL::Schema::Mutation
         tokens[result[0]] = result[1]
     end
 
-    unless Oauth.find_by(user_id: @user.id)
+    unless Oauth.find_by(user_id: context[:current_user].id)
       @oauth = Oauth.new(user_id: context[:current_user].id, access_token: tokens["oauth_token"], access_token_secret: tokens["oauth_token_secret"])
       @oauth.save
     end
