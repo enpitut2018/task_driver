@@ -16,8 +16,12 @@ class Mutations::UpdateTask < GraphQL::Schema::Mutation
     deadline = DateTime.new(deadline.year, deadline.month, deadline.day, deadline.hour, deadline.minute, deadline.second)
     task = Task.find(task_id)
 
+    if task.user_id != context[:current_user].id
+      return { task: task, errors: ['specified task is not yours.'] }
+    end
+
     task.name = name if !name.nil?
-    task.deadline = daeadline if !deadline.nil?
+    task.deadline = deadline if !deadline.nil?
     task.importance = importance if !importance.nil?
     task.group_id = group_id if !group_id.nil?
     task.note = note if !note.nil?

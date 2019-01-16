@@ -9,6 +9,9 @@ class Mutations::DeleteGroup < GraphQL::Schema::Mutation
 
   def resolve(group_id:)
     group = Group.find(group_id)
+    if group.user_id != cotext[:current_user].id
+      return { group: group, errors: ['specified group is not yours.'] }
+    end
 
     if group.destroy
       { group: group, errors: [] }

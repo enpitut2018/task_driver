@@ -9,5 +9,6 @@ csv.each do |task|
 		s.status = task[3].to_i
 		s.group_id = task[4]
 		s.deadline = DateTime.new(2019, 1, 1, 00, 00, 00)
+		s.user_id = task[5]
 	end
 end

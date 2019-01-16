@@ -9,32 +9,24 @@ class User < ApplicationRecord
   :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
   def self.find_for_oauth(auth)
-    user = User.where(uid: auth.uid, provider: auth.provider).first
+    user = User.where(uid: auth.id, provider: "twitter").first
+    
     unless user
       user = User.create(
-        uid:      auth.uid,
-        provider: auth.provider,
+        uid:      auth.id,
+        provider: "twitter",
         email:    User.dummy_email(auth),
-        username: auth.info.nickname,
+        username: auth.name,
         password: Devise.friendly_token[0, 20]
         )
-      #ここでGeneralタグ生成?
-      group = Group.create(
-        name: "General",
-        user_id: user.id
-        )
-      group.save
     end
-
+    
     user.skip_confirmation!
-
     user
   end
 
-
   private
-
   def self.dummy_email(auth)
-    "#{auth.uid}-#{auth.provider}@example.com"
+    "#{auth.id}-#{"twitter"}@example.com"
   end
 end

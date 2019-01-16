@@ -1,27 +1,93 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController  
+  
   def twitter
     callback_from :twitter
   end
 
-  private
+  def redirect
+    request_token_url = 'https://twitter.com/oauth/request_token'
+    access_token_url = 'https://twitter.com/oauth/access_token'
+    
+    authenticate_url = 'https://twitter.com/oauth/authenticate'
+    consumer = OAuth::Consumer.new(
+      ENV['TWITTER_CONSUMER_KEY'],
+      ENV['TWITTER_CONSUMER_SECRET'],
+      :site => 'https://api.twitter.com',
+    )
+    
+    @callback_url = ENV['APPLICATION_FRONT_URL'] + "/oauth/callback/login"
+    request_token = consumer.get_request_token(:oauth_callback => @callback_url)
+    url = {url: request_token.authorize_url(:oauth_callback => @callback_url)}
+    
+    respond_to do |format|
+      # format.html
+      format.json {render :json => url}
+      # format.xml  {render :xml => オブジェクト}
+    end
 
-  def callback_from(provider)
-    provider = provider.to_s
+  end
 
-    @user = User.find_for_oauth(request.env['omniauth.auth'])
-    userinfo = request.env['omniauth.auth']
-      
+  def callbacklogin
+    uri = URI.parse("https://api.twitter.com/oauth/access_token")
+    http = Net::HTTP.new(uri.host, uri.port)
+    
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    req = Net::HTTP::Post.new(uri.path)
+    req.set_form_data({'oauth_consumer_key' => ENV['TWITTER_CONSUMER_KEY'], 'oauth_token' => post_params[:oauth_token], 'oauth_verifier' => post_params[:oauth_verifier]})
+    res = http.request(req)
+
+    tokens = {}
+    res.body.split('&').each do |line|
+        result = line.split('=')
+        tokens[result[0]] = result[1]
+    end
+
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
+      config.access_token        = tokens["oauth_token"]
+      config.access_token_secret = tokens["oauth_token_secret"]
+    end
+
+    userinfo = client.user
+    @user = User.find_for_oauth(userinfo)
+
     unless Oauth.find_by(user_id: @user.id)
-      @oauth = Oauth.new(user_id: @user.id, access_token: userinfo["credentials"]["token"], access_token_secret: userinfo["credentials"]["secret"])
+      @oauth = Oauth.new(user_id: @user.id, access_token: tokens["oauth_token"], access_token_secret: tokens["oauth_token_secret"])
       @oauth.save
     end
 
     if @user.persisted?
-      flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: provider.capitalize)
-      sign_in_and_redirect @user, event: :authentication
+      sign_in @user
+
+      #jwtを返す...まだ返せていない
+      render json: {success: true, token: current_token, response: "Authentication successful" }
+
     else
-      session["devise.#{provider}_data"] = request.env['omniauth.auth']
-      redirect_to new_user_registration_url
+      @user.save
+      sign_in @user
+
+      #jwtを返す
+      render json: {success: true, token: current_token, response: "Authentication successful" }
     end
+  end
+
+  def show
+    respond_to :json
+  end
+
+  private
+  def current_token
+  	request.env['warden-jwt_auth.token']
+  end
+
+  private
+  def post_params
+    # モデル作成に必要な引数を指定
+    params.require(:user).permit(
+      :oauth_token, :oauth_verifier
+    )
   end
 end

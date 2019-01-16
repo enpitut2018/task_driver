@@ -14,6 +14,9 @@ class Mutations::UpdateGroup < GraphQL::Schema::Mutation
 
   def resolve(group_id:, parent_id:, name:, importance:, deadline:, publicity:)
     group = Group.find(group_id)
+    if group.user_id != context[:current_user].ID
+      return { group: group, errors: ['specified group is not yours.'] }
+    end
 
     group.parent_id = parent_id if !parent_id.nil?
     group.name = name if !name.nil?

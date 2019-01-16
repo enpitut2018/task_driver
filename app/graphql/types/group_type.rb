@@ -7,7 +7,7 @@ class Types::GroupType < Types::BaseObject
   field :updated_at, Types::DatetimeToMomentType, '更新日時', null: false
   field :deadline, Types::DatetimeToMomentType, '締め切り', null: true
   field :importance, Integer, '重要度', null: true
-  field :visible, Boolean, '公開/非公開', null: true
+  field :public, Boolean, '公開/非公開', null: false
   field :tasks, [Types::TaskType], 'タスク', null: true
   field :parent_group, Types::GroupType, '親グループ', null: true
   field :ancestor_groups, [Types::GroupType], '先祖グループ', null: true
