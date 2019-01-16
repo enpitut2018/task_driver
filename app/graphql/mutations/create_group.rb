@@ -17,7 +17,7 @@ class Mutations::CreateGroup < GraphQL::Schema::Mutation
       return { group: parent_group, errors: ['specified parent group is not yours.'] }
     end
     group = Group.new(:parent_id => parent_id, :name => name, :user_id => context[:current_user].id, :importance => importance, :deadline => deadline)
-    group.publicity = publicity if !publicity.nil?
+    group.public = publicity if !publicity.nil?
     if group.save
       { group: group, errors: [] }
     else

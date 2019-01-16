@@ -33,6 +33,10 @@ class Types::QueryType < Types::BaseObject
     description '指定したIDを持つユーザーのを日付ごとにまとめた終了タスクと終了コントリビューションを配列として返す'
     argument :user_id, ID, 'ユーザーID', required: true
   end
+  
+  field :publicgroup, [Types::PublicgroupType], null: true do
+    description '公開グループを配列として返す'
+  end
 
   def me
     User.find(context[:current_user].id)
@@ -92,5 +96,14 @@ class Types::QueryType < Types::BaseObject
     grouped_contributions.map{ |idx, val|
       grouped_tasks[:idx].nil? ? { :date => idx, :contributions => val, :tasks => [] } : { :date => idx, :contributions => val, :tasks => grouped_tasks[:idx] }
     }
+  end
+
+  def publicgroup
+    publicgroups = []
+    groups = Group.where(public: true)
+    groups.each { |group|
+      publicgroups.push({:groups => group, :users => User.find(group.user_id)})
+    }
+    return publicgroups
   end
 end
