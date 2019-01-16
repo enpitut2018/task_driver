@@ -25,17 +25,20 @@ task :push_notification => :environment do
 
         clients.each do |client|
             #各ユーザーの最重要タスクを取得
-            https = Net::HTTP.new('/', 443)
+            uri = URI.parse("https://task-driver.sukiyaki.party/tasks/importance?id=#{client.id}")
+            https = Net::HTTP.new(uri.host, uri.port)
             https.use_ssl = true
             https.verify_mode = OpenSSL::SSL::VERIFY_NONE
-            https.start{
-                res = JSON.parse(http.get("/tasks/importance?id=#{client.id}")) #resには配列がはいる
+            res = https.start{
+                https.get(uri.path) #resには配列がはいる
             }
+            res = Json.parse(res.body)
+
             body = {
-                name: res[0].name + "が最優先タスクとして残ってるよ！", 
-                id: res[0].id, 
-                uid: res[0].user_id,
-                gid: res[0].group_id,
+                name: res.name + "が最優先タスクとして残ってるよ！", 
+                id: res.id, 
+                uid: res.user_id,
+                gid: res.group_id,
                 target_url: "/"
 
             }
