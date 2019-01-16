@@ -3,7 +3,7 @@ class EndpointsController < ApplicationController
   protect_from_forgery :except => [:register]
 
   def register
-    user = User.find_by(id: current_user.id)
+    user = User.find(params[:id])
     user.endpoint = params[:endpoint]
     user.key = params[:publicKey]
     user.auth = params[:auth]
