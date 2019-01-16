@@ -41,7 +41,7 @@ class Mutations::ForkGroup < GraphQL::Schema::Mutation
     group_attribute.delete('created_at')
     group_attribute.delete('updated_at')
 
-    new_group = Group.new(group_attribute.merge({:user_id => 1, :parent_id => new_parent_id, :public => false}))
+    new_group = Group.new(group_attribute.merge({:user_id => context[:current_user].id, :parent_id => new_parent_id, :public => false}))
     new_group.save
 
     tasks = Task.where(group_id: group.id)
@@ -52,7 +52,7 @@ class Mutations::ForkGroup < GraphQL::Schema::Mutation
       task_attribute.delete('created_at')
       task_attribute.delete('updated_at')
 
-      task = Task.new(task_attribute.merge({:user_id => 1, :group_id => new_group.id}))
+      task = Task.new(task_attribute.merge({:user_id => context[:current_user].id, :group_id => new_group.id}))
       task.save
     end
 
