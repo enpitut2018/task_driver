@@ -16,9 +16,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user = User.new(post_params)
 
     if user.save
+      group = Group.new(name: "General", user_id: user.id, public: false)
+      group.save
+      
       render :json => user.as_json(:success => 'success', :email => user.email), :status => 201
+      
     else
-      warden.custome_failure!
+      warden.custom_failure!
       render :json => user.errors, :status => 422
     end
   end
@@ -51,8 +55,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def post_params
     # モデル作成に必要な引数を指定
     params.require(:user).permit(
-      :email, :password, :password_confirmation, :username
-      )
+      :email, :password, :password_confirmation
+    )
 end
 
   # GET /resource/cancel
