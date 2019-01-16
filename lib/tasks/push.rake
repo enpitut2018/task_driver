@@ -30,17 +30,16 @@ task :push_notification => :environment do
             https.use_ssl = true
             https.verify_mode = OpenSSL::SSL::VERIFY_NONE
             res = https.start{
-                https.get(uri.path) #resには配列がはいる
+                https.get(uri.path + "?" + uri.query) #resには配列がはいる
             }
-            res = Json.parse(res.body)
+            res = JSON.parse(res.body)
 
             body = {
-                name: res.name + "が最優先タスクとして残ってるよ！", 
-                id: res.id, 
-                uid: res.user_id,
-                gid: res.group_id,
+                name: res[0]["name"] + "が最優先タスクとして残ってるよ！", 
+                id: res[0]["id"], 
+                uid: res[0]["user_id"],
+                gid: res[0]["group_id"],
                 target_url: "/"
-
             }
 
             notification(client, body)
