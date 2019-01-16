@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # get 'pages/page'
 
   post 'endpoints/register'
-  post 'endpoints/getVapidPublicKey'
+  get 'endpoints/getVapidPublicKey'
 
   #ルート
   # root 'tasks#index'
