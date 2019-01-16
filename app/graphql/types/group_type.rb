@@ -17,6 +17,10 @@ class Types::GroupType < Types::BaseObject
     object.tasks
   end
 
+  def groups
+    object[:groups]
+  end
+  
   def parent_group
     Group.find(object.parent_id) if !object.parent_id.nil?
   end
