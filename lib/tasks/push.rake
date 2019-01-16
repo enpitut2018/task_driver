@@ -34,7 +34,9 @@ task :push_notification => :environment do
             body = {
                 name: res[0].name + "が最優先タスクとして残ってるよ！", 
                 id: res[0].id, 
-                target_url: "/tasks/"
+                uid: res[0].user_id,
+                gid: res[0].group_id,
+                target_url: "/"
 
             }
 
