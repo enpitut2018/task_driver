@@ -67,7 +67,11 @@ task :deadline_notification => :environment do
             end
         end
         body = {
-            name: name + "が今日締め切りです！"
+            name: name + "が今日締め切りです！",
+            id: tasks[0].id,
+            uid: tasks[0].user_id,
+            gid: tasks[0].group_id,
+            target_url: "/"
         }
 
         notification(client, body)
