@@ -100,9 +100,10 @@ class Types::QueryType < Types::BaseObject
 
   def publicgroup
     publicgroups = []
-    groups = Group.where(public: true)
+    # groups = Group.where(public: true)
+    groups = Group.all
     groups.each { |group|
-      publicgroups.push({:groups => group, :users => User.find(group.user_id)})
+      publicgroups.push({:groups => group})
     }
     return publicgroups
   end
