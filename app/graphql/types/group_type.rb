@@ -12,15 +12,12 @@ class Types::GroupType < Types::BaseObject
   field :parent_group, Types::GroupType, '親グループ', null: true
   field :ancestor_groups, [Types::GroupType], '先祖グループ', null: true
   field :ancestor_and_self_groups, [Types::GroupType], '自分と先祖グループ', null: true
+  field :user, Types::UserType, '所有ユーザー', null: true
 
   def tasks
     object.tasks
   end
 
-  def groups
-    object[:groups]
-  end
-  
   def parent_group
     Group.find(object.parent_id) if !object.parent_id.nil?
   end
@@ -42,5 +39,9 @@ class Types::GroupType < Types::BaseObject
   def ancestor_and_self_groups
     ancestor_and_self_groups = [Group.find(object.id)]
     ancestor_and_self_groups.push(ancestor_groups).flatten!
+  end
+
+  def user
+    User.find(object.user_id)
   end
 end

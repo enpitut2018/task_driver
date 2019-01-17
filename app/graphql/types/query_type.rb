@@ -33,9 +33,10 @@ class Types::QueryType < Types::BaseObject
     description '指定したIDを持つユーザーのを日付ごとにまとめた終了タスクと終了コントリビューションを配列として返す'
     argument :user_id, ID, 'ユーザーID', required: true
   end
-  
-  field :publicgroup, [Types::PublicgroupType], null: true do
-    description '公開グループを配列として返す'
+
+  field :public_groups, [Types::GroupType], null: true do
+    description '他人の公開グループ'
+    argument :user_id, ID, '自分のユーザーID', required: true
   end
 
   def me
@@ -98,13 +99,7 @@ class Types::QueryType < Types::BaseObject
     }
   end
 
-  def publicgroup
-    publicgroups = []
-    # groups = Group.where(public: true)
-    groups = Group.all
-    groups.each { |group|
-      publicgroups.push({:groups => group})
-    }
-    return publicgroups
+  def public_groups(user_id:)
+    Group.where.not(user_id: user_id).where(public: true)
   end
 end
