@@ -12,15 +12,25 @@ class Mutations::CreateGroup < GraphQL::Schema::Mutation
   field :errors, [String], null: false
 
   def resolve(parent_id:, name:, importance:, deadline:, publicity:)
-    parent_group = Group.find(parent_id)
-    if parent_group.user_id != context[:current_user].id
-      return { group: parent_group, errors: ['specified parent group is not yours.'] }
-    end
-    group = Group.new(:parent_id => parent_id, :name => name, :user_id => context[:current_user].id, :importance => importance, :deadline => deadline, :public => publicity)
-    if group.save
-      { group: group, errors: [] }
+    if !parent_id.nil?
+      parent_group = Group.find(parent_id) 
+      if parent_group.user_id != context[:current_user].id
+        return { group: parent_group, errors: ['specified parent group is not yours.'] }
+      end
+      group = Group.new(:parent_id => parent_id, :name => name, :user_id => context[:current_user].id, :importance => importance, :deadline => deadline, :public => publicity)
+      if group.save
+        { group: group, errors: [] }
+      else
+        { group: group, errors: group.errors.full_messages }
+      end
+
     else
-      { group: group, errors: group.errors.full_messages }
+      group = Group.new(:name => name, :user_id => context[:current_user].id, :importance => importance, :deadline => deadline, :public => publicity)
+      if group.save
+        { group: group, errors: [] }
+      else
+        { group: group, errors: group.errors.full_messages }
     end
   end
+end
 end
