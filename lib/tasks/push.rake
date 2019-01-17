@@ -52,7 +52,7 @@ task :deadline_notification => :environment do
 
     clients = User.where.not(endpoint: nil, key: nil, auth: nil, encoding: nil).select("id, endpoint, key, auth, encoding")
     clients.each do |client|
-        tasks = Task.where("user_id = ? and deadline >= ? and deadline < ?", client.id, Time.new(today.year, today.month, today.day), Time.new(today.year, today.month, today.day+1)).select("name, deadline")
+        tasks = Task.where("user_id = ? and deadline >= ? and deadline < ?", client.id, Time.new(today.year, today.month, today.day), Time.new(today.year, today.month, today.day+1)).select("id, user_id, group_id, name, deadline")
 
         if tasks.empty? || tasks.nil?
             next; #今日締め切りのタスクがなければ通知を送らずに終了
