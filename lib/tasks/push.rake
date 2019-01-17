@@ -40,7 +40,7 @@ task :push_notification => :environment do
                     id: res[0]["id"], 
                     uid: res[0]["user_id"],
                     gid: res[0]["group_id"],
-                    target_url: "/"
+                    target_url: "/" + res[0]["user_id"] + "/" + res[0]["group_id"] + "/" + res[0]["id"] + "?fiveminutes=true"
                 }
                 notification(client, body)
             end
